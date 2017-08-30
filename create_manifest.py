@@ -1,7 +1,4 @@
-import glob
-import os
-import hashlib
-import json
+import glob, os, hashlib, json
 
 repo_path = 'repo/*.pkg'
 manifest = {}

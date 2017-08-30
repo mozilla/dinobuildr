@@ -25,7 +25,7 @@ for file in glob.glob(repo_path):
             'hash': file_hash
             })
 
-    with open ('manifest.json', 'w') as outfile:
-        json.dump(manifest, outfile)
+with open ('manifest.json', 'w') as outfile:
+    json.dump(manifest, outfile)
 
 

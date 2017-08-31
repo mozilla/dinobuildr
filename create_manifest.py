@@ -11,7 +11,6 @@ def hash_file(filename):
             hash.update(chunk)
     return hash.hexdigest() 
 
-
 if os.path.isfile("order.txt"):
     with open ('order.txt', 'r') as orderfile:
         for item in orderfile:
@@ -25,6 +24,9 @@ if os.path.isfile("order.txt"):
                 'hash': file_hash
                 })
 
+orderfile.close()       
+
 with open ('manifest.json', 'w') as outfile:
     json.dump(manifest, outfile)
-    outfile.close()
+
+outfile.close()

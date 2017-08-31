@@ -20,7 +20,7 @@ if os.path.isfile("order.txt"):
             print (file_hash)
             manifest['packages'].append({
                 'name': file_name,
-                'path': item,
+                'path': repo_path + file_name,
                 'hash': file_hash
                 })
 

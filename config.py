@@ -20,13 +20,12 @@ def hash_file(filename):
             hash.update(chunk)
     return hash.hexdigest() 
 
-
 with open ('manifest.json', 'r') as manifest_file:
     data = json.load(manifest_file)
     for item in data['packages']:
         hash = hash_file(item['path'])
         if hash == item['hash']:
-            print "The hash: ", hash, " matches what we expect."
+            print "The hash:", hash, "matches what we expect."
             if ".pkg" in item['name']: 
                 print "Installing:", item['name']
                 pkg_install(item['path'])
@@ -34,5 +33,5 @@ with open ('manifest.json', 'r') as manifest_file:
                 print "Executing:", item['name']
                 script_exec(item['path'])
         else: 
-            print "The hash: ", hash, " does not match the hash in the manifest: ", item['hash']
+            print "The hash:", hash, "does not match the hash in the manifest:", item['hash']
     manifest_file.close()

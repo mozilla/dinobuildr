@@ -1,0 +1,49 @@
+{
+    "packages": [
+        {
+            "local_path": "repo/CrashPlan_4.5.2.pkg", 
+            "hash": "855e63d87a156754e0e03f2cd274d204a36682fb541809aa1400613e367234a0", 
+            "name": "CrashPlan_4.5.2.pkg"
+        }, 
+        {
+            "local_path": "repo/Dino_Wallpaper.pkg", 
+            "hash": "1a3dc3f964b67fb5c476e4948a36cec3399eab65cb3853079070b27d84564d6a", 
+            "name": "Dino_Wallpaper.pkg"
+        }, 
+        {
+            "local_path": "repo/Firefox_54.0.1.pkg", 
+            "hash": "fbec791f2a8913eb102a3512d60bc56614248a9c8bda52ca31260db98ec48ae9", 
+            "name": "Firefox_54.0.1.pkg"
+        }, 
+        {
+            "local_path": "repo/Firefox_Nightly_56.0a1.pkg", 
+            "hash": "c18cc8a7b40432777f10311866379e774e7668ab351185ab5d145e0616c1fd2b", 
+            "name": "Firefox_Nightly_56.0a1.pkg"
+        }, 
+        {
+            "local_path": "repo/VidyoDesktop_3.6.9.014.pkg", 
+            "hash": "1ff6db69fb17ed52b0f322711804349b383252e8eaf62b2225ef10d0a0d47f53", 
+            "name": "VidyoDesktop_3.6.9.014.pkg"
+        }, 
+        {
+            "local_path": "repo/ffconfig.sh", 
+            "hash": "dd25e21ae8a709cad2fc428f04d9214bcbf986e98310b0cf8736461a0896334b", 
+            "name": "ffconfig.sh"
+        }, 
+        {
+            "local_path": "repo/firewall.sh", 
+            "hash": "536388a06b47ded515af5e38e0e2588bcb47eddd741bbcc5d6129354bd9fe6bf", 
+            "name": "firewall.sh"
+        }, 
+        {
+            "local_path": "repo/wallpaper.sh", 
+            "hash": "31e84e9f25e2db0920e33c44f7f4c7345fc0e10653e1ba0db3a8757f5eaeb5a5", 
+            "name": "wallpaper.sh"
+        }, 
+        {
+            "local_path": "repo/dock-config.pkg", 
+            "hash": "ffd86f5f687bd4dbcea0f0c88f195e60dc5e79e303c439ddc116d827c6ee0d6e", 
+            "name": "dock-config.pkg"
+        }
+    ]
+}

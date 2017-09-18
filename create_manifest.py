@@ -22,13 +22,12 @@ if os.path.isfile("order.txt"):
             manifest['packages'].append({
                 'name': file_name,
                 'local_path': repo_path + file_name,
-                'hash': file_hash,
-                'url': remote_path + repo_path + file_name
+                'hash': file_hash
                 })
 
 orderfile.close()       
 
 with open ('manifest.json', 'w') as outfile:
-    json.dump(manifest, outfile)
+    json.dump(manifest, outfile, indent=4)
 
 outfile.close()

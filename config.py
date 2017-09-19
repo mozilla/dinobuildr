@@ -1,14 +1,14 @@
 import subprocess, glob, json, os, hashlib, urllib2, base64, re, getpass
 
 local_repo = 'repo'
-os.environ["repo"] = local_repo
 
 org = "mozilla"
 repo = "dinobuildr"
-branch = "master"
+branch = "feat-filepull"
 
 lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo)
 raw_url = "https://raw.githubusercontent.com/%s/%s/%s/%s/" % (org, repo, branch, local_repo)
+manifest_url= "https://raw.githubusercontent.com/%s/%s/%s/manifest.json" % (org, repo, branch)
 
 user = raw_input("Enter github username: ").replace('\n','')
 password = getpass.getpass() 
@@ -63,6 +63,11 @@ def pointer_to_json(dl_url, password):
     size = re.search('(?m)^size ([0-9]+)$', output)
     json_data = '{"operation": "download", "transfers": ["basic"], "objects": [{"oid": "%s", "size": %s}]}' % (oid.group(1), size.group(1))
     return json_data 
+
+if not os.path.exists(local_repo):
+    os.makedirs(local_repo)
+
+downloader(manifest_url, "manifest.json", base64string)
 
 with open ('manifest.json', 'r') as manifest_file:
     data = json.load(manifest_file)

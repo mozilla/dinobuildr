@@ -20,8 +20,10 @@ def downloader(url, filename, password=None):
         download_req.add_header("Authorization", "Basic %s" % password)
     download = urllib2.urlopen(download_req)
     data = download.read()
+    download.close()
     with open(filename, 'wb') as code:
         code.write(data)
+
 def pkg_install(package):
     pipes = subprocess.Popen(["sudo","installer","-pkg",package,"-target","/"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = pipes.communicate()
@@ -69,6 +71,7 @@ downloader(manifest_url, "manifest.json", base64string)
 
 with open ('manifest.json', 'r') as manifest_file:
     data = json.load(manifest_file)
+    
     for item in data['packages']:
         if ".pkg" in item['name']: 
             dl_url = raw_url + item['name']

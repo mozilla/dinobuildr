@@ -1,6 +1,7 @@
 import glob, os, hashlib, json
 
 repo_path = 'repo/'
+remote_path = 'https://api.github.com/repos/mozilla/dinobuildr/contents/'
 manifest = {}
 manifest['packages'] = []
 
@@ -20,13 +21,13 @@ if os.path.isfile("order.txt"):
             print (file_hash)
             manifest['packages'].append({
                 'name': file_name,
-                'path': repo_path + file_name,
+                'local_path': repo_path + file_name,
                 'hash': file_hash
                 })
 
 orderfile.close()       
 
 with open ('manifest.json', 'w') as outfile:
-    json.dump(manifest, outfile)
+    json.dump(manifest, outfile, indent=4)
 
 outfile.close()

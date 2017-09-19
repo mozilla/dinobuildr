@@ -4,7 +4,7 @@ local_repo = 'repo'
 
 org = "mozilla"
 repo = "dinobuildr"
-branch = "feat-filepull"
+branch = "master"
 
 lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo)
 raw_url = "https://raw.githubusercontent.com/%s/%s/%s/%s/" % (org, repo, branch, local_repo)

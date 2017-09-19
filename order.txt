@@ -1,0 +1,9 @@
+CrashPlan_4.5.2.pkg
+Dino_Wallpaper.pkg
+Firefox_54.0.1.pkg
+Firefox_Nightly_56.0a1.pkg
+VidyoDesktop_3.6.9.014.pkg
+ffconfig.sh
+firewall.sh
+wallpaper.sh
+dock-config.pkg

@@ -1,4 +1,4 @@
-import subprocess, glob, json, os, hashlib, urllib2, base64, re, getpass
+import subprocess, glob, json, os, hashlib, urllib2, base64, re, getpass, stat
 
 local_repo = 'repo'
 
@@ -49,7 +49,6 @@ def get_lfs_url(json_input, password, lfs_url):
     result = urllib2.urlopen(req)
     results_python = json.load(result)
     file_url = results_python['objects'][0]['actions']['download']['href']
-    print file_url
     result.close()
     return file_url
 
@@ -73,13 +72,16 @@ with open ('manifest.json', 'r') as manifest_file:
     data = json.load(manifest_file)
     for item in data['packages']:
         if ".pkg" in item['name']: 
-            print "Installing:", item['name']
             dl_url = raw_url + item['name']
             local_path = "repo/" + item['name']
             json_data = pointer_to_json(dl_url, base64string)
             lfsfile_url = get_lfs_url(json_data, base64string, lfs_url)
+            print "Downloading:", item['name']
             downloader(lfsfile_url, local_path)
-            pkg_install(item['local_path'])
+            if hash_file(local_path, item['hash']) == True:
+                print "The hashes match"
+                print "Installing:", item['name']
+                pkg_install(item['local_path'])
         if ".sh" in item['name']:
             print "Downloading:", item['name']
             dl_url = raw_url + item['name']
@@ -88,6 +90,8 @@ with open ('manifest.json', 'r') as manifest_file:
             if hash_file(local_path, item['hash']) == True:
                 print "The hashes match"
                 print "Executing:", item['name']
+                perms = os.stat(item['local_path'])
+                os.chmod(item['local_path'], perms.st_mode | stat.S_IEXEC)
                 script_exec(item['local_path'])
             else:
                 print "The hashes do not match"

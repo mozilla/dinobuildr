@@ -22,7 +22,6 @@ def downloader(url, filename, password=None):
     data = download.read()
     with open(filename, 'wb') as code:
         code.write(data)
-    code.close() 
 def pkg_install(package):
     pipes = subprocess.Popen(["sudo","installer","-pkg",package,"-target","/"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = pipes.communicate()
@@ -97,4 +96,3 @@ with open ('manifest.json', 'r') as manifest_file:
                 script_exec(item['local_path'])
             else:
                 print "WARNING: The the hash for %s does not match the manifest file."
-    manifest_file.close()

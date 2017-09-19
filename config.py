@@ -79,20 +79,22 @@ with open ('manifest.json', 'r') as manifest_file:
             print "Downloading:", item['name']
             downloader(lfsfile_url, local_path)
             if hash_file(local_path, item['hash']) == True:
-                print "The hashes match"
+                print "The hash for %s match the manifest file" % item['name']
                 print "Installing:", item['name']
                 pkg_install(item['local_path'])
+            else:
+                print "WARNING: The the hash for %s does not match the manifest file."
         if ".sh" in item['name']:
             print "Downloading:", item['name']
             dl_url = raw_url + item['name']
             local_path = "repo/" + item['name']
             downloader(dl_url, local_path, base64string)
             if hash_file(local_path, item['hash']) == True:
-                print "The hashes match"
+                print "The hash for %s match the manifest file" % item['name']
                 print "Executing:", item['name']
                 perms = os.stat(item['local_path'])
                 os.chmod(item['local_path'], perms.st_mode | stat.S_IEXEC)
                 script_exec(item['local_path'])
             else:
-                print "The hashes do not match"
+                print "WARNING: The the hash for %s does not match the manifest file."
     manifest_file.close()

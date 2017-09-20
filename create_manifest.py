@@ -29,5 +29,7 @@ orderfile.close()
 
 with open ('manifest.json', 'w') as outfile:
     json.dump(manifest, outfile, indent=4)
-
 outfile.close()
+
+manifest_hash = hash_file('manifest.json')
+print "The manifest has a hash of: ", manifest_hash

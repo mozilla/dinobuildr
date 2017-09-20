@@ -42,6 +42,8 @@ def hash_file(filename, man_hash):
             hash.update(chunk)
     if hash.hexdigest() == man_hash:
         return True
+    else: 
+        return False
 
 def get_lfs_url(json_input, password, lfs_url):
     req = urllib2.Request(lfs_url, json_input)

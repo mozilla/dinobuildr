@@ -12,13 +12,13 @@ def hash_file(filename):
             hash.update(chunk)
     return hash.hexdigest() 
 
+print "Creating a manifest.json..."
+
 if os.path.isfile("order.txt"):
     with open ('order.txt', 'r') as orderfile:
         for item in orderfile:
             file_hash = hash_file((repo_path + item).rstrip())   
             file_name = os.path.basename((repo_path + item).rstrip())
-            print (file_name)
-            print (file_hash)
             manifest['packages'].append({
                 'name': file_name,
                 'local_path': repo_path + file_name,
@@ -32,4 +32,4 @@ with open ('manifest.json', 'w') as outfile:
 outfile.close()
 
 manifest_hash = hash_file('manifest.json')
-print "The manifest has a hash of: ", manifest_hash
+print "File created. The manifest has a hash of:", manifest_hash

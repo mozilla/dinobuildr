@@ -19,10 +19,21 @@ def downloader(url, filename, password=None):
     if password: 
         download_req.add_header("Authorization", "Basic %s" % password)
     download = urllib2.urlopen(download_req)
-    data = download.read()
-    download.close()
+    meta = download.info()
+    file_size = int(meta.getheaders("Content-Length")[0])
+    print "%s is %s bytes." % (filename, file_size)
     with open(filename, 'wb') as code:
-        code.write(data)
+        chunk_size = 8192
+        bytes_read = 0
+        while True:
+            data = download.read(chunk_size)
+            bytes_read += len(data)
+            code.write(data)
+            status = r"%10d [%3.2f%%]" % (bytes_read, bytes_read * 100 / file_size)
+            status = status + chr(8)*(len(status)+1)
+            print status, 
+            if len(data) < chunk_size:
+                break
 
 def pkg_install(package):
     pipes = subprocess.Popen(["sudo","installer","-pkg",package,"-target","/"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)

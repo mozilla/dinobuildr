@@ -9,6 +9,7 @@ branch = "master"
 lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo)
 raw_url = "https://raw.githubusercontent.com/%s/%s/%s/%s/" % (org, repo, branch, local_repo)
 manifest_url= "https://raw.githubusercontent.com/%s/%s/%s/manifest.json" % (org, repo, branch)
+manifest_hash = "bc61d558887b66d3268144939355924e85785373ca6f7dfff2737ef113f80b85"
 
 user = raw_input("Enter github username: ").replace('\n','')
 password = getpass.getpass() 
@@ -41,6 +42,8 @@ def hash_file(filename, man_hash):
             hash.update(chunk)
     if hash.hexdigest() == man_hash:
         return True
+    else: 
+        return False
 
 def get_lfs_url(json_input, password, lfs_url):
     req = urllib2.Request(lfs_url, json_input)
@@ -68,6 +71,10 @@ if not os.path.exists(local_repo):
     os.makedirs(local_repo)
 
 downloader(manifest_url, "manifest.json", base64string)
+
+if hash_file('manifest.json', manifest_hash) == False:
+    print "Manifest file hash does not match the expected hash. Make sure you are using the latest version of this script."
+    exit()
 
 with open ('manifest.json', 'r') as manifest_file:
     data = json.load(manifest_file)

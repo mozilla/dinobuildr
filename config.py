@@ -11,7 +11,7 @@ branch = "master"
 # the manifest hash MUST change whenever changes are made to the manifest
 
 lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo)
-raw_url = "https://raw.githubusercontent.com/%s/%s/%s/%s/" % (org, repo, branch, local_repo)
+raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
 manifest_url= "https://raw.githubusercontent.com/%s/%s/%s/manifest.json" % (org, repo, branch)
 manifest_hash = "bc61d558887b66d3268144939355924e85785373ca6f7dfff2737ef113f80b85"
 

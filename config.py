@@ -18,7 +18,7 @@ branch = "master"
 lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo)
 raw_url = "https://raw.githubusercontent.com/%s/%s/%s/%s/" % (org, repo, branch, local_repo)
 manifest_url= "https://raw.githubusercontent.com/%s/%s/%s/manifest.json" % (org, repo, branch)
-manifest_hash = "bc61d558887b66d3268144939355924e85785373ca6f7dfff2737ef113f80b85"
+manifest_hash = "bd4719aa47171ee7f835cfb06b36884bc6e69b3e07fb88c81cdedea7a963bdeb"
 
 # authenticate to github since this is a private repo
 # base64string is really just a variable that stores the username and password in this format: username:password

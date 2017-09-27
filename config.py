@@ -1,10 +1,5 @@
 import subprocess, glob, json, os, hashlib, urllib2, base64, re, getpass, stat
 
-# set folder where scripts and packages are located in the repository
-# todo: make script read this out of the manifest file
-
-local_repo = 'repo'
-
 # set org, repo and branch that hosts the packages and scripts
 
 org = "mozilla"
@@ -113,11 +108,6 @@ def get_lfs_url(json_input, password, lfs_url):
     result.close()
     return file_url
 
-# if the working directory doesn't exist, create it
-
-if not os.path.exists(local_repo):
-    os.makedirs(local_repo)
-
 # download the manifest.json file
 
 downloader(manifest_url, "manifest.json", base64string)
@@ -140,7 +130,7 @@ with open ('manifest.json', 'r') as manifest_file:
     for item in data['packages']:
         if ".pkg" in item['name']: 
             dl_url = raw_url + item['name']
-            local_path = "repo/" + item['name']
+            local_path = item['local_path'] 
             json_data = pointer_to_json(dl_url, base64string)
             lfsfile_url = get_lfs_url(json_data, base64string, lfs_url)
             print "Downloading:", item['name']
@@ -154,7 +144,7 @@ with open ('manifest.json', 'r') as manifest_file:
         if ".sh" in item['name']:
             print "Downloading:", item['name']
             dl_url = raw_url + item['name']
-            local_path = "repo/" + item['name']
+            local_path = item['local_path']
             downloader(dl_url, local_path, base64string)
             if hash_file(local_path, item['hash']) == True:
                 print "The hash for %s match the manifest file" % item['name']

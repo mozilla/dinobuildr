@@ -11,24 +11,19 @@
             "name": "Dino_Wallpaper.pkg"
         }, 
         {
-            "local_path": "repo/Firefox_54.0.1.pkg", 
-            "hash": "fbec791f2a8913eb102a3512d60bc56614248a9c8bda52ca31260db98ec48ae9", 
-            "name": "Firefox_54.0.1.pkg"
+            "local_path": "repo/Firefox_Nightly_58.0a1.pkg", 
+            "hash": "a88f31e44e4067fe6c15686ee0111e115228bd586d4b751b05c66865f5983108", 
+            "name": "Firefox_Nightly_58.0a1.pkg"
         }, 
         {
-            "local_path": "repo/Firefox_Nightly_56.0a1.pkg", 
-            "hash": "c18cc8a7b40432777f10311866379e774e7668ab351185ab5d145e0616c1fd2b", 
-            "name": "Firefox_Nightly_56.0a1.pkg"
+            "local_path": "repo/Firefox_Nightly_Profile_58.0a1_10272017.pkg", 
+            "hash": "2cbfcda396aa39349a903980a655f60cf1e8a23fc978e5fa53cb33cd05b1a90a", 
+            "name": "Firefox_Nightly_Profile_58.0a1_10272017.pkg"
         }, 
         {
             "local_path": "repo/VidyoDesktop_3.6.9.014.pkg", 
             "hash": "1ff6db69fb17ed52b0f322711804349b383252e8eaf62b2225ef10d0a0d47f53", 
             "name": "VidyoDesktop_3.6.9.014.pkg"
-        }, 
-        {
-            "local_path": "repo/ffconfig.sh", 
-            "hash": "dd25e21ae8a709cad2fc428f04d9214bcbf986e98310b0cf8736461a0896334b", 
-            "name": "ffconfig.sh"
         }, 
         {
             "local_path": "repo/firewall.sh", 

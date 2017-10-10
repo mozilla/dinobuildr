@@ -18,7 +18,7 @@ script_path = os.path.realpath(__file__)
 lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo)
 raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
 manifest_url= "https://raw.githubusercontent.com/%s/%s/%s/manifest.json" % (org, repo, branch)
-manifest_hash = "bc61d558887b66d3268144939355924e85785373ca6f7dfff2737ef113f80b85"
+manifest_hash = "bd4719aa47171ee7f835cfb06b36884bc6e69b3e07fb88c81cdedea7a963bdeb"
 manifest_file = "%s/manifest.json" % local_dir
 
 # authenticate to github since this is a private repo

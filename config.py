@@ -1,24 +1,25 @@
-import subprocess, glob, json, os, hashlib, urllib2, base64, re, getpass, stat
+import subprocess, glob, json, os, hashlib, urllib2, base64, re, getpass, stat, shutil
 
-# set folder where scripts and packages are located in the repository
-# todo: make script read this out of the manifest file
-
-local_repo = 'repo'
-
-# set org, repo and branch that hosts the packages and scripts
+# set org, repo and branch that hosts the packages and scripts as well as the temporary working directory
+# that we will use to store scripts
+# we also determine the path of the script we are executing for later cleanup
 
 org = "mozilla"
 repo = "dinobuildr"
 branch = "master"
+local_dir = "/var/tmp/dinobuildr"
+script_path = os.path.realpath(__file__)
 
 # set lfs and raw urls
 # set the url of the manifest file that this script will pull down
 # the manifest hash MUST change whenever changes are made to the manifest
+# we set the manifest file location against the temporary working directory we specify
 
 lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo)
-raw_url = "https://raw.githubusercontent.com/%s/%s/%s/%s/" % (org, repo, branch, local_repo)
+raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
 manifest_url= "https://raw.githubusercontent.com/%s/%s/%s/manifest.json" % (org, repo, branch)
 manifest_hash = "bd4719aa47171ee7f835cfb06b36884bc6e69b3e07fb88c81cdedea7a963bdeb"
+manifest_file = "%s/manifest.json" % local_dir
 
 # authenticate to github since this is a private repo
 # base64string is really just a variable that stores the username and password in this format: username:password
@@ -33,6 +34,10 @@ base64string = base64.encodestring('%s:%s' % (user, password)).replace('\n','')
 # then reads the incoming file in chunks of 8192 bytes and displays the currently read bytes and percentage complete
 
 def downloader(url, filename, password=None):
+    dir_path = (re.search(".*\/", filename)).group(0)
+    print dir_path
+    if not os.path.exists(dir_path):
+        os.makedirs(dir_path)
     download_req = urllib2.Request(url)
     if password: 
         download_req.add_header("Authorization", "Basic %s" % password)
@@ -113,18 +118,16 @@ def get_lfs_url(json_input, password, lfs_url):
     result.close()
     return file_url
 
-# if the working directory doesn't exist, create it
-
-if not os.path.exists(local_repo):
-    os.makedirs(local_repo)
+if not os.path.exists(local_dir):
+    os.makedirs(local_dir)
 
 # download the manifest.json file
 
-downloader(manifest_url, "manifest.json", base64string)
+downloader(manifest_url, manifest_file, base64string)
 
 # check the hash of the incoming manifest file and bail if the hash doesn't match
 
-if hash_file('manifest.json', manifest_hash) == False:
+if hash_file(manifest_file, manifest_hash) == False:
     print "Manifest file hash does not match the expected hash. Make sure you are using the latest version of this script."
     exit()
 
@@ -134,13 +137,13 @@ if hash_file('manifest.json', manifest_hash) == False:
 # if the object is a .sh file, we assmble the download url and download the file directly
 # if the script we get has a hash that matches what's in the manifest, we set the execute flag and call the script_exec function 
 
-with open ('manifest.json', 'r') as manifest_file:
+with open (manifest_file, 'r') as manifest_file:
     data = json.load(manifest_file)
     
     for item in data['packages']:
+        dl_url = raw_url + item['local_path']
+        local_path = "%s/%s" % (local_dir, item['local_path']) 
         if ".pkg" in item['name']: 
-            dl_url = raw_url + item['name']
-            local_path = "repo/" + item['name']
             json_data = pointer_to_json(dl_url, base64string)
             lfsfile_url = get_lfs_url(json_data, base64string, lfs_url)
             print "Downloading:", item['name']
@@ -148,19 +151,23 @@ with open ('manifest.json', 'r') as manifest_file:
             if hash_file(local_path, item['hash']) == True:
                 print "The hash for %s match the manifest file" % item['name']
                 print "Installing:", item['name']
-                pkg_install(item['local_path'])
+                pkg_install(local_path)
             else:
                 print "WARNING: The the hash for %s does not match the manifest file."
         if ".sh" in item['name']:
             print "Downloading:", item['name']
-            dl_url = raw_url + item['name']
-            local_path = "repo/" + item['name']
             downloader(dl_url, local_path, base64string)
             if hash_file(local_path, item['hash']) == True:
                 print "The hash for %s match the manifest file" % item['name']
                 print "Executing:", item['name']
-                perms = os.stat(item['local_path'])
-                os.chmod(item['local_path'], perms.st_mode | stat.S_IEXEC)
-                script_exec(item['local_path'])
+                perms = os.stat(local_path)
+                os.chmod(local_path, perms.st_mode | stat.S_IEXEC)
+                script_exec(local_path)
             else:
                 print "WARNING: The the hash for %s does not match the manifest file."
+
+# delete the temporary directory we've been downloading packages into and the config script
+print "Cleanup: Deleting %s" % local_dir
+shutil.rmtree(local_dir)
+print "Cleanup: Deleting %s" % script_path
+os.remove(script_path)

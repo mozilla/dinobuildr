@@ -141,25 +141,25 @@ with open (manifest_file, 'r') as manifest_file:
     data = json.load(manifest_file)
     
     for item in data['packages']:
-        dl_url = raw_url + item['local_path']
-        local_path = "%s/%s" % (local_dir, item['local_path']) 
-        if ".pkg" in item['name']: 
+        if item['type'] == "pkg-lfs": 
+            dl_url = raw_url + item['url']
+            local_path = "%s/%s" % (local_dir, item['url']) 
             json_data = pointer_to_json(dl_url, base64string)
             lfsfile_url = get_lfs_url(json_data, base64string, lfs_url)
-            print "Downloading:", item['name']
+            print "Downloading:", item['item']
             downloader(lfsfile_url, local_path)
             if hash_file(local_path, item['hash']) == True:
-                print "The hash for %s match the manifest file" % item['name']
-                print "Installing:", item['name']
+                print "The hash for %s match the manifest file" % item['item']
+                print "Installing:", item['item']
                 pkg_install(local_path)
             else:
                 print "WARNING: The the hash for %s does not match the manifest file."
-        if ".sh" in item['name']:
-            print "Downloading:", item['name']
+        if ".sh" in item['shell']:
+            print "Downloading:", item['item']
             downloader(dl_url, local_path, base64string)
             if hash_file(local_path, item['hash']) == True:
-                print "The hash for %s match the manifest file" % item['name']
-                print "Executing:", item['name']
+                print "The hash for %s match the manifest file" % item['item']
+                print "Executing:", item['item']
                 perms = os.stat(local_path)
                 os.chmod(local_path, perms.st_mode | stat.S_IEXEC)
                 script_exec(local_path)

@@ -17,11 +17,11 @@
             "type": "pkg-lfs"
         }, 
         {
-            "hash": "", 
-            "url": "", 
-            "item": "Firefox Nightly", 
-            "version": "", 
-            "dmg-installer": "", 
+            "hash": "bfa99993778bd94457d5a0733ba5b8407faeb98220f50451c9d4027b62f7c955", 
+            "url": "ftp.mozilla.org/pub/firefox/releases/${version}/mac/en-US/Firefox%20${version}.dmg", 
+            "item": "Firefox Beta", 
+            "version": "57.0b8", 
+            "dmg-installer": "Firefox.app", 
             "type": "dmg"
         }, 
         {

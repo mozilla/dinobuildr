@@ -1,15 +1,15 @@
 {
     "packages": [
         {
-            "hash": "", 
-            "url": "", 
+            "hash": "21fcf556dc06f06ff81956901414d71c1a168974567189aadd934ede8b1f6d91", 
+            "url": "https://download.code42.com/installs/mac/install/CrashPlanPROe/CrashPlanPROe_${version}_Mac.dmg", 
             "item": "Crashplan", 
-            "version": "", 
-            "dmg-installer": "", 
+            "version": "4.5.2", 
+            "dmg-installer": "Install CrashPlan PROe.pkg", 
             "type": "dmg"
         }, 
         {
-            "hash": "1a3dc3f964b67fb5c476e4948a36cec3399eab65cb3853079070b27d84564d6a", 
+            "hash": "x1a3dc3f964b67fb5c476e4948a36cec3399eab65cb3853079070b27d84564d6a", 
             "url": "repo/Dino_Wallpaper.pkg", 
             "item": "Wallpaper Image", 
             "version": "", 

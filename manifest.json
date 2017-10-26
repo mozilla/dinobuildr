@@ -6,7 +6,8 @@
             "item": "Crashplan", 
             "version": "4.5.2", 
             "dmg-installer": "Install CrashPlan PROe.pkg", 
-            "type": "dmg"
+            "type": "dmg",
+	    "filename": ""
         }, 
         {
             "hash": "1a3dc3f964b67fb5c476e4948a36cec3399eab65cb3853079070b27d84564d6a", 
@@ -14,7 +15,8 @@
             "item": "Wallpaper Image", 
             "version": "", 
             "dmg-installer": "", 
-            "type": "pkg-lfs"
+            "type": "pkg-lfs",
+	    "filename": ""
         }, 
         {
             "hash": "bfa99993778bd94457d5a0733ba5b8407faeb98220f50451c9d4027b62f7c955", 
@@ -22,7 +24,8 @@
             "item": "Firefox Beta", 
             "version": "57.0b8", 
             "dmg-installer": "Firefox.app", 
-            "type": "dmg"
+            "type": "dmg",
+	    "filename": "firefox-beta.dmg"
         }, 
         {
             "hash": "2cbfcda396aa39349a903980a655f60cf1e8a23fc978e5fa53cb33cd05b1a90a", 
@@ -30,7 +33,8 @@
             "item": "Firefox Profile", 
             "version": "", 
             "dmg-installer": "", 
-            "type": "pkg-lfs"
+            "type": "pkg-lfs",
+	    "filename": ""
         }, 
         {
             "hash": "", 
@@ -38,7 +42,8 @@
             "item": "Vidyo", 
             "version": "", 
             "dmg-installer": "", 
-            "type": "pkg"
+            "type": "pkg",
+	    "filename": ""
         }, 
         {
             "hash": "536388a06b47ded515af5e38e0e2588bcb47eddd741bbcc5d6129354bd9fe6bf", 
@@ -46,7 +51,8 @@
             "item": "Set Firewall", 
             "version": "", 
             "dmg-installer": "", 
-            "type": "shell"
+            "type": "shell",
+	    "filename": ""
         }, 
         {
             "hash": "31e84e9f25e2db0920e33c44f7f4c7345fc0e10653e1ba0db3a8757f5eaeb5a5", 
@@ -54,7 +60,8 @@
             "item": "Set Wallpaper", 
             "version": "", 
             "dmg-installer": "", 
-            "type": "shell"
+            "type": "shell",
+	    "filename": ""
         }, 
         {
             "hash": "ffd86f5f687bd4dbcea0f0c88f195e60dc5e79e303c439ddc116d827c6ee0d6e", 
@@ -62,7 +69,8 @@
             "item": "Dock Config", 
             "version": "", 
             "dmg-installer": "", 
-            "type": "pkg-lfs"
+            "type": "pkg-lfs",
+	    "filename": ""
         }
     ]
 }

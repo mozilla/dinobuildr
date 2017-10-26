@@ -41,7 +41,7 @@
             "url": "https://v.mozilla.com/download.html?lang=en#", 
             "item": "Vidyo", 
             "version": "", 
-            "dmg-installer": "VidyoDesktopInstaller", 
+            "dmg-installer": "VidyoDesktopInstaller.pkg", 
             "type": "dmg",
 	    "filename": "vidyodesktop.dmg"
         }, 

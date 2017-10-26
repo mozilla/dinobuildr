@@ -37,13 +37,13 @@
 	    "filename": ""
         }, 
         {
-            "hash": "", 
-            "url": "", 
+            "hash": "ba685f9a0b4e91220629cd828e250d2fd7c9d63d8d6d2e586e109b7efa7fd1e8", 
+            "url": "https://v.mozilla.com/download.html?lang=en#", 
             "item": "Vidyo", 
             "version": "", 
-            "dmg-installer": "", 
-            "type": "pkg",
-	    "filename": ""
+            "dmg-installer": "VidyoDesktopInstaller", 
+            "type": "dmg",
+	    "filename": "vidyodesktop.dmg"
         }, 
         {
             "hash": "536388a06b47ded515af5e38e0e2588bcb47eddd741bbcc5d6129354bd9fe6bf", 

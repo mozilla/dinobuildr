@@ -20,7 +20,7 @@
         }, 
         {
             "hash": "bfa99993778bd94457d5a0733ba5b8407faeb98220f50451c9d4027b62f7c955", 
-            "url": "https://download.mozilla.org/?product=${version}-SSL&os=osx&lang=en-US", 
+            "url": "https://download.mozilla.org/?product=firefox-${version}-SSL&os=osx&lang=en-US", 
             "item": "Firefox Beta", 
             "version": "57.0b8", 
             "dmg-installer": "Firefox.app", 

@@ -6,7 +6,8 @@
             "item": "Crashplan", 
             "version": "4.5.2", 
             "dmg-installer": "Install CrashPlan PROe.pkg", 
-            "type": "dmg",
+            "dmg-advanced": "",
+	    "type": "dmg",
 	    "filename": ""
         }, 
         {
@@ -15,6 +16,7 @@
             "item": "Wallpaper Image", 
             "version": "", 
             "dmg-installer": "", 
+            "dmg-advanced": "",
             "type": "pkg-lfs",
 	    "filename": ""
         }, 
@@ -24,6 +26,7 @@
             "item": "Firefox Beta", 
             "version": "57.0b8", 
             "dmg-installer": "Firefox.app", 
+            "dmg-advanced": "",
             "type": "dmg",
 	    "filename": "firefox-beta.dmg"
         }, 
@@ -33,6 +36,7 @@
             "item": "Firefox Profile", 
             "version": "", 
             "dmg-installer": "", 
+            "dmg-advanced": "",
             "type": "pkg-lfs",
 	    "filename": ""
         }, 
@@ -41,7 +45,8 @@
             "url": "https://v.mozilla.com/upload/VidyoDesktopInstaller-macosx-TAG_VD_3_6_9_014.dmg", 
             "item": "Vidyo", 
             "version": "", 
-            "dmg-installer": "VidyoDesktopInstaller.pkg", 
+            "dmg-installer": "", 
+            "dmg-advanced": "sudo ./${volume}/VidyoDesktopInstaller.app/Contents/MacOS/ClientInstaller -install",
             "type": "dmg",
 	    "filename": "vidyodesktop.dmg"
         }, 
@@ -51,6 +56,7 @@
             "item": "Set Firewall", 
             "version": "", 
             "dmg-installer": "", 
+            "dmg-advanced": "",
             "type": "shell",
 	    "filename": ""
         }, 
@@ -60,6 +66,7 @@
             "item": "Set Wallpaper", 
             "version": "", 
             "dmg-installer": "", 
+            "dmg-advanced": "",
             "type": "shell",
 	    "filename": ""
         }, 
@@ -69,6 +76,7 @@
             "item": "Dock Config", 
             "version": "", 
             "dmg-installer": "", 
+            "dmg-advanced": "",
             "type": "pkg-lfs",
 	    "filename": ""
         }

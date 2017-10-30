@@ -85,10 +85,10 @@ def dmg_install(filename, installer, command=None):
     volume_path = re.search("(\/Volumes\/).*$", out).group(0) 
     print volume_path
     installer_path = "%s/%s" % (volume_path, installer)
-    if command != None and installer == None: 
-        command = (command.split()).replace('${volume}', volume_path)
+    if command != None and installer == '': 
+        command = command.split()
         print command
-        pipes = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        pipes = subprocess.Popen([cmd.replace('${volume}', volume_path) for cmd in command], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         out, err = pipes.communicate()
         out.decode('utf-8'), err.decode('utf-8'), pipes.returncode
     if ".pkg" in installer: 
@@ -214,7 +214,7 @@ for item in data['packages']:
         if item['dmg-installer'] != '':
             dmg_install(local_path, item['dmg-installer']) 
         if item['dmg-advanced'] != '':
-            dmg_install(local_path, None, item['dmg-advanced'])
+            dmg_install(local_path, '', item['dmg-advanced'])
 # delete the temporary directory we've been downloading packages into and the config script
 print "Cleanup: Deleting %s" % local_dir
 shutil.rmtree(local_dir)

@@ -81,16 +81,17 @@ def dmg_install(filename, installer, command=None):
     print filename
     pipes = subprocess.Popen(["hdiutil","attach",filename], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = pipes.communicate()
-    out.decode('utf-8'), err.decode('utf-8'), pipes.returncode
+    print out.decode('utf-8'), err.decode('utf-8'), pipes.returncode
     volume_path = re.search("(\/Volumes\/).*$", out).group(0) 
     print volume_path
     installer_path = "%s/%s" % (volume_path, installer)
     if command != None and installer == '': 
         command = command.split()
         print command
-        pipes = subprocess.Popen([cmd.replace('${volume}', volume_path) for cmd in command], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        print [cmd.replace('${volume}', volume_path).encode("utf-8") for cmd in command]
+        pipes = subprocess.Popen([cmd.replace('${volume}', volume_path.replace(' ', '\ ')).encode("utf-8") for cmd in command], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         out, err = pipes.communicate()
-        out.decode('utf-8'), err.decode('utf-8'), pipes.returncode
+        print out.decode('utf-8'), err.decode('utf-8'), pipes.returncode
     if ".pkg" in installer: 
         installer_destination= "%s/%s" % (local_dir, installer)
         shutil.copyfile(installer_path, installer_destination)
@@ -102,7 +103,7 @@ def dmg_install(filename, installer, command=None):
         shutil.copytree(installer_path, applications_path)
     pipes = subprocess.Popen(["hdiutil","detach",volume_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = pipes.communicate()
-    out.decode('utf-8'), err.decode('utf-8'), pipes.returncode
+    print out.decode('utf-8'), err.decode('utf-8'), pipes.returncode
 
 def hash_file(filename, man_hash):
     if man_hash == "skip":

@@ -46,7 +46,7 @@
             "item": "Vidyo", 
             "version": "", 
             "dmg-installer": "", 
-            "dmg-advanced": "sudo ${volume}/VidyoDesktopInstaller.app/Contents/MacOS/ClientInstaller -install",
+            "dmg-advanced": "sudo '${volume}/VidyoDesktopInstaller.app/Contents/MacOS/ClientInstaller' -install",
             "type": "dmg",
 	    "filename": "vidyodesktop.dmg"
         }, 

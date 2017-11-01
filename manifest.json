@@ -45,8 +45,8 @@
             "url": "https://v.mozilla.com/upload/VidyoDesktopInstaller-macosx-TAG_VD_3_6_9_014.dmg", 
             "item": "Vidyo", 
             "version": "", 
-            "dmg-installer": "", 
-            "dmg-advanced": "sudo '${volume}/VidyoDesktopInstaller.app/Contents/MacOS/ClientInstaller' -install",
+            "dmg-installer": "VidyoDesktopInstaller.app/Contents/Resources/VidyoDesktop.app", 
+            "dmg-advanced": "",
             "type": "dmg",
 	    "filename": "vidyodesktop.dmg"
         }, 

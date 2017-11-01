@@ -1,4 +1,4 @@
-import subprocess, glob, json, os, hashlib, urllib2, base64, re, getpass, stat, shutil
+import subprocess, glob, json, os, hashlib, urllib2, base64, re, getpass, stat, shutil, shlex
 
 # set org, repo and branch that hosts the packages and scripts as well as the temporary working directory
 # that we will use to store scripts
@@ -34,7 +34,6 @@ base64string = base64.encodestring('%s:%s' % (user, password)).replace('\n','')
 # then reads the incoming file in chunks of 8192 bytes and displays the currently read bytes and percentage complete
 
 def downloader(url, file_path, password=None):
-    print url
     if not os.path.exists(local_dir):
         os.makedirs(local_dir)
     download_req = urllib2.Request(url)
@@ -78,18 +77,15 @@ def script_exec(script):
 # it returns True or False
 
 def dmg_install(filename, installer, command=None):
-    print filename
     pipes = subprocess.Popen(["hdiutil","attach",filename], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = pipes.communicate()
     print out.decode('utf-8'), err.decode('utf-8'), pipes.returncode
     volume_path = re.search("(\/Volumes\/).*$", out).group(0) 
-    print volume_path
     installer_path = "%s/%s" % (volume_path, installer)
     if command != None and installer == '': 
-        command = command.split()
-        print command
-        print [cmd.replace('${volume}', volume_path).encode("utf-8") for cmd in command]
-        pipes = subprocess.Popen([cmd.replace('${volume}', volume_path.replace(' ', '\ ')).encode("utf-8") for cmd in command], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        command = command.replace('${volume}', volume_path).encode("utf-8")
+        command = shlex.split(command) 
+        pipes = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         out, err = pipes.communicate()
         print out.decode('utf-8'), err.decode('utf-8'), pipes.returncode
     if ".pkg" in installer: 
@@ -97,7 +93,7 @@ def dmg_install(filename, installer, command=None):
         shutil.copyfile(installer_path, installer_destination)
         pkg_install(installer_path)
     if ".app" in installer:
-        applications_path = "/Applications/%s" % installer
+        applications_path = "/Applications/%s" % installer.rsplit('/', 1)[-1]
         if os.path.exists(applications_path):
             shutil.rmtree(applications_path)
         shutil.copytree(installer_path, applications_path)
@@ -163,21 +159,19 @@ downloader(manifest_url, manifest_file, base64string)
 
 # we read the manifest file and examine each object in it
 # if the object is a .pkg file, then we assemble the download url of the pointer, read the pointer and request the file from LFS
-# if the file we get has a hash that matches what's in the manifest, we call the installer function
+# if the file we get has a hash that matches what's in the manifest, we Popen the installer function
 # if the object is a .sh file, we assmble the download url and download the file directly
-# if the script we get has a hash that matches what's in the manifest, we set the execute flag and call the script_exec function 
+# if the script we get has a hash that matches what's in the manifest, we set the execute flag and Popen the script_exec function 
 
 with open (manifest_file, 'r') as manifest_data:
     data = json.load(manifest_data)
     
 for item in data['packages']:
-    print item
     if item['filename'] != "":
         file_name = item['filename']
     else: 
         file_name = (item['url'].replace('${version}', item['version'])).rsplit('/', 1)[-1]
     
-    print file_name
     local_path = "%s/%s" % (local_dir, file_name)
      
     if item['type'] == "pkg-lfs": 

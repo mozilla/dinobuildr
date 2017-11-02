@@ -71,13 +71,13 @@
 	    "filename": ""
         }, 
         {
-            "hash": "ffd86f5f687bd4dbcea0f0c88f195e60dc5e79e303c439ddc116d827c6ee0d6e", 
-            "url": "repo/dock-config.pkg", 
+            "hash": "skip", 
+            "url": "repo/dock-config.sh",
             "item": "Dock Config", 
             "version": "", 
             "dmg-installer": "", 
             "dmg-advanced": "",
-            "type": "pkg-lfs",
+            "type": "shell",
 	    "filename": ""
         }
     ]

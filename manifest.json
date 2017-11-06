@@ -41,7 +41,7 @@
 	    "filename": ""
         }, 
         {
-            "hash": "skip", 
+            "hash": "ba685f9a0b4e91220629cd828e250d2fd7c9d63d8d6d2e586e109b7efa7fd1e8", 
             "url": "https://v.mozilla.com/upload/VidyoDesktopInstaller-macosx-TAG_VD_3_6_9_014.dmg", 
             "item": "Vidyo", 
             "version": "", 
@@ -71,7 +71,7 @@
 	    "filename": ""
         }, 
         {
-            "hash": "skip", 
+            "hash": "7c09300588b215fe9bf36f477488e5d87150547874499170fc4f3e100c871cb9", 
             "url": "repo/dock-config.sh",
             "item": "Dock Config", 
             "version": "", 

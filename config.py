@@ -9,6 +9,7 @@ org = "mozilla"
 repo = "dinobuildr"
 branch = "feat-dmgsupport"
 script_path = os.path.realpath(__file__)
+os.environ["DINOPATH"] = local_dir 
 
 # set lfs and raw urls
 # set the url of the manifest file that this script will pull down
@@ -210,6 +211,16 @@ for item in data['packages']:
             dmg_install(local_path, item['dmg-installer']) 
         if item['dmg-advanced'] != '':
             dmg_install(local_path, '', item['dmg-advanced'])
+
+    if item['type'] == "file-lfs":
+        if item['url'] == '':
+            print "No URL specified for %s" % item['item']
+            break
+        dl_url = raw_url + item['url']
+        print "Downloading:", item['item']
+        downloader(dl_url, local_path, base64string)
+        hash_file(local_path, item['hash'])
+
 # delete the temporary directory we've been downloading packages into and the config script
 print "Cleanup: Deleting %s" % local_dir
 shutil.rmtree(local_dir)

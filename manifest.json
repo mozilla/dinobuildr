@@ -11,13 +11,13 @@
 	    "filename": ""
         }, 
         {
-            "hash": "1a3dc3f964b67fb5c476e4948a36cec3399eab65cb3853079070b27d84564d6a", 
-            "url": "repo/Dino_Wallpaper.pkg", 
+            "hash": "c4e5829840ef7765e540a70953b1a26dce27474d3e268ab593f32b88516b6505", 
+            "url": "repo/dino-wallpaper.png", 
             "item": "Wallpaper Image", 
             "version": "", 
             "dmg-installer": "", 
             "dmg-advanced": "",
-            "type": "pkg-lfs",
+            "type": "file-lfs",
 	    "filename": ""
         }, 
         {
@@ -61,7 +61,7 @@
 	    "filename": ""
         }, 
         {
-            "hash": "47e273d63032e52d94c11eae561f15d9a2cbc185880f184c8f26d6a62a7dc295", 
+            "hash": "376a2c4f839a5548bfd501b87fa8335edc6ce7c5baef728b216dedc3ae69ea05", 
             "url": "repo/wallpaper.sh", 
             "item": "Set Wallpaper", 
             "version": "", 

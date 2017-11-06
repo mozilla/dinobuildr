@@ -217,8 +217,10 @@ for item in data['packages']:
             print "No URL specified for %s" % item['item']
             break
         dl_url = raw_url + item['url']
+        json_data = pointer_to_json(dl_url, base64string)
+        lfsfile_url = get_lfs_url(json_data, base64string, lfs_url)
         print "Downloading:", item['item']
-        downloader(dl_url, local_path, base64string)
+        downloader(lfsfile_url, local_path)
         hash_file(local_path, item['hash'])
 
 # delete the temporary directory we've been downloading packages into and the config script

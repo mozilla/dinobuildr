@@ -7,7 +7,7 @@ import subprocess, glob, json, os, hashlib, urllib2, base64, re, getpass, stat, 
 local_dir = "/var/tmp/dinobuildr"
 org = "mozilla"
 repo = "dinobuildr"
-branch = "feat-dmgsupport"
+branch = "master"
 script_path = os.path.realpath(__file__)
 os.environ["DINOPATH"] = local_dir 
 

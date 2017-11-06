@@ -1,44 +1,84 @@
 {
     "packages": [
         {
-            "local_path": "repo/CrashPlan_4.5.2.pkg", 
-            "hash": "855e63d87a156754e0e03f2cd274d204a36682fb541809aa1400613e367234a0", 
-            "name": "CrashPlan_4.5.2.pkg"
+            "hash": "21fcf556dc06f06ff81956901414d71c1a168974567189aadd934ede8b1f6d91", 
+            "url": "https://download.code42.com/installs/mac/install/CrashPlanPROe/CrashPlanPROe_${version}_Mac.dmg", 
+            "item": "Crashplan", 
+            "version": "4.5.2", 
+            "dmg-installer": "Install CrashPlan PROe.pkg", 
+            "dmg-advanced": "",
+	    "type": "dmg",
+	    "filename": ""
         }, 
         {
-            "local_path": "repo/Dino_Wallpaper.pkg", 
-            "hash": "1a3dc3f964b67fb5c476e4948a36cec3399eab65cb3853079070b27d84564d6a", 
-            "name": "Dino_Wallpaper.pkg"
+            "hash": "c4e5829840ef7765e540a70953b1a26dce27474d3e268ab593f32b88516b6505", 
+            "url": "repo/dino-wallpaper.png", 
+            "item": "Wallpaper Image", 
+            "version": "", 
+            "dmg-installer": "", 
+            "dmg-advanced": "",
+            "type": "file-lfs",
+	    "filename": ""
         }, 
         {
-            "local_path": "repo/Firefox_Nightly_58.0a1.pkg", 
-            "hash": "a88f31e44e4067fe6c15686ee0111e115228bd586d4b751b05c66865f5983108", 
-            "name": "Firefox_Nightly_58.0a1.pkg"
+            "hash": "bfa99993778bd94457d5a0733ba5b8407faeb98220f50451c9d4027b62f7c955", 
+            "url": "https://download.mozilla.org/?product=firefox-${version}-SSL&os=osx&lang=en-US", 
+            "item": "Firefox Beta", 
+            "version": "57.0b8", 
+            "dmg-installer": "Firefox.app", 
+            "dmg-advanced": "",
+            "type": "dmg",
+	    "filename": "firefox-beta.dmg"
         }, 
         {
-            "local_path": "repo/Firefox_Nightly_Profile_58.0a1_10272017.pkg", 
             "hash": "2cbfcda396aa39349a903980a655f60cf1e8a23fc978e5fa53cb33cd05b1a90a", 
-            "name": "Firefox_Nightly_Profile_58.0a1_10272017.pkg"
+            "url": "repo/Firefox_Nightly_Profile_58.0a1_10272017.pkg", 
+            "item": "Firefox Profile", 
+            "version": "", 
+            "dmg-installer": "", 
+            "dmg-advanced": "",
+            "type": "pkg-lfs",
+	    "filename": ""
         }, 
         {
-            "local_path": "repo/VidyoDesktop_3.6.9.014.pkg", 
-            "hash": "1ff6db69fb17ed52b0f322711804349b383252e8eaf62b2225ef10d0a0d47f53", 
-            "name": "VidyoDesktop_3.6.9.014.pkg"
+            "hash": "skip", 
+            "url": "https://v.mozilla.com/upload/VidyoDesktopInstaller-macosx-TAG_VD_3_6_9_014.dmg", 
+            "item": "Vidyo", 
+            "version": "", 
+            "dmg-installer": "VidyoDesktopInstaller.app/Contents/Resources/VidyoDesktop.app", 
+            "dmg-advanced": "",
+            "type": "dmg",
+	    "filename": "vidyodesktop.dmg"
         }, 
         {
-            "local_path": "repo/firewall.sh", 
             "hash": "536388a06b47ded515af5e38e0e2588bcb47eddd741bbcc5d6129354bd9fe6bf", 
-            "name": "firewall.sh"
+            "url": "repo/firewall.sh", 
+            "item": "Set Firewall", 
+            "version": "", 
+            "dmg-installer": "", 
+            "dmg-advanced": "",
+            "type": "shell",
+	    "filename": ""
         }, 
         {
-            "local_path": "repo/wallpaper.sh", 
-            "hash": "31e84e9f25e2db0920e33c44f7f4c7345fc0e10653e1ba0db3a8757f5eaeb5a5", 
-            "name": "wallpaper.sh"
+            "hash": "376a2c4f839a5548bfd501b87fa8335edc6ce7c5baef728b216dedc3ae69ea05", 
+            "url": "repo/wallpaper.sh", 
+            "item": "Set Wallpaper", 
+            "version": "", 
+            "dmg-installer": "", 
+            "dmg-advanced": "",
+            "type": "shell",
+	    "filename": ""
         }, 
         {
-            "local_path": "repo/dock-config.pkg", 
-            "hash": "ffd86f5f687bd4dbcea0f0c88f195e60dc5e79e303c439ddc116d827c6ee0d6e", 
-            "name": "dock-config.pkg"
+            "hash": "skip", 
+            "url": "repo/dock-config.sh",
+            "item": "Dock Config", 
+            "version": "", 
+            "dmg-installer": "", 
+            "dmg-advanced": "",
+            "type": "shell",
+	    "filename": ""
         }
     ]
 }

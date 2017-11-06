@@ -1,8 +1,8 @@
-import glob, os, hashlib, json
+import glob, os, hashlib, json 
+from collections import OrderedDict
 
-repo_path = 'repo/'
 manifest = {}
-manifest['packages'] = []
+manifest['packages'] = [] 
 
 def hash_file(filename):
     hash = hashlib.sha256()
@@ -16,18 +16,21 @@ print "Creating a manifest.json..."
 if os.path.isfile("order.txt"):
     with open ('order.txt', 'r') as orderfile:
         for item in orderfile:
-            file_name = item.rstrip()
-            file_hash = hash_file((repo_path + item).rstrip())   
-            manifest['packages'].append({
-                'name': file_name,
-                'local_path': repo_path + file_name,
-                'hash': file_hash
-                })
-
+            item_name = item.rstrip()
+            #file_hash = hash_file((repo_path + item).rstrip())   
+            manifest['packages'].append(OrderedDict([
+                ['item', item_name],
+                ['hash', ""],
+                ['version' , ""],
+                ['dmg-installer' , ""],
+                ['url' , ""],
+                ['type' , ""]
+                ]))
+print manifest 
 orderfile.close()       
 
 with open ('manifest.json', 'w') as outfile:
-    json.dump(manifest, outfile, indent=4)
+    json.dump(manifest, outfile, indent=4, sort_keys=False)
 outfile.close()
 
 manifest_hash = hash_file('manifest.json')

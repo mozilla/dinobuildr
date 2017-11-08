@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import subprocess, glob, json, os, hashlib, urllib2, base64, re, getpass, stat, shutil, shlex, sys, pwd, grp
 from SystemConfiguration import SCDynamicStoreCopyConsoleUser
 
@@ -111,7 +113,7 @@ def dmg_install(filename, installer, command=None):
             shutil.rmtree(applications_path)
         shutil.copytree(installer_path, applications_path)
         os.chown(applications_path, uid, gid)
-        os.chmod(applications_path, 0755)
+        os.chmod(applications_path, 0o755)
     pipes = subprocess.Popen(["hdiutil","detach",volume_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = pipes.communicate()
     print out.decode('utf-8'), err.decode('utf-8'), pipes.returncode

@@ -29,7 +29,7 @@ gid = grp.getgrnam("staff").gr_gid
 lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo)
 raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
 manifest_url= "https://raw.githubusercontent.com/%s/%s/%s/manifest.json" % (org, repo, branch)
-manifest_hash = "5b7b419ffa6271e3a578a7a5ea3500b2b97a820f068c3c797712d7bb9993d2c1"
+manifest_hash = "13725209fdfee005a631cb76b43ba7f251cde131d7a45dae703e9536e07a1b9d"
 manifest_file = "%s/manifest.json" % local_dir
 
 # authenticate to github since this is a private repo

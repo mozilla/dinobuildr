@@ -1,8 +1,12 @@
-import subprocess, glob, json, os, hashlib, urllib2, base64, re, getpass, stat, shutil, shlex
+import subprocess, glob, json, os, hashlib, urllib2, base64, re, getpass, stat, shutil, shlex, sys, pwd, grp
+from SystemConfiguration import SCDynamicStoreCopyConsoleUser
 
 # set org, repo and branch that hosts the packages and scripts as well as the temporary working directory
 # that we will use to store scripts
 # we also determine the path of the script we are executing for later cleanup
+
+global uid
+global gid
 
 local_dir = "/var/tmp/dinobuildr"
 org = "mozilla"
@@ -10,6 +14,10 @@ repo = "dinobuildr"
 branch = "master"
 script_path = os.path.realpath(__file__)
 os.environ["DINOPATH"] = local_dir 
+current_user = (SCDynamicStoreCopyConsoleUser(None, None, None) or [None])[0] 
+current_user = [current_user,""][current_user in [u"loginwindow", None, u""]]
+uid = pwd.getpwnam(current_user).pw_uid
+gid = grp.getgrnam("staff").gr_gid
 
 # set lfs and raw urls
 # set the url of the manifest file that this script will pull down
@@ -98,9 +106,12 @@ def dmg_install(filename, installer, command=None):
         if os.path.exists(applications_path):
             shutil.rmtree(applications_path)
         shutil.copytree(installer_path, applications_path)
+        os.chown(applications_path, uid, gid)
+        os.chmod(applications_path, 0755)
     pipes = subprocess.Popen(["hdiutil","detach",volume_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = pipes.communicate()
     print out.decode('utf-8'), err.decode('utf-8'), pipes.returncode
+    
 
 def hash_file(filename, man_hash):
     if man_hash == "skip":

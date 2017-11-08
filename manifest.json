@@ -1,84 +1,84 @@
 {
     "packages": [
         {
-            "hash": "21fcf556dc06f06ff81956901414d71c1a168974567189aadd934ede8b1f6d91", 
-            "url": "https://download.code42.com/installs/mac/install/CrashPlanPROe/CrashPlanPROe_${version}_Mac.dmg", 
             "item": "Crashplan", 
             "version": "4.5.2", 
+            "url": "https://download.code42.com/installs/mac/install/CrashPlanPROe/CrashPlanPROe_${version}_Mac.dmg", 
+            "filename": "", 
             "dmg-installer": "Install CrashPlan PROe.pkg", 
-            "dmg-advanced": "",
-	    "type": "dmg",
-	    "filename": ""
+            "dmg-advanced": "", 
+            "hash": "21fcf556dc06f06ff81956901414d71c1a168974567189aadd934ede8b1f6d91", 
+            "type": "dmg"
         }, 
         {
-            "hash": "c4e5829840ef7765e540a70953b1a26dce27474d3e268ab593f32b88516b6505", 
-            "url": "repo/dino-wallpaper.png", 
             "item": "Wallpaper Image", 
             "version": "", 
+            "url": "repo/dino-wallpaper.png", 
+            "filename": "", 
             "dmg-installer": "", 
-            "dmg-advanced": "",
-            "type": "file-lfs",
-	    "filename": ""
+            "dmg-advanced": "", 
+            "hash": "c4e5829840ef7765e540a70953b1a26dce27474d3e268ab593f32b88516b6505", 
+            "type": "file-lfs"
         }, 
         {
-            "hash": "bfa99993778bd94457d5a0733ba5b8407faeb98220f50451c9d4027b62f7c955", 
-            "url": "https://download.mozilla.org/?product=firefox-${version}-SSL&os=osx&lang=en-US", 
             "item": "Firefox Beta", 
-            "version": "57.0b8", 
+            "version": "57.0b14", 
+            "url": "https://download.mozilla.org/?product=firefox-${version}-SSL&os=osx&lang=en-US", 
+            "filename": "firefox-beta.dmg", 
             "dmg-installer": "Firefox.app", 
-            "dmg-advanced": "",
-            "type": "dmg",
-	    "filename": "firefox-beta.dmg"
+            "dmg-advanced": "", 
+            "hash": "4c8c4ba6787c2125d5231005e7c84537ba6718755e6f9b3b2ec6bf7c15b02680", 
+            "type": "dmg"
         }, 
         {
-            "hash": "2cbfcda396aa39349a903980a655f60cf1e8a23fc978e5fa53cb33cd05b1a90a", 
-            "url": "repo/Firefox_Nightly_Profile_58.0a1_10272017.pkg", 
             "item": "Firefox Profile", 
             "version": "", 
+            "url": "repo/Firefox_Nightly_Profile_58.0a1_10272017.pkg", 
+            "filename": "", 
             "dmg-installer": "", 
-            "dmg-advanced": "",
-            "type": "pkg-lfs",
-	    "filename": ""
+            "dmg-advanced": "", 
+            "hash": "2cbfcda396aa39349a903980a655f60cf1e8a23fc978e5fa53cb33cd05b1a90a", 
+            "type": "pkg-lfs"
         }, 
         {
-            "hash": "ba685f9a0b4e91220629cd828e250d2fd7c9d63d8d6d2e586e109b7efa7fd1e8", 
-            "url": "https://v.mozilla.com/upload/VidyoDesktopInstaller-macosx-TAG_VD_3_6_9_014.dmg", 
             "item": "Vidyo", 
             "version": "", 
+            "url": "https://v.mozilla.com/upload/VidyoDesktopInstaller-macosx-TAG_VD_3_6_9_014.dmg", 
+            "filename": "vidyodesktop.dmg", 
             "dmg-installer": "VidyoDesktopInstaller.app/Contents/Resources/VidyoDesktop.app", 
-            "dmg-advanced": "",
-            "type": "dmg",
-	    "filename": "vidyodesktop.dmg"
+            "dmg-advanced": "", 
+            "hash": "ba685f9a0b4e91220629cd828e250d2fd7c9d63d8d6d2e586e109b7efa7fd1e8", 
+            "type": "dmg"
         }, 
         {
-            "hash": "536388a06b47ded515af5e38e0e2588bcb47eddd741bbcc5d6129354bd9fe6bf", 
-            "url": "repo/firewall.sh", 
             "item": "Set Firewall", 
             "version": "", 
+            "url": "repo/firewall.sh", 
+            "filename": "", 
             "dmg-installer": "", 
-            "dmg-advanced": "",
-            "type": "shell",
-	    "filename": ""
+            "dmg-advanced": "", 
+            "hash": "536388a06b47ded515af5e38e0e2588bcb47eddd741bbcc5d6129354bd9fe6bf", 
+            "type": "shell"
         }, 
         {
-            "hash": "376a2c4f839a5548bfd501b87fa8335edc6ce7c5baef728b216dedc3ae69ea05", 
-            "url": "repo/wallpaper.sh", 
             "item": "Set Wallpaper", 
             "version": "", 
+            "url": "repo/wallpaper.sh", 
+            "filename": "", 
             "dmg-installer": "", 
-            "dmg-advanced": "",
-            "type": "shell",
-	    "filename": ""
+            "dmg-advanced": "", 
+            "hash": "376a2c4f839a5548bfd501b87fa8335edc6ce7c5baef728b216dedc3ae69ea05", 
+            "type": "shell"
         }, 
         {
-            "hash": "7c09300588b215fe9bf36f477488e5d87150547874499170fc4f3e100c871cb9", 
-            "url": "repo/dock-config.sh",
             "item": "Dock Config", 
             "version": "", 
+            "url": "repo/dock-config.sh", 
+            "filename": "", 
             "dmg-installer": "", 
-            "dmg-advanced": "",
-            "type": "shell",
-	    "filename": ""
+            "dmg-advanced": "", 
+            "hash": "7c09300588b215fe9bf36f477488e5d87150547874499170fc4f3e100c871cb9", 
+            "type": "shell"
         }
     ]
 }

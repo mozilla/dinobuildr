@@ -1,6 +1,6 @@
 Crashplan
 Wallpaper Image
-Firefox Nightly
+Firefox Beta
 Firefox Profile
 Vidyo
 Set Firewall

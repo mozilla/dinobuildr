@@ -27,14 +27,18 @@ gid = grp.getgrnam("staff").gr_gid
 lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo)
 raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
 manifest_url= "https://raw.githubusercontent.com/%s/%s/%s/manifest.json" % (org, repo, branch)
-manifest_hash = "a86ab3727cd3aeaa079bd87026ec4a25ca1425bbbafba042d8ec8f0cca4ad932"
+manifest_hash = "5b7b419ffa6271e3a578a7a5ea3500b2b97a820f068c3c797712d7bb9993d2c1"
 manifest_file = "%s/manifest.json" % local_dir
 
 # authenticate to github since this is a private repo
 # base64string is really just a variable that stores the username and password in this format: username:password
 
+if os.getuid() != 0:
+    print "This script requires root to run, please try again with sudo."
+    exit(1)
+
 user = raw_input("Enter github username: ").replace('\n','')
-password = getpass.getpass() 
+password = getpass.getpass("Enter github password or PAT: ") 
 base64string = base64.encodestring('%s:%s' % (user, password)).replace('\n','')
 
 # the downloader function accepts three arguments: the url of the file you are downloading, the filename (path) of the file you are
@@ -122,7 +126,7 @@ def hash_file(filename, man_hash):
             for chunk in iter(lambda: file.read(4096), b""):
                 hash.update(chunk)
         if hash.hexdigest() == man_hash:
-            print "The hash for %s match the manifest file" % item['item']
+            print "The hash for %s match the manifest file" % filename 
             return True
         else: 
             print "WARNING: The the hash for %s is unexpected." % filename
@@ -167,7 +171,7 @@ downloader(manifest_url, manifest_file, base64string)
 
 # check the hash of the incoming manifest file and bail if the hash doesn't match
 
-# hash_file(manifest_file, manifest_hash)
+hash_file(manifest_file, manifest_hash)
 
 # we read the manifest file and examine each object in it
 # if the object is a .pkg file, then we assemble the download url of the pointer, read the pointer and request the file from LFS
@@ -237,5 +241,3 @@ for item in data['packages']:
 # delete the temporary directory we've been downloading packages into and the config script
 print "Cleanup: Deleting %s" % local_dir
 shutil.rmtree(local_dir)
-print "Cleanup: Deleting %s" % script_path
-#os.remove(script_path)

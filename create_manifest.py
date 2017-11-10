@@ -116,6 +116,7 @@ if os.path.isfile('manifest.json'):
                     downloader(lfsfile_url, local_path)
                     item['hash'] =  hash_file(local_path)
     outfile.close() 
+    
 else: 
     print "Creating a manifest.json..."
     

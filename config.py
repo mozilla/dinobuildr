@@ -8,14 +8,14 @@ from SystemConfiguration import SCDynamicStoreCopyConsoleUser
 ##################################################################
 
 # globalize the uid and gid variables so the DMG installer can use it without needing to pass it every time.
-# TODO: this is lazy and a better method should be used
+# TODO: this is lazy and a better method should be used. 
 global uid 
 global gid
 
 local_dir = "/var/tmp/dinobuildr" # the local directory the builder will use
 org = "mozilla" # the org that is hosting the build repository
 repo = "dinobuildr" # the rep that is hosting the build
-branch = "master" # the branch that we are using. useful to change this if developing / testing.
+branch = "master" # the branch that we are using. useful to change this if developing / testing
 
 script_path = os.path.realpath(__file__) # the path that the script is executed from
 
@@ -31,9 +31,9 @@ manifest_url= "https://raw.githubusercontent.com/%s/%s/%s/manifest.json" % (org,
 manifest_hash = "13725209fdfee005a631cb76b43ba7f251cde131d7a45dae703e9536e07a1b9d" # the hash of the manifest file
 manifest_file = "%s/manifest.json" % local_dir # the expected filepath of the manifest file
 
-# authenticate to github since this is a private repo
+# authenticate to github since this is a private repo.
 # base64string is really just a variable that stores the username and password in this format: username:password
-# TODO: remove this before moving to the production repo (which will be public)
+# TODO: remove this before moving to the production repo (which will be public).
 
 if os.getuid() != 0:
     print "This script requires root to run, please try again with sudo."
@@ -48,9 +48,9 @@ base64string = base64.encodestring('%s:%s' % (user, password)).replace('\n','') 
 ######################################################################### 
 
 # the downloader function accepts three arguments: the url of the file you are downloading, the filename (path) of the file you are
-# downloading and an optional password if the download requires Basic authentication.
-# the downloader reads the Content-Length portion of the header of the incoming file and determines the expected file size
-# then reads the incoming file in chunks of 8192 bytes and displays the currently read bytes and percentage complete.
+# downloading and an optional password if the download requires Basic authentication. the downloader reads the Content-Length 
+# portion of the header of the incoming file and determines the expected file size then reads the incoming file in chunks of 
+# 8192 bytes and displays the currently read bytes and percentage complete.
 
 def downloader(url, file_path, password=None): # TODO: the password=None bit will not be a thing in production
     if not os.path.exists(local_dir):
@@ -76,16 +76,17 @@ def downloader(url, file_path, password=None): # TODO: the password=None bit wil
                 break
 
 # the package installer function runs the installer binary in MacOS and pipes stdout and stderr to the python console
-# the return code of the package run can be found in the pipes object (pipes.returncode)
-# this is the reason we need to run this script with sudo!
+# the return code of the package run can be found in the pipes object (pipes.returncode). this is the reason we need 
+# to run this script with sudo!
+
 
 def pkg_install(package):
     pipes = subprocess.Popen(["sudo","installer","-pkg",package,"-target","/"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = pipes.communicate()
     print out.decode('utf-8'), err.decode('utf-8'), pipes.returncode
 
-# the script executer executes any .sh file using bash and pipes stdout and stderr to the python console
-# the return code of the script execution can be found in the pipes object (pipes.returncode)
+# the script executer executes any .sh file using bash and pipes stdout and stderr to the python console.
+# the return code of the script execution can be found in the pipes object (pipes.returncode). 
 
 def script_exec(script):
     pipes = subprocess.Popen(["/bin/bash","-c",script], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -126,8 +127,7 @@ def dmg_install(filename, installer, command=None):
     print out.decode('utf-8'), err.decode('utf-8'), pipes.returncode
     
 # the hash_file function accepts two arguments: the filename that you need to determine the SHA256 hash of
-# and the expected hash
-# it returns True or False
+# and the expected hash it returns True or False.
 
 def hash_file(filename, man_hash):
     if man_hash == "skip":
@@ -144,10 +144,10 @@ def hash_file(filename, man_hash):
             print "WARNING: The the hash for %s is unexpected." % filename
             exit(1)
 
-# the pointer_to_json function accepts the url of the file in the github repo and the password to the repo
-# the pointer file is read from github then parsed and the "oid sha256" and "size" are extracted from the pointer
-# an object is returned that contains a json request for the file that the pointer is associated with
-# TODO: password should be optional in the prod version
+# the pointer_to_json function accepts the url of the file in the github repo and the password to the repo.
+# the pointer file is read from github then parsed and the "oid sha256" and "size" are extracted from the pointer.
+# an object is returned that contains a json request for the file that the pointer is associated with.
+# TODO: password should be optional in the prod version.
 
 def pointer_to_json(dl_url, password):
     content_req = urllib2.Request(dl_url)
@@ -160,7 +160,7 @@ def pointer_to_json(dl_url, password):
     json_data = '{"operation": "download", "transfers": ["basic"], "objects": [{"oid": "%s", "size": %s}]}' % (oid.group(1), size.group(1))
     return json_data 
 
-# the get_lfs_url function makes a request the the lfs API of the github repo, receives a JSON response
+# the get_lfs_url function makes a request the the lfs API of the github repo, receives a JSON response.
 # then gets the download URL from the JSON response and returns it.
 
 def get_lfs_url(json_input, password, lfs_url):
@@ -178,21 +178,22 @@ def get_lfs_url(json_input, password, lfs_url):
 # now the fun bit: we actually get to do stuff!
 ############################################################
 
-# if the local directory doesn't exist, we make it
+# if the local directory doesn't exist, we make it.
 if not os.path.exists(local_dir):
     os.makedirs(local_dir)
 
-# download the manifest.json file
+# download the manifest.json file.
 downloader(manifest_url, manifest_file, base64string)
 
-# check the hash of the incoming manifest file and bail if the hash doesn't match
+# check the hash of the incoming manifest file and bail if the hash doesn't match.
 hash_file(manifest_file, manifest_hash)
 
-# we read the manifest file and examine each object in it
-# if the object is a .pkg file, then we assemble the download url of the pointer, read the pointer and request the file from LFS
-# if the file we get has a hash that matches what's in the manifest, we Popen the installer function
-# if the object is a .sh file, we assmble the download url and download the file directly
-# if the script we get has a hash that matches what's in the manifest, we set the execute flag and Popen the script_exec function 
+# we read the manifest file and examine each object in it. if the object is a .pkg file, then we assemble 
+# the download url of the pointer, read the pointer and request the file from LFS. if the file we get has a
+# hash that matches what's in the manifest, we Popen the installer function if the object is a .sh file, 
+# we assemble the download url and download the file directly. if the script we get has a hash that matches 
+# what's in the manifest, we set the execute flag and Popen the script_exec function. 
+
 # same with dmgs, although dmgs are real complicated so we may end up running an arbitrary command, copying the installer or 
 # installing a pkg.
 
@@ -255,6 +256,6 @@ for item in data['packages']:
         downloader(lfsfile_url, local_path) # download the file
         hash_file(local_path, item['hash']) # hash the file
 
-# delete the temporary directory we've been downloading packages into
+# delete the temporary directory we've been downloading packages into.
 print "Cleanup: Deleting %s" % local_dir
 shutil.rmtree(local_dir)

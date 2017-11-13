@@ -1,13 +1,20 @@
+#!/usr/bin/env python
+
 import glob, os, hashlib, json, getpass, urllib2, base64, re, collections
 from collections import OrderedDict
 
-local_dir = 'build-temp'
-org = "mozilla"
-repo = "dinobuildr"
-branch = "master"
+local_dir = 'build-temp' # the local directory we will use to cache packages for hashing/testing
+org = "mozilla" # the org that is hosting the build repository
+repo = "dinobuildr" # the repo that is hosting the build
+branch = "master" # the branch that we are using. useful to change this if developing / testing
 
-lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo)
-raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
+lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo) # the generic LFS url structure that github uses
+raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch) # the generic RAW url structure that github uses
+
+# the downloader function accepts three arguments: the url of the file you are downloading, the filename (path) of the file you are
+# downloading and an optional password if the download requires Basic authentication. the downloader reads the Content-Length 
+# portion of the header of the incoming file and determines the expected file size then reads the incoming file in chunks of 
+# 8192 bytes and displays the currently read bytes and percentage complete.
 
 def downloader(url, file_path, password=None):
     if not os.path.exists(local_dir):
@@ -64,21 +71,25 @@ def get_lfs_url(json_input, password, lfs_url):
     result.close()
     return file_url
 
-if os.path.isfile('manifest.json'):
-    user = raw_input("Enter github username: ").replace('\n','')
-    password = getpass.getpass("Enter github password or PAT: ") 
+# where the action happens
+
+if os.path.isfile('manifest.json'): # if the manigest file already exists
+    user = raw_input("Enter github username: ").replace('\n','') # TODO: we're doing this because this is a private repo
+    password = getpass.getpass("Enter github password or PAT: ") # TODO: see above
     base64string = base64.encodestring('%s:%s' % (user, password)).replace('\n','')
 
     with open ('manifest.json', 'r') as outfile:
-            manifest = json.load(outfile, object_pairs_hook=OrderedDict)
+            manifest = json.load(outfile, object_pairs_hook=OrderedDict) # load the manifest as an orderedDict for readability
             for item in manifest['packages']:  
-                if item['filename'] != "":
+                if item['filename'] != "": # if filename isn't blank, use what's in the  manifest
                     file_name = item['filename']
                 else: 
-                    file_name = (item['url'].replace('${version}', item['version'])).rsplit('/', 1)[-1]
+                    file_name = (item['url'].replace('${version}', item['version'])).rsplit('/', 1)[-1] # otherwise infer from the url
                 
-                local_path = "%s/%s" % (local_dir, file_name)
-                 
+                local_path = "%s/%s" % (local_dir, file_name) # assemble the filename
+                
+                # NOTE: we'll skip comments here because this should all be the same as config.py but without the install stages
+
                 if item['type'] == "pkg-lfs": 
                     dl_url = raw_url + item['url']
                     json_data = pointer_to_json(dl_url, base64string)
@@ -118,16 +129,16 @@ if os.path.isfile('manifest.json'):
     outfile.close() 
     
 else: 
-    print "Creating a manifest.json..."
+    print "Creating a manifest.json..." # if the manifest file doesn't exist we're starting from scratch and we need a blank template
     
     manifest = {}
     manifest['packages'] = [] 
  
-    if os.path.isfile("order.txt"):
-        with open ('order.txt', 'r') as orderfile:
+    if os.path.isfile("order.txt"): 
+        with open ('order.txt', 'r') as orderfile: # read the order file 
             for item in orderfile:
                 item_name = item.rstrip()
-                manifest['packages'].append(OrderedDict([
+                manifest['packages'].append(OrderedDict([ # assemble the template!
                     ['item', item_name],
                     ['version', ""],
                     ['url' , ""],
@@ -143,8 +154,8 @@ else:
         print "order.txt file required to generate a manifest."
 
 with open ('manifest.json', 'w') as outfile:
-    json.dump(manifest, outfile, indent=4, sort_keys=False)
+    json.dump(manifest, outfile, indent=4, sort_keys=False) # write the manifest back to the manifest file
 outfile.close()
 
 manifest_hash = hash_file('manifest.json')
-print "File created. The manifest has a hash of:", manifest_hash
+print "File created. The manifest has a hash of:", manifest_hash # spit out the hash of the manifest file for use in config.py

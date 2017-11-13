@@ -32,7 +32,7 @@ gid = grp.getgrnam("staff").gr_gid # the GID of the group "staff" which is the d
 lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo) # the generic LFS url structure that github uses
 raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch) # the generic RAW url structure that github uses
 manifest_url= "https://raw.githubusercontent.com/%s/%s/%s/manifest.json" % (org, repo, branch) # the url of the manifest file
-manifest_hash = "13725209fdfee005a631cb76b43ba7f251cde131d7a45dae703e9536e07a1b9d" # the hash of the manifest file
+manifest_hash = "88cb47c6bfa7af64dae95966de405c21881cb0817e7721085fa61a7a40ef31b2" # the hash of the manifest file
 manifest_file = "%s/manifest.json" % local_dir # the expected filepath of the manifest file
 
 # authenticate to github since this is a private repo.

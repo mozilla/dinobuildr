@@ -22,12 +22,12 @@
         }, 
         {
             "item": "Firefox Beta", 
-            "version": "57.0b14", 
+            "version": "57.0", 
             "url": "https://download.mozilla.org/?product=firefox-${version}-SSL&os=osx&lang=en-US", 
             "filename": "firefox-beta.dmg", 
             "dmg-installer": "Firefox.app", 
             "dmg-advanced": "", 
-            "hash": "4c8c4ba6787c2125d5231005e7c84537ba6718755e6f9b3b2ec6bf7c15b02680", 
+            "hash": "ae83fcb9c2651216d9bb73df1e605c9f0a10b35eb2d586753b124dc425468baa", 
             "type": "dmg"
         }, 
         {
@@ -67,7 +67,7 @@
             "filename": "", 
             "dmg-installer": "", 
             "dmg-advanced": "", 
-            "hash": "376a2c4f839a5548bfd501b87fa8335edc6ce7c5baef728b216dedc3ae69ea05", 
+            "hash": "70b2c45c10ba25afcd4467f792db608354403bf01b023fc1bdcfeed0ed81e86c", 
             "type": "shell"
         }, 
         {
@@ -77,7 +77,7 @@
             "filename": "", 
             "dmg-installer": "", 
             "dmg-advanced": "", 
-            "hash": "7c09300588b215fe9bf36f477488e5d87150547874499170fc4f3e100c871cb9", 
+            "hash": "7e8224d06ff1d44517d115ff9425df4d5684ea63446662e6e28e11e4f981243c", 
             "type": "shell"
         }
     ]

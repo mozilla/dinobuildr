@@ -92,13 +92,15 @@ base64string = base64.encodestring('%s:%s' % (user, password)).replace('\n', '')
 # downloader reads the Content-Length portion of the header of the incoming
 # file and determines the expected file size then reads the incoming file in
 # chunks of 8192 bytes and displays the currently read bytes and percentage
-# complete.
+# complete
 
-def downloader(url, file_path, password=None):  # TODO: the password=None bit will not be a thing in production
+# TODO: the password=None bit will not be a thing in production
+def downloader(url, file_path, password=None):
     if not os.path.exists(local_dir):
         os.makedirs(local_dir)
     download_req = urllib2.Request(url)
-    if password:  # TODO: not a thing in production since the repo will not be private
+    # TODO: not a thing in production since the repo will not be private
+    if password:
         download_req.add_header("Authorization", "Basic %s" % password)
     download = urllib2.urlopen(download_req)
     meta = download.info()
@@ -123,27 +125,25 @@ def downloader(url, file_path, password=None):  # TODO: the password=None bit wi
 # can be found in the pipes object (pipes.returncode). this is the reason we
 # need to run   # this is the bit where we can accept an optional command with
 # arguments
-
 def pkg_install(package):
     pipes = subprocess.Popen([
         "sudo",
         "installer", "-pkg", package, "-target", "/"],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = pipes.communicate()
-    if err:    
+    if err:
         print err.decode('utf-8')
 
 
 # the script executer executes any .sh file using bash and pipes stdout and
 # stderr to the python console. the return code of the script execution can be
 # found in the pipes object (pipes.returncode).
-
 def script_exec(script):
     pipes = subprocess.Popen([
         "/bin/bash", "-c", script],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = pipes.communicate()
-    if err:    
+    if err:
         print err.decode('utf-8')
 
 
@@ -151,22 +151,23 @@ def script_exec(script):
 # more complicated than a .app inside we take the appropriate action. we also
 # have the option to specify an optional command. since sometimes we must
 # execute installer .apps or pkgs buried in the .app bundle, which is annoying.
-
 def dmg_install(filename, installer, command=None):
     pipes = subprocess.Popen([
         "hdiutil", "attach", filename],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = pipes.communicate()
-    if err: 
+    if err:
         print err.decode('utf-8')
     volume_path = re.search("(\/Volumes\/).*$", out).group(0)
     installer_path = "%s/%s" % (volume_path, installer)
     if command is not None and installer == '':
         command = command.replace('${volume}', volume_path).encode("utf-8")
         command = shlex.split(command)
-        pipes = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        pipes = subprocess.Popen(
+            command,
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         out, err = pipes.communicate()
-        if err:    
+        if err:
             print err.decode('utf-8')
     if ".pkg" in installer:
         installer_destination = "%s/%s" % (local_dir, installer)
@@ -183,13 +184,12 @@ def dmg_install(filename, installer, command=None):
         "hdiutil", "detach", volume_path],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = pipes.communicate()
-    if err: 
+    if err:
         print err.decode('utf-8')
 
 
 # the hash_file function accepts two arguments: the filename that you need to
 # determine the SHA256 hash of and the expected hash it returns True or False.
-
 def hash_file(filename, man_hash):
     if man_hash == "skip":
         print "NOTICE: Manifest file is instructing us to SKIP hashing %s." % filename
@@ -212,7 +212,6 @@ def hash_file(filename, man_hash):
 # object is returned that contains a json request for the file that the pointer
 # is associated with.
 # TODO: password should be optional in the prod version.
-
 def pointer_to_json(dl_url, password):
     content_req = urllib2.Request(dl_url)
     content_req.add_header("Authorization", "Basic %s" % password)
@@ -227,11 +226,10 @@ def pointer_to_json(dl_url, password):
         '"objects": [{"oid": "%s", "size": %s}]}' % (oid.group(1), size.group(1)))
     return json_data
 
+
 # the get_lfs_url function makes a request the the lfs API of the github repo,
 # receives a JSON response. then gets the download URL from the JSON response
 # and returns it.
-
-
 def get_lfs_url(json_input, password, lfs_url):
     req = urllib2.Request(lfs_url, json_input)
     req.add_header("Authorization", "Basic %s" % password)
@@ -267,7 +265,6 @@ hash_file(manifest_file, manifest_hash)
 # execute flag and Popen the script_exec function. same with dmgs, although
 # dmgs are real complicated so we may end up running an arbitrary command,
 # copying the installer or installing a pkg.
-
 with open(manifest_file, 'r') as manifest_data:
     data = json.load(manifest_data)
 
@@ -275,9 +272,12 @@ for item in data['packages']:
     if item['filename'] != "":
         file_name = item['filename']
     else:
-        file_name = (item['url'].replace('${version}', item['version'])).rsplit('/', 1)[-1]
-
-    local_path = "%s/%s" % (local_dir, file_name)  # TODO: this variable name is dumb, this is the path to the file we're working with
+        file_name = (
+            item['url'].replace('${version}', item['version'])
+        ).rsplit('/', 1)[-1]
+    # TODO: this variable name is dumb, this is the path to the file we're
+    # working with
+    local_path = "%s/%s" % (local_dir, file_name)
 
     if item['type'] == "pkg-lfs":
         dl_url = raw_url + item['url']
@@ -299,7 +299,9 @@ for item in data['packages']:
         script_exec(local_path)
 
     if item['type'] == "dmg":
-        if item['url'] == '':  # TODO: consisitency: there should be URL checks everywhere or do this in the manifest generator
+        # TODO: consisitency: there should be URL checks everywhere or do this
+        # in the manifest generator
+        if item['url'] == '':
             print "No URL specified for %s" % item['item']
             break
         if item['dmg-installer'] == '' and item['dmg-advanced'] == '':

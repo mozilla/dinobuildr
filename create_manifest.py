@@ -91,6 +91,7 @@ def pointer_to_json(dl_url, password):
         '"objects": [{"oid": "%s", "size": %s}]}' % (oid.group(1), size.group(1)))
     return json_data
 
+
 # the get_lfs_url function makes a request the the lfs API of the github repo,
 # receives a JSON response then gets the download URL from the JSON response
 # and returns it.
@@ -109,8 +110,9 @@ def get_lfs_url(json_input, password, lfs_url):
 # where the action happens - for more details, see config.py. this section
 # should be identical, save for the part the executes stuff.
 if os.path.isfile('manifest.json'):
-    user = raw_input("Enter github username: ").replace('\n', '')  # TODO: we're doing this because this is a private repo
-    password = getpass.getpass("Enter github password or PAT: ")  # TODO: see above
+    # TODO: we're doing this because this is a private repo
+    user = raw_input("Enter github username: ").replace('\n', '')
+    password = getpass.getpass("Enter github password or PAT: ")
     base64string = base64.encodestring('%s:%s' % (user, password)).replace('\n', '')
 
     with open('manifest.json', 'r') as outfile:
@@ -121,7 +123,7 @@ if os.path.isfile('manifest.json'):
                 else:
                     file_name = (
                         item['url'].replace('${version}', item['version'])
-                        ).rsplit('/', 1)[-1]
+                    ).rsplit('/', 1)[-1]
 
                 local_path = "%s/%s" % (local_dir, file_name)
 

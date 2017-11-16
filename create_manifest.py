@@ -85,7 +85,10 @@ def pointer_to_json(dl_url, password):
     content_result.close()
     oid = re.search('(?m)^oid sha256:([a-z0-9]+)$', output)
     size = re.search('(?m)^size ([0-9]+)$', output)
-    json_data = '{"operation": "download", "transfers": ["basic"], "objects": [{"oid": "%s", "size": %s}]}' % (oid.group(1), size.group(1))
+    json_data = (
+        '{"operation": "download", '
+        '"transfers": ["basic"], '
+        '"objects": [{"oid": "%s", "size": %s}]}' % (oid.group(1), size.group(1)))
     return json_data
 
 # the get_lfs_url function makes a request the the lfs API of the github repo,

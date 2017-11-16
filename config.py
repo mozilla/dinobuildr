@@ -4,63 +4,103 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-import subprocess, glob, json, os, hashlib, urllib2, base64, re, getpass, stat, shutil, shlex, sys, pwd, grp
+import subprocess
+import json
+import os
+import hashlib
+import urllib2
+import base64
+import re
+import getpass
+import stat
+import shutil
+import shlex
+import pwd
+import grp
 from SystemConfiguration import SCDynamicStoreCopyConsoleUser
 
-#### section 1: defining too many variables ######################
-# in this section we define way too many variables and things. 
-##################################################################
+# --- section 1: defining too many variables --------------------- #
+# in this section we define way too many variables and things.
+# ---------------------------------------------------------------- #
 
-# globalize the uid and gid variables so the DMG installer can use it without needing to pass it every time.
-# TODO: this is lazy and a better method should be used. 
-global uid 
+# globalize the uid and gid variables so the DMG installer can use it without
+# needing to pass it every time.
+# TODO: this is lazy and a better method should be used.
+global uid
 global gid
 
-local_dir = "/var/tmp/dinobuildr" # the local directory the builder will use
-org = "mozilla" # the org that is hosting the build repository
-repo = "dinobuildr" # the rep that is hosting the build
-branch = "master" # the branch that we are using. useful to change this if developing / testing
+# local_dir - the local directory the builder will use
+# org - the org that is hosting the build repository
+# repo - the rep that is hosting the build
+# branch - the branch that we are using. useful to change this if developing /
+# testing
+# script_path -  the path that the script is executed from
+local_dir = "/var/tmp/dinobuildr"
+org = "mozilla"
+repo = "dinobuildr"
+branch = "master"
+script_path = os.path.realpath(__file__)
 
-script_path = os.path.realpath(__file__) # the path that the script is executed from
+# os.environ - an environment variable for the builder's local directory to be
+# passed on to shells scripts
+# current_user - the name of the user running the script. Apple suggests using
+# both methods.
+# uid - the UID of the user running the script
+# gid - the GID of the group "staff" which is the default primary group for all
+# users in MacOS
+os.environ["DINOPATH"] = local_dir
+current_user = (SCDynamicStoreCopyConsoleUser(None, None, None) or [None])[0]
+current_user = [current_user, ""][current_user in [u"loginwindow", None, u""]]
+uid = pwd.getpwnam(current_user).pw_uid
+gid = grp.getgrnam("staff").gr_gid
 
-os.environ["DINOPATH"] = local_dir # an environment variable for the builder's local directory to be passed on to shells scripts 
-current_user = (SCDynamicStoreCopyConsoleUser(None, None, None) or [None])[0] # the name of the user running the script
-current_user = [current_user,""][current_user in [u"loginwindow", None, u""]] # same as above, Apple suggests using both methods
-uid = pwd.getpwnam(current_user).pw_uid # the UID of the user running the script
-gid = grp.getgrnam("staff").gr_gid # the GID of the group "staff" which is the default primary group for all users in MacOS
+# lfs_url -  the generic LFS url structure that github uses
+# raw_url - the generic RAW url structure that github uses
+# manifest_url - the url of the manifest file
+# manifest_hash - the hash of the manifest file
+# manifest_file - the expected filepath of the manifest file
+lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo)
+raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
+manifest_url = "https://raw.githubusercontent.com/%s/%s/%s/manifest.json" % (org, repo, branch)
+manifest_hash = "88cb47c6bfa7af64dae95966de405c21881cb0817e7721085fa61a7a40ef31b2"
+manifest_file = "%s/manifest.json" % local_dir
 
-lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo) # the generic LFS url structure that github uses
-raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch) # the generic RAW url structure that github uses
-manifest_url= "https://raw.githubusercontent.com/%s/%s/%s/manifest.json" % (org, repo, branch) # the url of the manifest file
-manifest_hash = "88cb47c6bfa7af64dae95966de405c21881cb0817e7721085fa61a7a40ef31b2" # the hash of the manifest file
-manifest_file = "%s/manifest.json" % local_dir # the expected filepath of the manifest file
-
-# authenticate to github since this is a private repo.
-# base64string is really just a variable that stores the username and password in this format: username:password
+# authenticate to github since this is a private repo. base64string is really
+# just a variable that stores the username and password in this format:
+# username:password
 # TODO: remove this before moving to the production repo (which will be public).
 
 if os.getuid() != 0:
     print "This script requires root to run, please try again with sudo."
     exit(1)
 
-user = raw_input("Enter github username: ").replace('\n','') # we get the github username from the user
-password = getpass.getpass("Enter github password or PAT: ") # we securely get the github password or PAT from the user
-base64string = base64.encodestring('%s:%s' % (user, password)).replace('\n','') # encode in base64 and store as a variable
+# user - we get the github username from the user
+# password - we securely get the github password or PAT from the user
+# base64string - encode in base64 and store as a variable
+user = raw_input("Enter github username: ").replace('\n', '')
+password = getpass.getpass("Enter github password or PAT: ")
+base64string = base64.encodestring('%s:%s' % (user, password)).replace('\n', '')
 
-#### section 2: functions on functions on functions######################
+# --- section 2: functions on functions on functions -------------------- #
 # in this section we define all the important functions we will use.
-######################################################################### 
+# ----------------------------------------------------------------------- #
 
-# the downloader function accepts three arguments: the url of the file you are downloading, the filename (path) of the file you are
-# downloading and an optional password if the download requires Basic authentication. the downloader reads the Content-Length 
-# portion of the header of the incoming file and determines the expected file size then reads the incoming file in chunks of 
-# 8192 bytes and displays the currently read bytes and percentage complete.
 
-def downloader(url, file_path, password=None): # TODO: the password=None bit will not be a thing in production
+# the downloader function accepts three arguments: the url of the file you are
+# downloading, the filename (path) of the file you are downloading and an
+# optional password if the download requires Basic authentication. the
+# downloader reads the Content-Length portion of the header of the incoming
+# file and determines the expected file size then reads the incoming file in
+# chunks of 8192 bytes and displays the currently read bytes and percentage
+# complete
+
+# TODO: the password=None bit will not be a thing in production
+def downloader(url, file_path, password=None):
     if not os.path.exists(local_dir):
         os.makedirs(local_dir)
     download_req = urllib2.Request(url)
-    if password: # TODO: not a thing in production since the repo will not be private
+    # TODO: not a thing in production since the repo will not be private
+    if password:
         download_req.add_header("Authorization", "Basic %s" % password)
     download = urllib2.urlopen(download_req)
     meta = download.info()
@@ -74,85 +114,104 @@ def downloader(url, file_path, password=None): # TODO: the password=None bit wil
             bytes_read += len(data)
             code.write(data)
             status = r"%10d [%3.2f%%]" % (bytes_read, bytes_read * 100 / file_size)
-            status = status + chr(8)*(len(status)+1)
-            print "\r", status, 
+            status = status + chr(8) * (len(status) + 1)
+            print "\r", status,
             if len(data) < chunk_size:
                 break
 
-# the package installer function runs the installer binary in MacOS and pipes stdout and stderr to the python console
-# the return code of the package run can be found in the pipes object (pipes.returncode). this is the reason we need 
-# to run this script with sudo!
 
-
+# the package installer function runs the installer binary in MacOS and pipes
+# stdout and stderr to the python console the return code of the package run
+# can be found in the pipes object (pipes.returncode). this is the reason we
+# need to run   # this is the bit where we can accept an optional command with
+# arguments
 def pkg_install(package):
-    pipes = subprocess.Popen(["sudo","installer","-pkg",package,"-target","/"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    pipes = subprocess.Popen([
+        "sudo",
+        "installer", "-pkg", package, "-target", "/"],
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = pipes.communicate()
-    print out.decode('utf-8'), err.decode('utf-8'), pipes.returncode
+    if err:
+        print err.decode('utf-8')
 
-# the script executer executes any .sh file using bash and pipes stdout and stderr to the python console.
-# the return code of the script execution can be found in the pipes object (pipes.returncode). 
 
+# the script executer executes any .sh file using bash and pipes stdout and
+# stderr to the python console. the return code of the script execution can be
+# found in the pipes object (pipes.returncode).
 def script_exec(script):
-    pipes = subprocess.Popen(["/bin/bash","-c",script], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    pipes = subprocess.Popen([
+        "/bin/bash", "-c", script],
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = pipes.communicate()
-    print out.decode('utf-8'), err.decode('utf-8'), pipes.returncode
+    if err:
+        print err.decode('utf-8')
 
-# the dmg installer is by far the most complicated function, because DMGs are more complicated than
-# they probably should be. we mount the dmg with hdiutil and depending on if the dmg has a PKG or a
-# .app inside we take the appropriate action. we also have the option to specify an optional command
-# since sometimes we must execute installer .apps or pkgs buried in the .app bundle, which is 
-# annoying. 
 
+# the dmg installer is by far the most complicated function, because DMGs are
+# more complicated than a .app inside we take the appropriate action. we also
+# have the option to specify an optional command. since sometimes we must
+# execute installer .apps or pkgs buried in the .app bundle, which is annoying.
 def dmg_install(filename, installer, command=None):
-    pipes = subprocess.Popen(["hdiutil","attach",filename], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    pipes = subprocess.Popen([
+        "hdiutil", "attach", filename],
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = pipes.communicate()
-    print out.decode('utf-8'), err.decode('utf-8'), pipes.returncode
-    volume_path = re.search("(\/Volumes\/).*$", out).group(0) 
+    if err:
+        print err.decode('utf-8')
+    volume_path = re.search("(\/Volumes\/).*$", out).group(0)
     installer_path = "%s/%s" % (volume_path, installer)
-    if command != None and installer == '': # this is the bit where we can accept an optional command with arguments
+    if command is not None and installer == '':
         command = command.replace('${volume}', volume_path).encode("utf-8")
-        command = shlex.split(command) 
-        pipes = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        command = shlex.split(command)
+        pipes = subprocess.Popen(
+            command,
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         out, err = pipes.communicate()
-        print out.decode('utf-8'), err.decode('utf-8'), pipes.returncode
-    if ".pkg" in installer: # if it's an installer, we install it
-        installer_destination= "%s/%s" % (local_dir, installer)
+        if err:
+            print err.decode('utf-8')
+    if ".pkg" in installer:
+        installer_destination = "%s/%s" % (local_dir, installer)
         shutil.copyfile(installer_path, installer_destination)
         pkg_install(installer_path)
-    if ".app" in installer: # if it's a .app we assume it goes in /Applications
+    if ".app" in installer:
         applications_path = "/Applications/%s" % installer.rsplit('/', 1)[-1]
         if os.path.exists(applications_path):
-            shutil.rmtree(applications_path) # useful for testing: if the .app exists, nuke it
+            shutil.rmtree(applications_path)
         shutil.copytree(installer_path, applications_path)
-        os.chown(applications_path, uid, gid) # ownership is all wonky because we run with sudo
-        os.chmod(applications_path, 0o755) # so are the permissions
-    pipes = subprocess.Popen(["hdiutil","detach",volume_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        os.chown(applications_path, uid, gid)
+        os.chmod(applications_path, 0o755)
+    pipes = subprocess.Popen([
+        "hdiutil", "detach", volume_path],
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = pipes.communicate()
-    print out.decode('utf-8'), err.decode('utf-8'), pipes.returncode
-    
-# the hash_file function accepts two arguments: the filename that you need to determine the SHA256 hash of
-# and the expected hash it returns True or False.
+    if err:
+        print err.decode('utf-8')
 
+
+# the hash_file function accepts two arguments: the filename that you need to
+# determine the SHA256 hash of and the expected hash it returns True or False.
 def hash_file(filename, man_hash):
     if man_hash == "skip":
         print "NOTICE: Manifest file is instructing us to SKIP hashing %s." % filename
-    else:     
+    else:
         hash = hashlib.sha256()
-        with open (filename, 'rb') as file:
+        with open(filename, 'rb') as file:
             for chunk in iter(lambda: file.read(4096), b""):
                 hash.update(chunk)
         if hash.hexdigest() == man_hash:
-            print "The hash for %s match the manifest file" % filename 
+            print "\rThe hash for %s match the manifest file" % filename
             return True
-        else: 
+        else:
             print "WARNING: The the hash for %s is unexpected." % filename
             exit(1)
 
-# the pointer_to_json function accepts the url of the file in the github repo and the password to the repo.
-# the pointer file is read from github then parsed and the "oid sha256" and "size" are extracted from the pointer.
-# an object is returned that contains a json request for the file that the pointer is associated with.
-# TODO: password should be optional in the prod version.
 
+# the pointer_to_json function accepts the url of the file in the github repo
+# and the password to the repo. the pointer file is read from github then
+# parsed and the "oid sha256" and "size" are extracted from the pointer. an
+# object is returned that contains a json request for the file that the pointer
+# is associated with.
+# TODO: password should be optional in the prod version.
 def pointer_to_json(dl_url, password):
     content_req = urllib2.Request(dl_url)
     content_req.add_header("Authorization", "Basic %s" % password)
@@ -161,12 +220,16 @@ def pointer_to_json(dl_url, password):
     content_result.close()
     oid = re.search('(?m)^oid sha256:([a-z0-9]+)$', output)
     size = re.search('(?m)^size ([0-9]+)$', output)
-    json_data = '{"operation": "download", "transfers": ["basic"], "objects": [{"oid": "%s", "size": %s}]}' % (oid.group(1), size.group(1))
-    return json_data 
+    json_data = (
+        '{"operation": "download", '
+        '"transfers": ["basic"], '
+        '"objects": [{"oid": "%s", "size": %s}]}' % (oid.group(1), size.group(1)))
+    return json_data
 
-# the get_lfs_url function makes a request the the lfs API of the github repo, receives a JSON response.
-# then gets the download URL from the JSON response and returns it.
 
+# the get_lfs_url function makes a request the the lfs API of the github repo,
+# receives a JSON response. then gets the download URL from the JSON response
+# and returns it.
 def get_lfs_url(json_input, password, lfs_url):
     req = urllib2.Request(lfs_url, json_input)
     req.add_header("Authorization", "Basic %s" % password)
@@ -178,9 +241,10 @@ def get_lfs_url(json_input, password, lfs_url):
     result.close()
     return file_url
 
-#### section 3: actually doing stuff! ######################
+
+# --- section 3: actually doing stuff! --------------------- #
 # now the fun bit: we actually get to do stuff!
-############################################################
+# ---------------------------------------------------------- #
 
 # if the local directory doesn't exist, we make it.
 if not os.path.exists(local_dir):
@@ -192,73 +256,79 @@ downloader(manifest_url, manifest_file, base64string)
 # check the hash of the incoming manifest file and bail if the hash doesn't match.
 hash_file(manifest_file, manifest_hash)
 
-# we read the manifest file and examine each object in it. if the object is a .pkg file, then we assemble 
-# the download url of the pointer, read the pointer and request the file from LFS. if the file we get has a
-# hash that matches what's in the manifest, we Popen the installer function if the object is a .sh file, 
-# we assemble the download url and download the file directly. if the script we get has a hash that matches 
-# what's in the manifest, we set the execute flag and Popen the script_exec function. 
+# we read the manifest file and examine each object in it. if the object is a
+# .pkg file, then we assemble the download url of the pointer, read the pointer
+# and request the file from LFS. if the file we get has a hash that matches
+# what's in the manifest, we Popen the installer function if the object is a
+# .sh file, we assemble the download url and download the file directly. if the
+# script we get has a hash that matches what's in the manifest, we set the
+# execute flag and Popen the script_exec function. same with dmgs, although
+# dmgs are real complicated so we may end up running an arbitrary command,
+# copying the installer or installing a pkg.
+with open(manifest_file, 'r') as manifest_data:
+    data = json.load(manifest_data)
 
-# same with dmgs, although dmgs are real complicated so we may end up running an arbitrary command, copying the installer or 
-# installing a pkg.
-
-with open (manifest_file, 'r') as manifest_data:
-    data = json.load(manifest_data) # read the manifest file as json, because it's json
-    
 for item in data['packages']:
     if item['filename'] != "":
-        file_name = item['filename'] # if the manifest specifies a filename, we use that
-    else: 
-        file_name = (item['url'].replace('${version}', item['version'])).rsplit('/', 1)[-1] # otherwise we guess the filename from the url
-    
-    local_path = "%s/%s" % (local_dir, file_name) # TODO: this variable name is dumb, this is the path to the file we're working with
-     
-    if item['type'] == "pkg-lfs": # if it's a package in LFS
-        dl_url = raw_url + item['url'] # request the pointer from the raw url 
-        json_data = pointer_to_json(dl_url, base64string) # parse the pointer
-        lfsfile_url = get_lfs_url(json_data, base64string, lfs_url) # figure out the actual url
-        print "Downloading:", item['item']
-        downloader(lfsfile_url, local_path) # download package
-        hash_file(local_path, item['hash']) # hash package
-        pkg_install(local_path) # install package
-    
-    if item['type'] == "shell": # if it's a shells cript
-        dl_url = raw_url + item['url'] # assume it's in github so assume it's raw url
-        print "Downloading:", item['item']
-        downloader(dl_url, local_path, base64string) # download it
-        hash_file(local_path, item['hash']) # hash it
-        print "Executing:", item['item']
-        perms = os.stat(local_path) # set permissions to we can execute it
-        os.chmod(local_path, perms.st_mode | stat.S_IEXEC) # see above
-        script_exec(local_path) # execute it
-    
-    if item['type'] == "dmg": # if it's a dmg
-        if item['url'] == '': # TODO: consisitency: there should be URL checks everywhere or do this in the manifest generator
-            print "No URL specified for %s" % item['item']
-            break
-        if item['dmg-installer'] == '' and item['dmg-advanced'] == '': # EITHER dmg-installer or dmg-advanced is required
-           print "No installer or install command specified for %s" % item['item']
-           break
-        dl_url = item['url'].replace('${version}', item['version']) # get the download url from the manifest 
-        print "Downloading:", item['item']
-        downloader(dl_url, local_path) # download dmg
-        hash_file(local_path, item['hash']) # hash dmg
-        print local_path
-        print item['dmg-installer']
-        if item['dmg-installer'] != '': # if it's a regular dmg (pkg or .app) let the installer handle it
-            dmg_install(local_path, item['dmg-installer']) 
-        if item['dmg-advanced'] != '': # if it's fancier than that, defer to the dmg-advanced property
-            dmg_install(local_path, '', item['dmg-advanced'])
+        file_name = item['filename']
+    else:
+        file_name = (
+            item['url'].replace('${version}', item['version'])
+        ).rsplit('/', 1)[-1]
+    # TODO: this variable name is dumb, this is the path to the file we're
+    # working with
+    local_path = "%s/%s" % (local_dir, file_name)
 
-    if item['type'] == "file-lfs": # if it's a file in lfs
+    if item['type'] == "pkg-lfs":
+        dl_url = raw_url + item['url']
+        json_data = pointer_to_json(dl_url, base64string)
+        lfsfile_url = get_lfs_url(json_data, base64string, lfs_url)
+        print "Downloading:", item['item']
+        downloader(lfsfile_url, local_path)
+        hash_file(local_path, item['hash'])
+        pkg_install(local_path)
+
+    if item['type'] == "shell":
+        dl_url = raw_url + item['url']
+        print "Downloading:", item['item']
+        downloader(dl_url, local_path, base64string)
+        hash_file(local_path, item['hash'])
+        print "Executing:", item['item']
+        perms = os.stat(local_path)
+        os.chmod(local_path, perms.st_mode | stat.S_IEXEC)
+        script_exec(local_path)
+
+    if item['type'] == "dmg":
+        # TODO: consisitency: there should be URL checks everywhere or do this
+        # in the manifest generator
         if item['url'] == '':
             print "No URL specified for %s" % item['item']
             break
-        dl_url = raw_url + item['url'] # infer it's raw url
-        json_data = pointer_to_json(dl_url, base64string) # get the pointer from the raw url
-        lfsfile_url = get_lfs_url(json_data, base64string, lfs_url) # get the download url from the pointer
+        if item['dmg-installer'] == '' and item['dmg-advanced'] == '':
+            print "No installer or install command specified for %s" % item['item']
+            break
+        dl_url = item['url'].replace('${version}', item['version'])
         print "Downloading:", item['item']
-        downloader(lfsfile_url, local_path) # download the file
-        hash_file(local_path, item['hash']) # hash the file
+        downloader(dl_url, local_path)
+        hash_file(local_path, item['hash'])
+        print local_path
+        print item['dmg-installer']
+        if item['dmg-installer'] != '':
+            dmg_install(local_path, item['dmg-installer'])
+        if item['dmg-advanced'] != '':
+            dmg_install(local_path, '', item['dmg-advanced'])
+
+    if item['type'] == "file-lfs":
+        if item['url'] == '':
+            print "No URL specified for %s" % item['item']
+            break
+        dl_url = raw_url + item['url']
+        json_data = pointer_to_json(dl_url, base64string)
+        lfsfile_url = get_lfs_url(json_data, base64string, lfs_url)
+        print "Downloading:", item['item']
+        downloader(lfsfile_url, local_path)
+        hash_file(local_path, item['hash'])
+    print "\r"
 
 # delete the temporary directory we've been downloading packages into.
 print "Cleanup: Deleting %s" % local_dir

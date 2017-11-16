@@ -125,7 +125,10 @@ def downloader(url, file_path, password=None):  # TODO: the password=None bit wi
 # arguments
 
 def pkg_install(package):
-    pipes = subprocess.Popen(["sudo", "installer", "-pkg", package, "-target", "/"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    pipes = subprocess.Popen([
+        "sudo",
+        "installer", "-pkg", package, "-target", "/"],
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = pipes.communicate()
     if err:    
         print err.decode('utf-8')
@@ -136,7 +139,9 @@ def pkg_install(package):
 # found in the pipes object (pipes.returncode).
 
 def script_exec(script):
-    pipes = subprocess.Popen(["/bin/bash", "-c", script], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    pipes = subprocess.Popen([
+        "/bin/bash", "-c", script],
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = pipes.communicate()
     if err:    
         print err.decode('utf-8')
@@ -148,7 +153,9 @@ def script_exec(script):
 # execute installer .apps or pkgs buried in the .app bundle, which is annoying.
 
 def dmg_install(filename, installer, command=None):
-    pipes = subprocess.Popen(["hdiutil", "attach", filename], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    pipes = subprocess.Popen([
+        "hdiutil", "attach", filename],
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = pipes.communicate()
     if err: 
         print err.decode('utf-8')
@@ -172,7 +179,9 @@ def dmg_install(filename, installer, command=None):
         shutil.copytree(installer_path, applications_path)
         os.chown(applications_path, uid, gid)
         os.chmod(applications_path, 0o755)
-    pipes = subprocess.Popen(["hdiutil", "detach", volume_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    pipes = subprocess.Popen([
+        "hdiutil", "detach", volume_path],
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = pipes.communicate()
     if err: 
         print err.decode('utf-8')
@@ -212,7 +221,10 @@ def pointer_to_json(dl_url, password):
     content_result.close()
     oid = re.search('(?m)^oid sha256:([a-z0-9]+)$', output)
     size = re.search('(?m)^size ([0-9]+)$', output)
-    json_data = '{"operation": "download", "transfers": ["basic"], "objects": [{"oid": "%s", "size": %s}]}' % (oid.group(1), size.group(1))
+    json_data = (
+        '{"operation": "download", '
+        '"transfers": ["basic"], '
+        '"objects": [{"oid": "%s", "size": %s}]}' % (oid.group(1), size.group(1)))
     return json_data
 
 # the get_lfs_url function makes a request the the lfs API of the github repo,

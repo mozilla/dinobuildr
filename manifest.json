@@ -9,7 +9,17 @@
             "dmg-advanced": "", 
             "hash": "21fcf556dc06f06ff81956901414d71c1a168974567189aadd934ede8b1f6d91", 
             "type": "dmg"
-        }, 
+        },
+       	{
+            "item": "Crashplan PostInstall", 
+            "version": "", 
+            "url": "repo/crashplan-postinstall.sh", 
+            "filename": "", 
+            "dmg-installer": "", 
+            "dmg-advanced": "", 
+            "hash": "", 
+            "type": "shell"
+        },
         {
             "item": "Wallpaper Image", 
             "version": "", 

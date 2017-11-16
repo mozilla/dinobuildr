@@ -37,7 +37,6 @@ raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
 # file and determines the expected file size then reads the incoming file in
 # chunks of 8192 bytes and displays the currently read bytes and percentage
 # complete.
-
 def downloader(url, file_path, password=None):
     if not os.path.exists(local_dir):
         os.makedirs(local_dir)
@@ -56,7 +55,7 @@ def downloader(url, file_path, password=None):
             bytes_read += len(data)
             code.write(data)
             status = r"%10d [%3.2f%%]" % (bytes_read, bytes_read * 100 / file_size)
-            status = status + chr(8)*(len(status)+1)
+            status = status + chr(8) * (len(status) + 1)
             print "\r", status,
             if len(data) < chunk_size:
                 break
@@ -64,10 +63,9 @@ def downloader(url, file_path, password=None):
 
 # the hash_file function accepts two arguments: the filename that you need to
 # determine the SHA256 hash of and the expected hash it returns True or False.
-
 def hash_file(filename):
     hash = hashlib.sha256()
-    with open (filename, 'rb') as file:
+    with open(filename, 'rb') as file:
         for chunk in iter(lambda: file.read(4096), b""):
             hash.update(chunk)
     return hash.hexdigest()
@@ -79,7 +77,6 @@ def hash_file(filename):
 # object is returned that contains a json request for the file that the pointer
 # is associated with.
 # TODO: password should be optional in the prod version.
-
 def pointer_to_json(dl_url, password):
     content_req = urllib2.Request(dl_url)
     content_req.add_header("Authorization", "Basic %s" % password)
@@ -91,11 +88,9 @@ def pointer_to_json(dl_url, password):
     json_data = '{"operation": "download", "transfers": ["basic"], "objects": [{"oid": "%s", "size": %s}]}' % (oid.group(1), size.group(1))
     return json_data
 
-
 # the get_lfs_url function makes a request the the lfs API of the github repo,
 # receives a JSON response then gets the download URL from the JSON response
 # and returns it.
-
 def get_lfs_url(json_input, password, lfs_url):
     req = urllib2.Request(lfs_url, json_input)
     req.add_header("Authorization", "Basic %s" % password)
@@ -110,47 +105,48 @@ def get_lfs_url(json_input, password, lfs_url):
 
 # where the action happens - for more details, see config.py. this section
 # should be identical, save for the part the executes stuff.
-
 if os.path.isfile('manifest.json'):
-    user = raw_input("Enter github username: ").replace('\n','') # TODO: we're doing this because this is a private repo
-    password = getpass.getpass("Enter github password or PAT: ") # TODO: see above
-    base64string = base64.encodestring('%s:%s' % (user, password)).replace('\n','')
+    user = raw_input("Enter github username: ").replace('\n', '')  # TODO: we're doing this because this is a private repo
+    password = getpass.getpass("Enter github password or PAT: ")  # TODO: see above
+    base64string = base64.encodestring('%s:%s' % (user, password)).replace('\n', '')
 
-    with open ('manifest.json', 'r') as outfile:
+    with open('manifest.json', 'r') as outfile:
             manifest = json.load(outfile, object_pairs_hook=OrderedDict)
             for item in manifest['packages']:
                 if item['filename'] != "":
                     file_name = item['filename']
-                else: 
-                    file_name = (item['url'].replace('${version}', item['version'])).rsplit('/', 1)[-1]
-                
+                else:
+                    file_name = (
+                        item['url'].replace('${version}', item['version'])
+                        ).rsplit('/', 1)[-1]
+
                 local_path = "%s/%s" % (local_dir, file_name)
-                
-                if item['type'] == "pkg-lfs": 
+
+                if item['type'] == "pkg-lfs":
                     dl_url = raw_url + item['url']
                     json_data = pointer_to_json(dl_url, base64string)
                     lfsfile_url = get_lfs_url(json_data, base64string, lfs_url)
                     print "Downloading:", item['item']
                     downloader(lfsfile_url, local_path)
-                    item['hash'] =  hash_file(local_path)
-                
+                    item['hash'] = hash_file(local_path)
+
                 if item['type'] == "shell":
                     dl_url = raw_url + item['url']
                     print "Downloading:", item['item']
                     downloader(dl_url, local_path, base64string)
                     item['hash'] = hash_file(local_path)
-                
+
                 if item['type'] == "dmg":
                     if item['url'] == '':
                         print "No URL specified for %s" % item['item']
                         break
                     if item['dmg-installer'] == '' and item['dmg-advanced'] == '':
-                       print "No installer or install command specified for %s" % item['item']
-                       break
+                        print "No installer or install command specified for %s" % item['item']
+                        break
                     dl_url = item['url'].replace('${version}', item['version'])
                     print "Downloading:", item['item']
                     downloader(dl_url, local_path)
-                    item['hash'] =  hash_file(local_path)
+                    item['hash'] = hash_file(local_path)
 
                 if item['type'] == "file-lfs":
                     if item['url'] == '':
@@ -161,35 +157,35 @@ if os.path.isfile('manifest.json'):
                     lfsfile_url = get_lfs_url(json_data, base64string, lfs_url)
                     print "Downloading:", item['item']
                     downloader(lfsfile_url, local_path)
-                    item['hash'] =  hash_file(local_path)
+                    item['hash'] = hash_file(local_path)
     outfile.close()
-    
+
 else:
     print "Creating a manifest.json..."
-    
+
     manifest = {}
     manifest['packages'] = []
- 
+
     if os.path.isfile("order.txt"):
-        with open ('order.txt', 'r') as orderfile:
+        with open('order.txt', 'r') as orderfile:
             for item in orderfile:
                 item_name = item.rstrip()
                 manifest['packages'].append(OrderedDict([
                     ['item', item_name],
                     ['version', ""],
-                    ['url' , ""],
+                    ['url', ""],
                     ['filename', ""],
-                    ['dmg-installer' , ""],
+                    ['dmg-installer', ""],
                     ['dmg-advanced', ""],
                     ['hash', ""],
-                    ['type' , ""]
-                    ]))
+                    ['type', ""]
+                ]))
         orderfile.close()
-        
-    else: 
+
+    else:
         print "order.txt file required to generate a manifest."
 
-with open ('manifest.json', 'w') as outfile:
+with open('manifest.json', 'w') as outfile:
     json.dump(manifest, outfile, indent=4, sort_keys=False)
 outfile.close()
 

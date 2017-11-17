@@ -11,6 +11,16 @@
             "type": "dmg"
         }, 
         {
+            "item": "Crashplan PostInstall", 
+            "version": "", 
+            "url": "repo/crashplan-postinstall.sh", 
+            "filename": "", 
+            "dmg-installer": "", 
+            "dmg-advanced": "", 
+            "hash": "02a37856ef6da2728824b94849e29828502249c64f1202b73d600e4822302a10", 
+            "type": "shell"
+        }, 
+        {
             "item": "Wallpaper Image", 
             "version": "", 
             "url": "repo/dino-wallpaper.png", 

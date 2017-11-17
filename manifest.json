@@ -89,15 +89,15 @@
             "dmg-advanced": "", 
             "hash": "7e8224d06ff1d44517d115ff9425df4d5684ea63446662e6e28e11e4f981243c", 
             "type": "shell"
-        },
-	{
+        }, 
+        {
             "item": "MacOS Update", 
             "version": "", 
             "url": "repo/update-macos.sh", 
             "filename": "", 
             "dmg-installer": "", 
             "dmg-advanced": "", 
-            "hash": "f01af4f3faf33fb494d396fdd46aa5ba1022304f560f8b3be9b39671b8d1d3f8", 
+            "hash": "7e8622c0cb51def6916c32788cd46ce4cfa59d59149da1b6f788bfd81197d510", 
             "type": "shell"
         }
     ]

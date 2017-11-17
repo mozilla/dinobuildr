@@ -143,6 +143,7 @@ def script_exec(script):
         "/bin/bash", "-c", script],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = pipes.communicate()
+    print out.decode('utf-8')
     if err:
         print err.decode('utf-8')
 
@@ -287,6 +288,7 @@ for item in data['packages']:
         downloader(lfsfile_url, local_path)
         hash_file(local_path, item['hash'])
         pkg_install(local_path)
+        print "\r"
 
     if item['type'] == "shell":
         dl_url = raw_url + item['url']
@@ -317,6 +319,7 @@ for item in data['packages']:
             dmg_install(local_path, item['dmg-installer'])
         if item['dmg-advanced'] != '':
             dmg_install(local_path, '', item['dmg-advanced'])
+        print "\r"
 
     if item['type'] == "file-lfs":
         if item['url'] == '':
@@ -328,7 +331,7 @@ for item in data['packages']:
         print "Downloading:", item['item']
         downloader(lfsfile_url, local_path)
         hash_file(local_path, item['hash'])
-    print "\r"
+        print "\r"
 
 # delete the temporary directory we've been downloading packages into.
 print "Cleanup: Deleting %s" % local_dir

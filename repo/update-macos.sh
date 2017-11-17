@@ -6,4 +6,5 @@
 
 # this script gets software updates from Apple. As you can see it's real complicated.  
 
-softwareupdate --install --all
+echo "Checking for MacOS updates, this might take a while..."
+softwareupdate --install --all 

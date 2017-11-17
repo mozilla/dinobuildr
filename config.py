@@ -62,7 +62,7 @@ gid = grp.getgrnam("staff").gr_gid
 lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo)
 raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
 manifest_url = "https://raw.githubusercontent.com/%s/%s/%s/manifest.json" % (org, repo, branch)
-manifest_hash = "213241a24356485c35acf6ef989f5f137ee4d9918ce6eaaaafd5a14d1fc6ff5b"
+manifest_hash = "2ce27cc315208538127c2a2e6f80c74617e595cd0196753f3dc5c73be6673e13"
 manifest_file = "%s/manifest.json" % local_dir
 
 # authenticate to github since this is a private repo. base64string is really

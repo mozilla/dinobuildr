@@ -141,11 +141,12 @@ def pkg_install(package):
 def script_exec(script):
     pipes = subprocess.Popen([
         "/bin/bash", "-c", script],
-        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    out, err = pipes.communicate()
-    print out.decode('utf-8')
-    if err:
-        print err.decode('utf-8')
+        stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    for line in iter(pipes.stdout.readline, b''):
+       print("*** " + line.rstrip())
+    #err = pipes.communicate()
+    #if err:
+    #    print err.decode('utf-8')
 
 
 # the dmg installer is by far the most complicated function, because DMGs are

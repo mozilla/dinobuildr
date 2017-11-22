@@ -62,7 +62,7 @@ gid = grp.getgrnam("staff").gr_gid
 lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo)
 raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
 manifest_url = "https://raw.githubusercontent.com/%s/%s/%s/manifest.json" % (org, repo, branch)
-manifest_hash = "9bb868dad0972fcb86c1c9594f7ac74a20051cc75e06516b504624e62e98cd30"
+manifest_hash = "dfbb241bb983b201c01033f116b160c7e2c0b00c17ec0d6918f2b7637a99f50d"
 manifest_file = "%s/manifest.json" % local_dir
 
 # authenticate to github since this is a private repo. base64string is really
@@ -141,11 +141,9 @@ def pkg_install(package):
 def script_exec(script):
     pipes = subprocess.Popen([
         "/bin/bash", "-c", script],
-        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    out, err = pipes.communicate()
-    print out.decode('utf-8')
-    if err:
-        print err.decode('utf-8')
+        stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    for line in iter(pipes.stdout.readline, b''):
+       print("*** " + line.rstrip())
 
 
 # the dmg installer is by far the most complicated function, because DMGs are

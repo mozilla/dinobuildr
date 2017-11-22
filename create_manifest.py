@@ -7,9 +7,7 @@
 import os
 import hashlib
 import json
-import getpass
 import urllib2
-import base64
 import re
 from collections import OrderedDict
 
@@ -120,7 +118,7 @@ if os.path.isfile('manifest.json'):
                     dl_url = raw_url + item['url']
                     json_data = pointer_to_json(dl_url)
                     lfsfile_url = get_lfs_url(json_data, lfs_url)
-                    
+
                 if item['type'] == "shell":
                     dl_url = raw_url + item['url']
                 if item['type'] == "dmg":
@@ -136,9 +134,9 @@ if os.path.isfile('manifest.json'):
                         print "No URL specified for %s" % item['item']
                         break
                     dl_url = raw_url + item['url']
-                    json_data = pointer_to_json(dl_url
+                    json_data = pointer_to_json(dl_url)
                     lfsfile_url = get_lfs_url(json_data, lfs_url)
-   
+
                 print "Downloading:", item['item']
                 downloader(lfsfile_url, local_path)
                 item['hash'] = hash_file(local_path)

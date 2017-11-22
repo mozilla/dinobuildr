@@ -22,7 +22,7 @@ from collections import OrderedDict
 local_dir = 'build-temp'
 org = "mozilla"
 repo = "dinobuildr"
-branch = "master"
+branch = "feat-removeauth"
 
 # lfs_url - the generic LFS url structure that github uses
 # raw_url -  the generic RAW url structure that github uses
@@ -37,12 +37,10 @@ raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
 # file and determines the expected file size then reads the incoming file in
 # chunks of 8192 bytes and displays the currently read bytes and percentage
 # complete.
-def downloader(url, file_path, password=None):
+def downloader(url, file_path):
     if not os.path.exists(local_dir):
         os.makedirs(local_dir)
     download_req = urllib2.Request(url)
-    if password:
-        download_req.add_header("Authorization", "Basic %s" % password)
     download = urllib2.urlopen(download_req)
     meta = download.info()
     file_size = int(meta.getheaders("Content-Length")[0])
@@ -61,8 +59,7 @@ def downloader(url, file_path, password=None):
                 break
 
 
-# the hash_file function accepts two arguments: the filename that you need to
-# determine the SHA256 hash of and the expected hash it returns True or False.
+# this function hashes a file and returns the hash value
 def hash_file(filename):
     hash = hashlib.sha256()
     with open(filename, 'rb') as file:
@@ -72,14 +69,11 @@ def hash_file(filename):
 
 
 # the pointer_to_json function accepts the url of the file in the github repo
-# and the password to the repo. the pointer file is read from github then
-# parsed and the "oid sha256" and "size" are extracted from the pointer. an
-# object is returned that contains a json request for the file that the pointer
-# is associated with.
-# TODO: password should be optional in the prod version.
-def pointer_to_json(dl_url, password):
+# the pointer file is read from github then parsed and the "oid sha256" and
+# "size" are extracted from the pointer. an object is returned that contains a
+# json request for the file that the pointer is associated with.
+def pointer_to_json(dl_url):
     content_req = urllib2.Request(dl_url)
-    content_req.add_header("Authorization", "Basic %s" % password)
     content_result = urllib2.urlopen(content_req)
     output = content_result.read()
     content_result.close()
@@ -95,9 +89,8 @@ def pointer_to_json(dl_url, password):
 # the get_lfs_url function makes a request the the lfs API of the github repo,
 # receives a JSON response then gets the download URL from the JSON response
 # and returns it.
-def get_lfs_url(json_input, password, lfs_url):
+def get_lfs_url(json_input, lfs_url):
     req = urllib2.Request(lfs_url, json_input)
-    req.add_header("Authorization", "Basic %s" % password)
     req.add_header("Accept", "application/vnd.git-lfs+json")
     req.add_header("Content-Type", "application/vnd.git-lfs+json")
     result = urllib2.urlopen(req)
@@ -110,10 +103,6 @@ def get_lfs_url(json_input, password, lfs_url):
 # where the action happens - for more details, see config.py. this section
 # should be identical, save for the part the executes stuff.
 if os.path.isfile('manifest.json'):
-    # TODO: we're doing this because this is a private repo
-    user = raw_input("Enter github username: ").replace('\n', '')
-    password = getpass.getpass("Enter github password or PAT: ")
-    base64string = base64.encodestring('%s:%s' % (user, password)).replace('\n', '')
 
     with open('manifest.json', 'r') as outfile:
             manifest = json.load(outfile, object_pairs_hook=OrderedDict)
@@ -129,18 +118,11 @@ if os.path.isfile('manifest.json'):
 
                 if item['type'] == "pkg-lfs":
                     dl_url = raw_url + item['url']
-                    json_data = pointer_to_json(dl_url, base64string)
-                    lfsfile_url = get_lfs_url(json_data, base64string, lfs_url)
-                    print "Downloading:", item['item']
-                    downloader(lfsfile_url, local_path)
-                    item['hash'] = hash_file(local_path)
-
+                    json_data = pointer_to_json(dl_url)
+                    lfsfile_url = get_lfs_url(json_data, lfs_url)
+                    
                 if item['type'] == "shell":
                     dl_url = raw_url + item['url']
-                    print "Downloading:", item['item']
-                    downloader(dl_url, local_path, base64string)
-                    item['hash'] = hash_file(local_path)
-
                 if item['type'] == "dmg":
                     if item['url'] == '':
                         print "No URL specified for %s" % item['item']
@@ -149,21 +131,17 @@ if os.path.isfile('manifest.json'):
                         print "No installer or install command specified for %s" % item['item']
                         break
                     dl_url = item['url'].replace('${version}', item['version'])
-                    print "Downloading:", item['item']
-                    downloader(dl_url, local_path)
-                    item['hash'] = hash_file(local_path)
-
                 if item['type'] == "file-lfs":
                     if item['url'] == '':
                         print "No URL specified for %s" % item['item']
                         break
                     dl_url = raw_url + item['url']
-                    json_data = pointer_to_json(dl_url, base64string)
-                    lfsfile_url = get_lfs_url(json_data, base64string, lfs_url)
-                    print "Downloading:", item['item']
-                    downloader(lfsfile_url, local_path)
-                    item['hash'] = hash_file(local_path)
-    outfile.close()
+                    json_data = pointer_to_json(dl_url
+                    lfsfile_url = get_lfs_url(json_data, lfs_url)
+   
+                print "Downloading:", item['item']
+                downloader(lfsfile_url, local_path)
+                item['hash'] = hash_file(local_path)
 
 else:
     print "Creating a manifest.json..."

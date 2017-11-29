@@ -41,6 +41,7 @@ def downloader(url, file_path):
     download_req = urllib2.Request(url)
     download = urllib2.urlopen(download_req)
     meta = download.info()
+    print meta
     file_size = int(meta.getheaders("Content-Length")[0])
     print "%s is %s bytes." % (file_path, file_size)
     with open(file_path, 'wb') as code:
@@ -81,6 +82,7 @@ def pointer_to_json(dl_url):
         '{"operation": "download", '
         '"transfers": ["basic"], '
         '"objects": [{"oid": "%s", "size": %s}]}' % (oid.group(1), size.group(1)))
+    print json_data
     return json_data
 
 
@@ -93,6 +95,7 @@ def get_lfs_url(json_input, lfs_url):
     req.add_header("Content-Type", "application/vnd.git-lfs+json")
     result = urllib2.urlopen(req)
     results_python = json.load(result)
+    print results_python
     file_url = results_python['objects'][0]['actions']['download']['href']
     result.close()
     return file_url
@@ -115,8 +118,8 @@ if os.path.isfile('manifest.json'):
                 local_path = "%s/%s" % (local_dir, file_name)
 
                 if item['type'] == "pkg-lfs":
-                    dl_url = raw_url + item['url']
-                    json_data = pointer_to_json(dl_url)
+                    pointer_url = raw_url + item['url']
+                    json_data = pointer_to_json(pointer_url)
                     lfsfile_url = get_lfs_url(json_data, lfs_url)
 
                 if item['type'] == "shell":
@@ -133,12 +136,12 @@ if os.path.isfile('manifest.json'):
                     if item['url'] == '':
                         print "No URL specified for %s" % item['item']
                         break
-                    dl_url = raw_url + item['url']
-                    json_data = pointer_to_json(dl_url)
+                    pointer_url = raw_url + item['url']
+                    json_data = pointer_to_json(pointer_url)
                     lfsfile_url = get_lfs_url(json_data, lfs_url)
 
                 print "Downloading:", item['item']
-                downloader(lfsfile_url, local_path)
+                downloader(dl_url, local_path)
                 item['hash'] = hash_file(local_path)
 
 else:

@@ -4,6 +4,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+
 import os
 import hashlib
 import json
@@ -38,8 +39,7 @@ raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
 def downloader(url, file_path):
     if not os.path.exists(local_dir):
         os.makedirs(local_dir)
-    download_req = urllib2.Request(url)
-    download = urllib2.urlopen(download_req)
+    download = urllib2.urlopen(url)
     meta = download.info()
     print meta
     file_size = int(meta.getheaders("Content-Length")[0])
@@ -56,7 +56,6 @@ def downloader(url, file_path):
             print "\r", status,
             if len(data) < chunk_size:
                 break
-
 
 # this function hashes a file and returns the hash value
 def hash_file(filename):
@@ -76,21 +75,25 @@ def pointer_to_json(dl_url):
     content_result = urllib2.urlopen(content_req)
     output = content_result.read()
     content_result.close()
-    oid = re.search('(?m)^oid sha256:([a-z0-9]+)$', output)
-    size = re.search('(?m)^size ([0-9]+)$', output)
+    oid = (re.search('(?m)^oid sha256:([a-z0-9]+)$', output)).group(1)
+    size = (re.search('(?m)^size ([0-9]+)$', output)).group(1)
     json_data = (
         '{"operation": "download", '
         '"transfers": ["basic"], '
-        '"objects": [{"oid": "%s", "size": %s}]}' % (oid.group(1), size.group(1)))
-    print json_data
-    return json_data
+        '"objects": [{"oid": "%s", "size": %s}]}' % (oid, size))
+
+    return { 'json_data':json_data, 'oid':oid, 'size':size }
 
 
 # the get_lfs_url function makes a request the the lfs API of the github repo,
 # receives a JSON response then gets the download URL from the JSON response
 # and returns it.
 def get_lfs_url(json_input, lfs_url):
+    #dummyheader = "thisisadummystring"
+    #encoded_header = base64.encodestring(dummyheader).replace('\n', '')
+    #print encoded_header
     req = urllib2.Request(lfs_url, json_input)
+    #req.add_header("Authorization", "Basic %s" % encoded_header) 
     req.add_header("Accept", "application/vnd.git-lfs+json")
     req.add_header("Content-Type", "application/vnd.git-lfs+json")
     result = urllib2.urlopen(req)
@@ -98,6 +101,7 @@ def get_lfs_url(json_input, lfs_url):
     print results_python
     file_url = results_python['objects'][0]['actions']['download']['href']
     result.close()
+    print file_url
     return file_url
 
 
@@ -116,11 +120,15 @@ if os.path.isfile('manifest.json'):
                     ).rsplit('/', 1)[-1]
 
                 local_path = "%s/%s" % (local_dir, file_name)
+                size = None
 
                 if item['type'] == "pkg-lfs":
                     pointer_url = raw_url + item['url']
-                    json_data = pointer_to_json(pointer_url)
-                    lfsfile_url = get_lfs_url(json_data, lfs_url)
+                    lfs_return = pointer_to_json(pointer_url)
+                    lfsfile_url = get_lfs_url(lfs_return['json_data'], lfs_url)
+                    size = int(lfs_return['size'])
+                    print lfs_return['oid']
+                    print lfs_return['size']
 
                 if item['type'] == "shell":
                     dl_url = raw_url + item['url']
@@ -137,8 +145,11 @@ if os.path.isfile('manifest.json'):
                         print "No URL specified for %s" % item['item']
                         break
                     pointer_url = raw_url + item['url']
-                    json_data = pointer_to_json(pointer_url)
-                    lfsfile_url = get_lfs_url(json_data, lfs_url)
+                    lfs_return = pointer_to_json(pointer_url)
+                    lfsfile_url = get_lfs_url(lfs_return['json_data'], lfs_url)
+                    size = int(lfs_return['size'])
+                    print lfs_return['oid']
+                    print lfs_return['size']
 
                 print "Downloading:", item['item']
                 downloader(dl_url, local_path)

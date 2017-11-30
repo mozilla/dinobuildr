@@ -56,6 +56,7 @@ def downloader(url, file_path):
             if len(data) < chunk_size:
                 break
 
+
 # this function hashes a file and returns the hash value
 def hash_file(filename):
     hash = hashlib.sha256()
@@ -81,7 +82,7 @@ def pointer_to_json(dl_url):
         '"transfers": ["basic"], '
         '"objects": [{"oid": "%s", "size": %s}]}' % (oid, size))
 
-    return json_data 
+    return json_data
 
 
 # the get_lfs_url function makes a request the the lfs API of the github repo,

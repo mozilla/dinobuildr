@@ -38,7 +38,7 @@ global gid
 local_dir = "/var/tmp/dinobuildr"
 org = "mozilla"
 repo = "dinobuildr"
-branch = "master"
+branch = "feat-removeauth"
 script_path = os.path.realpath(__file__)
 
 # os.environ - an environment variable for the builder's local directory to be
@@ -62,7 +62,7 @@ gid = grp.getgrnam("staff").gr_gid
 lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo)
 raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
 manifest_url = "https://raw.githubusercontent.com/%s/%s/%s/manifest.json" % (org, repo, branch)
-manifest_hash = "dfbb241bb983b201c01033f116b160c7e2c0b00c17ec0d6918f2b7637a99f50d"
+manifest_hash = "f17bf69a548bb427824f071fce958905c35988552a086ebc87889bf6dfc70007"
 manifest_file = "%s/manifest.json" % local_dir
 
 # authenticate to github since this is a private repo. base64string is really

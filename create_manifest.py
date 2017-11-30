@@ -41,7 +41,6 @@ def downloader(url, file_path):
         os.makedirs(local_dir)
     download = urllib2.urlopen(url)
     meta = download.info()
-    print meta
     file_size = int(meta.getheaders("Content-Length")[0])
     print "%s is %s bytes." % (file_path, file_size)
     with open(file_path, 'wb') as code:
@@ -82,26 +81,20 @@ def pointer_to_json(dl_url):
         '"transfers": ["basic"], '
         '"objects": [{"oid": "%s", "size": %s}]}' % (oid, size))
 
-    return { 'json_data':json_data, 'oid':oid, 'size':size }
+    return json_data 
 
 
 # the get_lfs_url function makes a request the the lfs API of the github repo,
 # receives a JSON response then gets the download URL from the JSON response
 # and returns it.
 def get_lfs_url(json_input, lfs_url):
-    #dummyheader = "thisisadummystring"
-    #encoded_header = base64.encodestring(dummyheader).replace('\n', '')
-    #print encoded_header
     req = urllib2.Request(lfs_url, json_input)
-    #req.add_header("Authorization", "Basic %s" % encoded_header) 
     req.add_header("Accept", "application/vnd.git-lfs+json")
     req.add_header("Content-Type", "application/vnd.git-lfs+json")
     result = urllib2.urlopen(req)
     results_python = json.load(result)
-    print results_python
     file_url = results_python['objects'][0]['actions']['download']['href']
     result.close()
-    print file_url
     return file_url
 
 
@@ -120,15 +113,11 @@ if os.path.isfile('manifest.json'):
                     ).rsplit('/', 1)[-1]
 
                 local_path = "%s/%s" % (local_dir, file_name)
-                size = None
 
                 if item['type'] == "pkg-lfs":
                     pointer_url = raw_url + item['url']
                     lfs_return = pointer_to_json(pointer_url)
-                    lfsfile_url = get_lfs_url(lfs_return['json_data'], lfs_url)
-                    size = int(lfs_return['size'])
-                    print lfs_return['oid']
-                    print lfs_return['size']
+                    dl_url = get_lfs_url(lfs_return, lfs_url)
 
                 if item['type'] == "shell":
                     dl_url = raw_url + item['url']
@@ -146,10 +135,7 @@ if os.path.isfile('manifest.json'):
                         break
                     pointer_url = raw_url + item['url']
                     lfs_return = pointer_to_json(pointer_url)
-                    lfsfile_url = get_lfs_url(lfs_return['json_data'], lfs_url)
-                    size = int(lfs_return['size'])
-                    print lfs_return['oid']
-                    print lfs_return['size']
+                    dl_url = get_lfs_url(lfs_return, lfs_url)
 
                 print "Downloading:", item['item']
                 downloader(dl_url, local_path)

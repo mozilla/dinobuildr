@@ -32,12 +32,10 @@ global gid
 # repo - the rep that is hosting the build
 # branch - the branch that we are using. useful to change this if developing /
 # testing
-# script_path -  the path that the script is executed from
 local_dir = "/var/tmp/dinobuildr"
 org = "mozilla"
 repo = "dinobuildr"
 branch = "master"
-script_path = os.path.realpath(__file__)
 
 # os.environ - an environment variable for the builder's local directory to be
 # passed on to shells scripts

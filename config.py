@@ -9,9 +9,7 @@ import json
 import os
 import hashlib
 import urllib2
-import base64
 import re
-import getpass
 import stat
 import shutil
 import shlex
@@ -128,7 +126,7 @@ def script_exec(script):
         "/bin/bash", "-c", script],
         stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     for line in iter(pipes.stdout.readline, b''):
-       print("*** " + line.rstrip())
+        print("*** " + line.rstrip())
 
 
 # the dmg installer is by far the most complicated function, because DMGs are

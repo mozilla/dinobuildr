@@ -43,7 +43,7 @@
         {
             "item": "Firefox Profile", 
             "version": "", 
-            "url": "repo/Firefox_Nightly_Profile_58.0a1_10272017.pkg", 
+            "url": "repo/firefox-profile.pkg", 
             "filename": "", 
             "dmg-installer": "", 
             "dmg-advanced": "", 

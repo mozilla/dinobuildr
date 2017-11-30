@@ -9,9 +9,7 @@ import json
 import os
 import hashlib
 import urllib2
-import base64
 import re
-import getpass
 import stat
 import shutil
 import shlex
@@ -62,24 +60,14 @@ gid = grp.getgrnam("staff").gr_gid
 lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo)
 raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
 manifest_url = "https://raw.githubusercontent.com/%s/%s/%s/manifest.json" % (org, repo, branch)
-manifest_hash = "dfbb241bb983b201c01033f116b160c7e2c0b00c17ec0d6918f2b7637a99f50d"
+manifest_hash = "f17bf69a548bb427824f071fce958905c35988552a086ebc87889bf6dfc70007"
 manifest_file = "%s/manifest.json" % local_dir
 
-# authenticate to github since this is a private repo. base64string is really
-# just a variable that stores the username and password in this format:
-# username:password
-# TODO: remove this before moving to the production repo (which will be public).
+# check to see if user ran with sudo , since it's required
 
 if os.getuid() != 0:
     print "This script requires root to run, please try again with sudo."
     exit(1)
-
-# user - we get the github username from the user
-# password - we securely get the github password or PAT from the user
-# base64string - encode in base64 and store as a variable
-user = raw_input("Enter github username: ").replace('\n', '')
-password = getpass.getpass("Enter github password or PAT: ")
-base64string = base64.encodestring('%s:%s' % (user, password)).replace('\n', '')
 
 # --- section 2: functions on functions on functions -------------------- #
 # in this section we define all the important functions we will use.
@@ -94,15 +82,10 @@ base64string = base64.encodestring('%s:%s' % (user, password)).replace('\n', '')
 # chunks of 8192 bytes and displays the currently read bytes and percentage
 # complete
 
-# TODO: the password=None bit will not be a thing in production
-def downloader(url, file_path, password=None):
+def downloader(url, file_path):
     if not os.path.exists(local_dir):
         os.makedirs(local_dir)
-    download_req = urllib2.Request(url)
-    # TODO: not a thing in production since the repo will not be private
-    if password:
-        download_req.add_header("Authorization", "Basic %s" % password)
-    download = urllib2.urlopen(download_req)
+    download = urllib2.urlopen(url)
     meta = download.info()
     file_size = int(meta.getheaders("Content-Length")[0])
     print "%s is %s bytes." % (file_path, file_size)
@@ -143,7 +126,7 @@ def script_exec(script):
         "/bin/bash", "-c", script],
         stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     for line in iter(pipes.stdout.readline, b''):
-       print("*** " + line.rstrip())
+        print("*** " + line.rstrip())
 
 
 # the dmg installer is by far the most complicated function, because DMGs are
@@ -210,11 +193,8 @@ def hash_file(filename, man_hash):
 # parsed and the "oid sha256" and "size" are extracted from the pointer. an
 # object is returned that contains a json request for the file that the pointer
 # is associated with.
-# TODO: password should be optional in the prod version.
-def pointer_to_json(dl_url, password):
-    content_req = urllib2.Request(dl_url)
-    content_req.add_header("Authorization", "Basic %s" % password)
-    content_result = urllib2.urlopen(content_req)
+def pointer_to_json(dl_url):
+    content_result = urllib2.urlopen(dl_url)
     output = content_result.read()
     content_result.close()
     oid = re.search('(?m)^oid sha256:([a-z0-9]+)$', output)
@@ -229,9 +209,8 @@ def pointer_to_json(dl_url, password):
 # the get_lfs_url function makes a request the the lfs API of the github repo,
 # receives a JSON response. then gets the download URL from the JSON response
 # and returns it.
-def get_lfs_url(json_input, password, lfs_url):
+def get_lfs_url(json_input, lfs_url):
     req = urllib2.Request(lfs_url, json_input)
-    req.add_header("Authorization", "Basic %s" % password)
     req.add_header("Accept", "application/vnd.git-lfs+json")
     req.add_header("Content-Type", "application/vnd.git-lfs+json")
     result = urllib2.urlopen(req)
@@ -250,7 +229,7 @@ if not os.path.exists(local_dir):
     os.makedirs(local_dir)
 
 # download the manifest.json file.
-downloader(manifest_url, manifest_file, base64string)
+downloader(manifest_url, manifest_file)
 
 # check the hash of the incoming manifest file and bail if the hash doesn't match.
 hash_file(manifest_file, manifest_hash)
@@ -280,8 +259,8 @@ for item in data['packages']:
 
     if item['type'] == "pkg-lfs":
         dl_url = raw_url + item['url']
-        json_data = pointer_to_json(dl_url, base64string)
-        lfsfile_url = get_lfs_url(json_data, base64string, lfs_url)
+        json_data = pointer_to_json(dl_url)
+        lfsfile_url = get_lfs_url(json_data, lfs_url)
         print "Downloading:", item['item']
         downloader(lfsfile_url, local_path)
         hash_file(local_path, item['hash'])
@@ -291,7 +270,7 @@ for item in data['packages']:
     if item['type'] == "shell":
         dl_url = raw_url + item['url']
         print "Downloading:", item['item']
-        downloader(dl_url, local_path, base64string)
+        downloader(dl_url, local_path)
         hash_file(local_path, item['hash'])
         print "Executing:", item['item']
         perms = os.stat(local_path)
@@ -324,8 +303,8 @@ for item in data['packages']:
             print "No URL specified for %s" % item['item']
             break
         dl_url = raw_url + item['url']
-        json_data = pointer_to_json(dl_url, base64string)
-        lfsfile_url = get_lfs_url(json_data, base64string, lfs_url)
+        json_data = pointer_to_json(dl_url)
+        lfsfile_url = get_lfs_url(json_data, lfs_url)
         print "Downloading:", item['item']
         downloader(lfsfile_url, local_path)
         hash_file(local_path, item['hash'])

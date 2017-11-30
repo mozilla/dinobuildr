@@ -36,7 +36,7 @@ global gid
 local_dir = "/var/tmp/dinobuildr"
 org = "mozilla"
 repo = "dinobuildr"
-branch = "feat-removeauth"
+branch = "master"
 script_path = os.path.realpath(__file__)
 
 # os.environ - an environment variable for the builder's local directory to be

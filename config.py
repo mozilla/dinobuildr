@@ -125,7 +125,10 @@ def script_exec(script):
         stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     for line in iter(pipes.stdout.readline, b''):
         print("*** " + line.rstrip())
-    print pipes.returncode
+    pipes.communicate()
+    if pipes.returncode == 1:
+        exit(1)
+
 
 # the dmg installer is by far the most complicated function, because DMGs are
 # more complicated than a .app inside we take the appropriate action. we also

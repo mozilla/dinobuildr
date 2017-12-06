@@ -10,4 +10,4 @@
 # installer and we're trying to avoid doing that. 
 
 echo "Waiting for Crashplan to launch and then quitting it..."
-osascript -e 'quit app "CrashPlan"' 
+killall -TERM CrashPlan 

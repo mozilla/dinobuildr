@@ -1,6 +1,16 @@
 {
     "packages": [
         {
+            "item": "MacOS Version Check", 
+            "version": "", 
+            "url": "repo/macos-versioncheck.sh", 
+            "filename": "", 
+            "dmg-installer": "", 
+            "dmg-advanced": "", 
+            "hash": "a2956c5c20dc410da766572aebcc38c2121ccf596cd24b1915dd6cd46f6f17b1", 
+            "type": "shell"
+        }, 
+        {
             "item": "Crashplan", 
             "version": "4.5.2", 
             "url": "https://download.code42.com/installs/mac/install/CrashPlanPROe/CrashPlanPROe_${version}_Mac.dmg", 

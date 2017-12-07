@@ -33,9 +33,9 @@ global gid
 # branch - the branch that we are using. useful to change this if developing /
 # testing
 local_dir = "/var/tmp/dinobuildr"
-org = "mozilla"
+org = "ctbfourone"
 repo = "dinobuildr"
-branch = "master"
+branch = "ctbird"
 
 # os.environ - an environment variable for the builder's local directory to be
 # passed on to shells scripts
@@ -58,7 +58,7 @@ gid = grp.getgrnam("staff").gr_gid
 lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo)
 raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
 manifest_url = "https://raw.githubusercontent.com/%s/%s/%s/manifest.json" % (org, repo, branch)
-manifest_hash = "d04c38a150cf57500885a0a0ddaa89a2e19c9f9478956640d48324a8277bf1c3"
+manifest_hash = "8bb286148fd38d819a752b0ba91fb7bdc6ed3d29c018893615f62f750388b8ec"
 manifest_file = "%s/manifest.json" % local_dir
 
 # check to see if user ran with sudo , since it's required

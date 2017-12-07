@@ -19,9 +19,9 @@ from collections import OrderedDict
 # branch - the branch that we are using. useful to change this if developing /
 # testing
 local_dir = 'build-temp'
-org = "mozilla"
+org = "ctbfourone"
 repo = "dinobuildr"
-branch = "master"
+branch = "ctbird"
 
 # lfs_url - the generic LFS url structure that github uses
 # raw_url -  the generic RAW url structure that github uses

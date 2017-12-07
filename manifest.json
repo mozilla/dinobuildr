@@ -1,7 +1,7 @@
 {
     "packages": [
         {
-            "item": "MacOS Version Check", 
+            "item": "macOS Version Check", 
             "version": "", 
             "url": "repo/macos-versioncheck.sh", 
             "filename": "", 
@@ -101,7 +101,7 @@
             "type": "shell"
         }, 
         {
-            "item": "MacOS Update", 
+            "item": "macOS Software Update", 
             "version": "", 
             "url": "repo/update-macos.sh", 
             "filename": "", 

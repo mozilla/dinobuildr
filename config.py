@@ -33,9 +33,9 @@ global gid
 # branch - the branch that we are using. useful to change this if developing /
 # testing
 local_dir = "/var/tmp/dinobuildr"
-org = "ctbfourone"
+org = "mozilla"
 repo = "dinobuildr"
-branch = "ctbird"
+branch = "ctbfourone-ctbird"
 
 # os.environ - an environment variable for the builder's local directory to be
 # passed on to shells scripts

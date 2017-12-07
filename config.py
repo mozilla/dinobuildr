@@ -43,7 +43,7 @@ branch = "master"
 # both methods.
 # uid - the UID of the user running the script
 # gid - the GID of the group "staff" which is the default primary group for all
-# users in MacOS
+# users in macOS
 os.environ["DINOPATH"] = local_dir
 current_user = (SCDynamicStoreCopyConsoleUser(None, None, None) or [None])[0]
 current_user = [current_user, ""][current_user in [u"loginwindow", None, u""]]
@@ -58,7 +58,7 @@ gid = grp.getgrnam("staff").gr_gid
 lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo)
 raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
 manifest_url = "https://raw.githubusercontent.com/%s/%s/%s/manifest.json" % (org, repo, branch)
-manifest_hash = "d04c38a150cf57500885a0a0ddaa89a2e19c9f9478956640d48324a8277bf1c3"
+manifest_hash = "8bb286148fd38d819a752b0ba91fb7bdc6ed3d29c018893615f62f750388b8ec"
 manifest_file = "%s/manifest.json" % local_dir
 
 # check to see if user ran with sudo , since it's required
@@ -101,7 +101,7 @@ def downloader(url, file_path):
                 break
 
 
-# the package installer function runs the installer binary in MacOS and pipes
+# the package installer function runs the installer binary in macOS and pipes
 # stdout and stderr to the python console the return code of the package run
 # can be found in the pipes object (pipes.returncode). this is the reason we
 # need to run   # this is the bit where we can accept an optional command with

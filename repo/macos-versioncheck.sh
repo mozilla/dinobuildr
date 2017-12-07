@@ -8,7 +8,7 @@
 # if the machine does not meet that minimum version
 
 # expected_os - OS family version
-# expected_major - expectedmajor version (13 = High Sierra, etc)
+# expected_major - expected major version (13 = High Sierra, etc)
 # expected_minor - expected minor version
 
 expected_os="10"

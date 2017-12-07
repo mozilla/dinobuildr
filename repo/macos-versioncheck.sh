@@ -20,11 +20,11 @@ major_version=$(sw_vers -productVersion | awk -F '.' '{print $2}')
 minor_version=$(sw_vers -productVersion | awk -F '.' '{print $3}')
 
 if ! [[ "$os_version" -ge "$expected_os" && "$major_version" -ge "$expected_major" && "$minor_version" -ge "$expected_minor" ]]; then
-	echo "UPGRADE REQUIRED: You are running macOS ${os_version}.${major_version}.${minor_version}"
-	echo "We are expecting: ${expected_os}.${expected_major}.${expected_minor}"
-	echo "The build will halt, please update macOS via the App Store and try again."
-	exit 1
+    echo "UPGRADE REQUIRED: You are running macOS ${os_version}.${major_version}.${minor_version}"
+    echo "We are expecting: ${expected_os}.${expected_major}.${expected_minor}"
+    echo "The build will halt, please update macOS via the App Store and try again."
+    exit 1
 else
-	echo "You are running macOS ${os_version}.${major_version}.${minor_version}, which is the version we expect!"
-	exit 0
+    echo "You are running macOS ${os_version}.${major_version}.${minor_version}, which is the version we expect!"
+    exit 0
 fi

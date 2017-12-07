@@ -43,7 +43,7 @@ branch = "master"
 # both methods.
 # uid - the UID of the user running the script
 # gid - the GID of the group "staff" which is the default primary group for all
-# users in MacOS
+# users in macOS
 os.environ["DINOPATH"] = local_dir
 current_user = (SCDynamicStoreCopyConsoleUser(None, None, None) or [None])[0]
 current_user = [current_user, ""][current_user in [u"loginwindow", None, u""]]
@@ -101,7 +101,7 @@ def downloader(url, file_path):
                 break
 
 
-# the package installer function runs the installer binary in MacOS and pipes
+# the package installer function runs the installer binary in macOS and pipes
 # stdout and stderr to the python console the return code of the package run
 # can be found in the pipes object (pipes.returncode). this is the reason we
 # need to run   # this is the bit where we can accept an optional command with

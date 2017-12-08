@@ -8,3 +8,7 @@
 
 echo "Checking for macOS updates, this might take a while, please be patient..."
 $(which softwareupdate) --install --all
+
+echo "Running software update AGAIN because Apple doesn't always advertise updates if they have dependencies."
+
+$(which softwareupdate) --install --all

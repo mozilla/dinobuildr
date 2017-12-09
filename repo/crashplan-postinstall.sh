@@ -11,3 +11,4 @@
 
 echo "Waiting for Crashplan to launch and then quitting it..."
 killall -TERM CrashPlan 
+exit 0

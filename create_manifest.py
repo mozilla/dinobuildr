@@ -21,7 +21,7 @@ from collections import OrderedDict
 local_dir = 'build-temp'
 org = "mozilla"
 repo = "dinobuildr"
-branch = "master"
+branch = "bug-ff58"
 
 # lfs_url - the generic LFS url structure that github uses
 # raw_url -  the generic RAW url structure that github uses

@@ -35,7 +35,7 @@ global gid
 local_dir = "/var/tmp/dinobuildr"
 org = "mozilla"
 repo = "dinobuildr"
-branch = "master"
+branch = "bug-ff58"
 
 # os.environ - an environment variable for the builder's local directory to be
 # passed on to shells scripts
@@ -58,7 +58,7 @@ gid = grp.getgrnam("staff").gr_gid
 lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo)
 raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
 manifest_url = "https://raw.githubusercontent.com/%s/%s/%s/manifest.json" % (org, repo, branch)
-manifest_hash = "7cf1f3f378b78ff9dfdc3b0b3906dd9b17b1b9e11acfc5a2bfb59314438d2a48"
+manifest_hash = "8d89864e157448c695a54e3b28051b27761a2c12a62bb55ad37f6204fd6a6a97"
 manifest_file = "%s/manifest.json" % local_dir
 
 # check to see if user ran with sudo , since it's required

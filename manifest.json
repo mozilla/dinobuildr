@@ -1,7 +1,7 @@
 {
     "packages": [
         {
-            "item": "macOS Version Check", 
+            "item": "Check macOS Version", 
             "version": "", 
             "url": "repo/macos-versioncheck.sh", 
             "filename": "", 
@@ -11,7 +11,7 @@
             "type": "shell"
         }, 
         {
-            "item": "Crashplan", 
+            "item": "Install Crashplan", 
             "version": "4.5.2", 
             "url": "https://download.code42.com/installs/mac/install/CrashPlanPROe/CrashPlanPROe_${version}_Mac.dmg", 
             "filename": "", 
@@ -31,7 +31,7 @@
             "type": "shell"
         }, 
         {
-            "item": "Wallpaper Image", 
+            "item": "Download Wallpaper Image", 
             "version": "", 
             "url": "repo/dino-wallpaper.png", 
             "filename": "", 
@@ -41,17 +41,17 @@
             "type": "file-lfs"
         }, 
         {
-            "item": "Firefox Beta", 
-            "version": "57.0", 
+            "item": "Install Firefox Beta", 
+            "version": "58.0b11", 
             "url": "https://download.mozilla.org/?product=firefox-${version}-SSL&os=osx&lang=en-US", 
             "filename": "firefox-beta.dmg", 
             "dmg-installer": "Firefox.app", 
             "dmg-advanced": "", 
-            "hash": "ae83fcb9c2651216d9bb73df1e605c9f0a10b35eb2d586753b124dc425468baa", 
+            "hash": "6e9bc2e8d54bc89adece7915d97f432e12b8d3bfba70db5db37c1cb688887760", 
             "type": "dmg"
         }, 
         {
-            "item": "Firefox Profile", 
+            "item": "Configure Firefox Profile", 
             "version": "", 
             "url": "repo/firefox-profile.pkg", 
             "filename": "", 
@@ -61,7 +61,7 @@
             "type": "pkg-lfs"
         }, 
         {
-            "item": "Vidyo", 
+            "item": "Install Vidyo", 
             "version": "", 
             "url": "https://v.mozilla.com/upload/VidyoDesktopInstaller-macosx-TAG_VD_3_6_9_014.dmg", 
             "filename": "vidyodesktop.dmg", 
@@ -71,7 +71,7 @@
             "type": "dmg"
         }, 
         {
-            "item": "Set Firewall", 
+            "item": "Configure Firewall", 
             "version": "", 
             "url": "repo/firewall.sh", 
             "filename": "", 
@@ -81,7 +81,7 @@
             "type": "shell"
         }, 
         {
-            "item": "Set Wallpaper", 
+            "item": "Configure Wallpaper", 
             "version": "", 
             "url": "repo/wallpaper.sh", 
             "filename": "", 
@@ -91,7 +91,7 @@
             "type": "shell"
         }, 
         {
-            "item": "Dock Config", 
+            "item": "Configure Dock", 
             "version": "", 
             "url": "repo/dock-config.sh", 
             "filename": "", 
@@ -101,7 +101,7 @@
             "type": "shell"
         }, 
         {
-            "item": "macOS Software Update", 
+            "item": "Update macOS", 
             "version": "", 
             "url": "repo/update-macos.sh", 
             "filename": "", 
@@ -109,7 +109,7 @@
             "dmg-advanced": "", 
             "hash": "687bf0a84a24add0ffa32bea768dd25948e5833b2450c362edffebbdefb4e52d", 
             "type": "shell"
-        },
+        }, 
         {
             "item": "Reboot macOS", 
             "version": "", 
@@ -120,5 +120,5 @@
             "hash": "30abd1e6d334f5835f380e19560b231f069174ff1f9bac1911a992555d980cac", 
             "type": "shell"
         }
-     ]
+    ]
 }

@@ -23,6 +23,7 @@ if [ $(echo "$dockutil" | shasum -a 256 | awk {'print $1'}) == $hash ]; then #  
     python -c "$dockutil" --add "/Applications/Firefox.app" --after Launchpad --no-restart
     python -c "$dockutil" --add "/Applications/VidyoDesktop.app" --after Firefox --no-restart
     python -c "$dockutil" --add "/Applications/CrashPlan.app" --after VidyoDesktop --no-restart
+    python -c "$dockutil" --add "~/Downloads" --view fan --display stack --section others --no-restart
     python -c "$dockutil" --add "/Applications/System Preferences.app" --position end
 else 
     echo "Dockutil hash does not match intended value. Aborting."

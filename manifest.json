@@ -11,6 +11,16 @@
             "type": "shell"
         }, 
         {
+            "item": "Configure ComputerName", 
+            "version": "", 
+            "url": "repo/set-computername.sh", 
+            "filename": "", 
+            "dmg-installer": "", 
+            "dmg-advanced": "", 
+            "hash": "26f27eff72ee2d335bd2948291a1b4173c63186fd2504dc08be9b94755abd325", 
+            "type": "shell"
+        },
+        {
             "item": "Install Crashplan", 
             "version": "4.5.2", 
             "url": "https://download.code42.com/installs/mac/install/CrashPlanPROe/CrashPlanPROe_${version}_Mac.dmg", 

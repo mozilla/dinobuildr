@@ -109,6 +109,16 @@
             "dmg-advanced": "", 
             "hash": "3395fd4b292a298944980af30d97e52ff956d8c0021d4b26a6c294026f78d3bf", 
             "type": "shell"
+        },
+        {
+            "item": "Enable automatic updates", 
+            "version": "", 
+            "url": "repo/app-store-updates.sh", 
+            "filename": "", 
+            "dmg-installer": "", 
+            "dmg-advanced": "", 
+            "hash": "5de09057abdbc563d0cc4f802ab3138d901dd1ba711f7ddcf6de99299a54affb", 
+            "type": "shell"
         }, 
         {
             "item": "Update macOS", 

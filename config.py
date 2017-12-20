@@ -230,10 +230,13 @@ if not os.path.exists(local_dir):
     os.makedirs(local_dir)
 
 # download the manifest.json file.
+print "\nDownloading the manifest file and hash-checking it.\n"
 downloader(manifest_url, manifest_file)
 
 # check the hash of the incoming manifest file and bail if the hash doesn't match.
 hash_file(manifest_file, manifest_hash)
+
+print "\n***** DINOBUILDR IS BUILDING. RAWR. *****\n"
 
 # we read the manifest file and examine each object in it. if the object is a
 # .pkg file, then we assemble the download url of the pointer, read the pointer
@@ -246,7 +249,6 @@ hash_file(manifest_file, manifest_hash)
 # copying the installer or installing a pkg.
 with open(manifest_file, 'r') as manifest_data:
     data = json.load(manifest_data)
-
 for item in data['packages']:
     if item['filename'] != "":
         file_name = item['filename']

@@ -6,4 +6,4 @@
 
 # A very basic reboot script!
 
-shutdown -r now "Rebooting after successful Dinobuildr build."
+# shutdown -r now "Rebooting after successful Dinobuildr build."

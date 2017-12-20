@@ -35,7 +35,7 @@ global gid
 local_dir = "/var/tmp/dinobuildr"
 org = "mozilla"
 repo = "dinobuildr"
-branch = "master"
+branch = "bug-rebootchange"
 
 # os.environ - an environment variable for the builder's local directory to be
 # passed on to shells scripts
@@ -58,7 +58,7 @@ gid = grp.getgrnam("staff").gr_gid
 lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo)
 raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
 manifest_url = "https://raw.githubusercontent.com/%s/%s/%s/manifest.json" % (org, repo, branch)
-manifest_hash = "8f269fd71180a6b1fd93c4e6dc9804d0aaf4bfccf9d260e5dd441ad76f865fbd"
+manifest_hash = "2c85a9f31073eab23a57dcb711b801ed8ee53f30fa05bed98c56b19d4a8b40bc"
 manifest_file = "%s/manifest.json" % local_dir
 
 # check to see if user ran with sudo , since it's required
@@ -318,3 +318,7 @@ for item in data['packages']:
 # delete the temporary directory we've been downloading packages into.
 print "Cleanup: Deleting %s" % local_dir
 shutil.rmtree(local_dir)
+
+print "Build complete! Rebooting."
+subprocess.call(['osascript', '-e',
+    'tell app "System Events" to restart'])

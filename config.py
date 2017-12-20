@@ -36,6 +36,7 @@ local_dir = "/var/tmp/dinobuildr"
 org = "mozilla"
 repo = "dinobuildr"
 branch = "bug-rebootchange"
+reboot_when_done = True
 
 # os.environ - an environment variable for the builder's local directory to be
 # passed on to shells scripts
@@ -58,7 +59,7 @@ gid = grp.getgrnam("staff").gr_gid
 lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo)
 raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
 manifest_url = "https://raw.githubusercontent.com/%s/%s/%s/manifest.json" % (org, repo, branch)
-manifest_hash = "24028d6d7875c25a50a3579b0bf0d17492ae96c8a7396a1255bc80ababcc93e2"
+manifest_hash = "b3f4defaea1f0c982ce095f9d530fdf2817bd92d7ee65824a95e3e52baa371af"
 manifest_file = "%s/manifest.json" % local_dir
 
 # check to see if user ran with sudo , since it's required
@@ -321,8 +322,7 @@ shutil.rmtree(local_dir)
 
 print "Build complete! Enjoy."
 
-reboot = os.environ.get["REBOOTWHENDONE"]
-if reboot:
+if reboot_when_done:
     print "Reboot requested."
     subprocess.call(['osascript', '-e',
         'tell app "System Events" to restart'])

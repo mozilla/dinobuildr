@@ -319,6 +319,10 @@ for item in data['packages']:
 print "Cleanup: Deleting %s" % local_dir
 shutil.rmtree(local_dir)
 
-print "Build complete! Rebooting."
-subprocess.call(['osascript', '-e',
-    'tell app "System Events" to restart'])
+print "Build complete! Enjoy."
+
+reboot = os.environ.get["REBOOTWHENDONE"]
+if reboot:
+    print "Reboot requested."
+    subprocess.call(['osascript', '-e',
+        'tell app "System Events" to restart'])

@@ -230,10 +230,13 @@ if not os.path.exists(local_dir):
     os.makedirs(local_dir)
 
 # download the manifest.json file.
+print "\nDownloading the manifest file and hash-checking it.\n"
 downloader(manifest_url, manifest_file)
 
 # check the hash of the incoming manifest file and bail if the hash doesn't match.
 hash_file(manifest_file, manifest_hash)
+
+print "\n***** DINOBUILDR IS BUILDING. RAWR. *****\n"
 
 # we read the manifest file and examine each object in it. if the object is a
 # .pkg file, then we assemble the download url of the pointer, read the pointer
@@ -277,6 +280,7 @@ for item in data['packages']:
         perms = os.stat(local_path)
         os.chmod(local_path, perms.st_mode | stat.S_IEXEC)
         script_exec(local_path)
+        print "\r"
 
     if item['type'] == "dmg":
         # TODO: consisitency: there should be URL checks everywhere or do this

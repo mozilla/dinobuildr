@@ -32,6 +32,8 @@ global gid
 # repo - the rep that is hosting the build
 # branch - the branch that we are using. useful to change this if developing /
 # testing
+# reboot_when_done - this variable determines if dinobuildr reboots the machine
+# at the end of the build or not
 local_dir = "/var/tmp/dinobuildr"
 org = "mozilla"
 repo = "dinobuildr"
@@ -322,6 +324,8 @@ shutil.rmtree(local_dir)
 
 print "Build complete! Enjoy."
 
+# some builds require a reboot on completion, and this is best handled by the
+# main script. we set a variable up in the beginning of the script."
 if reboot_when_done:
     print "Reboot requested."
     subprocess.call(['osascript', '-e',

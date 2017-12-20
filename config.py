@@ -277,6 +277,7 @@ for item in data['packages']:
         perms = os.stat(local_path)
         os.chmod(local_path, perms.st_mode | stat.S_IEXEC)
         script_exec(local_path)
+        print "\r"
 
     if item['type'] == "dmg":
         # TODO: consisitency: there should be URL checks everywhere or do this

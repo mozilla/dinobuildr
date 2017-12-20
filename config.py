@@ -249,6 +249,7 @@ print "\n***** DINOBUILDR IS BUILDING. RAWR. *****\n"
 # copying the installer or installing a pkg.
 with open(manifest_file, 'r') as manifest_data:
     data = json.load(manifest_data)
+
 for item in data['packages']:
     if item['filename'] != "":
         file_name = item['filename']

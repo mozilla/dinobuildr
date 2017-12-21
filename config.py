@@ -330,3 +330,4 @@ if reboot_when_done:
     print "Reboot requested."
     subprocess.call(['osascript', '-e',
         'tell app "System Events" to restart'])
+    exit()

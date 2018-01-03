@@ -15,6 +15,7 @@ import shutil
 import shlex
 import pwd
 import grp
+import time
 from SystemConfiguration import SCDynamicStoreCopyConsoleUser
 
 # --- section 1: defining too many variables --------------------- #
@@ -327,7 +328,7 @@ print "Build complete! Enjoy."
 # some builds require a reboot on completion, and this is best handled by the
 # main script. we set a variable up in the beginning of the script."
 if reboot_when_done:
+    time.sleep(10)
     print "Reboot requested."
     subprocess.call(['osascript', '-e',
         'tell app "System Events" to restart'])
-    exit()

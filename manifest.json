@@ -127,17 +127,7 @@
             "filename": "", 
             "dmg-installer": "", 
             "dmg-advanced": "", 
-            "hash": "687bf0a84a24add0ffa32bea768dd25948e5833b2450c362edffebbdefb4e52d", 
-            "type": "shell"
-        }, 
-        {
-            "item": "Reboot macOS", 
-            "version": "", 
-            "url": "repo/restart-computer.sh", 
-            "filename": "", 
-            "dmg-installer": "", 
-            "dmg-advanced": "shell", 
-            "hash": "30abd1e6d334f5835f380e19560b231f069174ff1f9bac1911a992555d980cac", 
+            "hash": "c4f327df5abf64965f92f040867f055d0eda42da8ead3d6fbe3e07de57c94314", 
             "type": "shell"
         }
     ]

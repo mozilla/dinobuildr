@@ -32,13 +32,10 @@ global gid
 # repo - the rep that is hosting the build
 # branch - the branch that we are using. useful to change this if developing /
 # testing
-# reboot_when_done - this variable determines if dinobuildr reboots the machine
-# at the end of the build or not
 local_dir = "/var/tmp/dinobuildr"
 org = "mozilla"
 repo = "dinobuildr"
 branch = "master"
-reboot_when_done = True
 
 # os.environ - an environment variable for the builder's local directory to be
 # passed on to shells scripts

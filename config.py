@@ -323,13 +323,4 @@ for item in data['packages']:
 print "Cleanup: Deleting %s" % local_dir
 shutil.rmtree(local_dir)
 
-print "Build complete! Enjoy."
-
-# some builds require a reboot on completion, and this is best handled by the
-# main script. we set a variable up in the beginning of the script."
-# if reboot_when_done:
-#    time.sleep(10)
-#    print "Reboot requested."
-#    subprocess.call(['osascript', '-e',
-#        'tell app "System Events" to restart'])
-# exit()
+print "Build complete!"

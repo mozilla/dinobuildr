@@ -15,7 +15,6 @@ import shutil
 import shlex
 import pwd
 import grp
-import time
 from SystemConfiguration import SCDynamicStoreCopyConsoleUser
 
 # --- section 1: defining too many variables --------------------- #

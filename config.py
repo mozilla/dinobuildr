@@ -37,7 +37,7 @@ global gid
 local_dir = "/var/tmp/dinobuildr"
 org = "mozilla"
 repo = "dinobuildr"
-branch = "bug-rebootchange"
+branch = "master"
 reboot_when_done = True
 
 # os.environ - an environment variable for the builder's local directory to be

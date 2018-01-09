@@ -111,6 +111,16 @@
             "type": "shell"
         },
         {
+            "item": "Disable analytics settings", 
+            "version": "", 
+            "url": "repo/analytics_settings.sh", 
+            "filename": "", 
+            "dmg-installer": "", 
+            "dmg-advanced": "", 
+            "hash": "9a88799266ede381335a3ec5c23118aa6404516e6fd3ca805d238dff2eb5eefb", 
+            "type": "shell"
+        },
+        {
             "item": "Enable automatic updates", 
             "version": "", 
             "url": "repo/app-store-updates.sh", 

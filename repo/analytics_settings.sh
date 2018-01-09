@@ -10,11 +10,11 @@ AUTO_SUBMIT=$(defaults read /Library/Application\ Support/CrashReporter/Diagnost
 THIRD_PARTY_DATA_SUBMIT=$(defaults read /Library/Application\ Support/CrashReporter/DiagnosticMessagesHistory.plist ThirdPartyDataSubmit)
 
 if [[ ${AUTO_SUBMIT} -eq 1 ]]; then
-	defaults write /Library/Application\ Support/CrashReporter/DiagnosticMessagesHistory.plist AutoSubmit -boolean false
-
-	if [[ ${THIRD_PARTY_DATA_SUBMIT} -eq 1 ]]; then
-		defaults write /Library/Application\ Support/CrashReporter/DiagnosticMessagesHistory.plist ThirdPartyDataSubmit -boolean false
-	fi
-	chmod a+r /Library/Application\ Support/CrashReporter/DiagnosticMessagesHistory.plist
-	chown root:admin /Library/Application\ Support/CrashReporter/DiagnosticMessagesHistory.plist
+    defaults write /Library/Application\ Support/CrashReporter/DiagnosticMessagesHistory.plist AutoSubmit -boolean false
+    
+    if [[ ${THIRD_PARTY_DATA_SUBMIT} -eq 1 ]]; then
+        defaults write /Library/Application\ Support/CrashReporter/DiagnosticMessagesHistory.plist ThirdPartyDataSubmit -boolean false
+    fi
+    chmod a+r /Library/Application\ Support/CrashReporter/DiagnosticMessagesHistory.plist
+    chown root:admin /Library/Application\ Support/CrashReporter/DiagnosticMessagesHistory.plist
 fi

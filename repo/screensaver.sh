@@ -32,7 +32,8 @@ cat > ~/Library/LaunchAgents/Enable_Screensaver.plist <<- "EOF"
     <array>
         <string>bash</string>
         <string>-c</string>
-        <string>defaults -currentHost write com.apple.screensaver idleTime 300;rm -rf ~/Library/LaunchAgents/Enable_Screensaver.plist</string>
+        <string>defaults -currentHost write com.apple.screensaver idleTime 300;
+        rm -rf ~/Library/LaunchAgents/Enable_Screensaver.plist</string>
     </array>
     <key>RunAtLoad</key>
     <true/>

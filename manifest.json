@@ -9,6 +9,16 @@
             "dmg-advanced": "", 
             "hash": "b8733abd622eeb060cdcb911e3f1c09ccccf86e1f198961ac63ee35bc282715f", 
             "type": "shell"
+        },
+        {
+            "item": "Configure Screensaver", 
+            "version": "", 
+            "url": "repo/screensaver.sh", 
+            "filename": "", 
+            "dmg-installer": "", 
+            "dmg-advanced": "", 
+            "hash": "8a602d376a7c3b1126ad2026ea2571f5e6979110e77f4eb51d1a5ac17b53efff", 
+            "type": "shell"
         }, 
         {
             "item": "Configure ComputerName", 

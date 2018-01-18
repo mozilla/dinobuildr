@@ -30,7 +30,7 @@ else
     if [ $curl_status -eq 6 ]; then
         echo "Check your internet connection and try again!"
     elif [ $curl_status -eq 22 ]; then
-        echo "$branch not a valid branch. Please verify the branch name and try again."
+        echo "$branch is not a valid branch. Please verify the branch name and try again."
     fi
     exit 1
 fi

@@ -21,7 +21,7 @@ build_script=$(curl -f https://raw.githubusercontent.com/mozilla/dinobuildr/$bra
 curl_status=$?
 # If curl fails for some reason, we return it's non-zero exit code so that the
 # script can fail in a predictable way.
-echo $curl_status
+
 if [ $curl_status -eq 0 ]; then
     echo "$build_script" | python -
 else 

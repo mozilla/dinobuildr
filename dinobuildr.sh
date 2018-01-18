@@ -11,6 +11,9 @@
 # we blindly trust the master branch, but later we hope to put more
 # elaborate checks in place to ensure that the script is legit.
 
+# Accepts an option parameter that specifies the name of the branch we want to
+# use (defaults to master).
+
 branch=${1:-master}
 
 printf "\nPulling down dinobuildr from the [$branch] branch on github and starting the build!\n\n"

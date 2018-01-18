@@ -6,7 +6,7 @@
 
 # This script enables the firewall.
 
-sudo defaults write /Library/Preferences/com.apple.alf globalstate -int 1 || {
+defaults write /Library/Preferences/com.apple.alf globalstate -int 1 || {
     echo "Failed to enable the firewall."
     exit 200
 }

@@ -35,7 +35,7 @@ global gid
 local_dir = "/var/tmp/dinobuildr"
 org = "mozilla"
 repo = "dinobuildr"
-branch = "feat-firefox"
+branch = "master"
 
 # os.environ - an environment variable for the builder's local directory to be
 # passed on to shells scripts

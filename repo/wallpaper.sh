@@ -7,6 +7,7 @@
 # this script copies a wall-paper image from the temp build cache to a permanent
 # location and uses Applescript to set the desktop background. 
 
-cp "${DINOPATH}/dino-wallpaper.png" "/Users/Shared/dino-wallpaper.png"
+WALLPAPER_FILENAME=wallpaper.jpg
+cp "${DINOPATH}/$WALLPAPER_FILENAME" "/Users/Shared/$WALLPAPER_FILENAME"
 echo "We're setting the dang wallpaper now."
-$(which osascript) -e 'tell application "Finder" to set desktop picture to POSIX file "/Users/Shared/dino-wallpaper.png"'
+$(which osascript) -e 'tell application "Finder" to set desktop picture to POSIX file "/Users/Shared/$WALLPAPER_FILENAME"'

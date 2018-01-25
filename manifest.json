@@ -57,7 +57,7 @@
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "acbe4537c07b889b263a3d11e708c0a42b895c8d9fffb7e6e004e0bdb793111b",
+            "hash": "5786d78c8e05c60f36b60efa9bc2757943cbe854600e9f5aae28f9681c529db2",
             "type": "file-lfs"
         },
         {
@@ -107,7 +107,7 @@
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "f1bfbf4b12ed58328017167361f17e077c5959b1a9258817a03c52bc619c6097",
+            "hash": "acbe4537c07b889b263a3d11e708c0a42b895c8d9fffb7e6e004e0bdb793111b",
             "type": "shell"
         },
         {

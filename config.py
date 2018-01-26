@@ -58,7 +58,7 @@ gid = grp.getgrnam("staff").gr_gid
 lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo)
 raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
 manifest_url = "https://raw.githubusercontent.com/%s/%s/%s/manifest.json" % (org, repo, branch)
-manifest_hash = "c77e88c0118c928a82e347df9039d42a065e4a8158f5bd8187c0e305412cf29c"
+manifest_hash = "27885d61cece70f6b67b27053ebc5d0c3e9b43306219b8bbaa57a5b29f759b2a"
 manifest_file = "%s/manifest.json" % local_dir
 
 # check to see if user ran with sudo , since it's required

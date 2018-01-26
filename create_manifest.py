@@ -168,7 +168,7 @@ else:
         print "order.txt file required to generate a manifest."
 
 with open('manifest.json', 'w') as outfile:
-    json.dump(manifest, outfile, indent=4, sort_keys=False)
+    json.dump(manifest, outfile, indent=4, sort_keys=False, separators=(',', ': '))
 outfile.close()
 
 manifest_hash = hash_file('manifest.json')

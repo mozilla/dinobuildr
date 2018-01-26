@@ -53,11 +53,11 @@
         {
             "item": "Download Wallpaper Image",
             "version": "",
-            "url": "repo/dino-wallpaper.png",
+            "url": "repo/wallpaper.jpg",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "c4e5829840ef7765e540a70953b1a26dce27474d3e268ab593f32b88516b6505",
+            "hash": "8b5771b813bd684ee3ff8f6a2c205c249ca127c7c5f92c9b92b1b8fdecd389a4",
             "type": "file-lfs"
         },
         {
@@ -107,7 +107,7 @@
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "f1bfbf4b12ed58328017167361f17e077c5959b1a9258817a03c52bc619c6097",
+            "hash": "982fb8ea6442d16de0f7c0b2f062595ba25fed0d4e0c03248b7c20e7164ffa82",
             "type": "shell"
         },
         {

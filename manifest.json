@@ -71,14 +71,14 @@
             "type": "dmg"
         },
         {
-            "item": "Configure Firefox Profile",
+            "item": "Configure Firefox Bookmarks",
             "version": "",
-            "url": "repo/firefox-profile.pkg",
+            "url": "repo/firefox-bookmarks.sh",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "a97ef3ceb5f671a5b12f0012f4a543338d55d04e2304a82036b5e1a6d6ec4cd1",
-            "type": "pkg-lfs"
+            "hash": "3265d3fbaae92fbb0f256b1d13289cdbd0ed0060baf7679cbc6cf6492bc4d5c2",
+            "type": "shell"
         },
         {
             "item": "Install Vidyo",

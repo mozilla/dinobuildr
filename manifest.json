@@ -82,12 +82,12 @@
         },
         {
             "item": "Install Vidyo",
-            "version": "",
-            "url": "https://v.mozilla.com/upload/VidyoDesktopInstaller-macosx-TAG_VD_3_6_9_014.dmg",
+            "version": "3.6.14",
+            "url": "https://v.mozilla.com/upload/VidyoDesktopInstaller-macosx-TAG_VD_3_6_14_0003.dmg",
             "filename": "vidyodesktop.dmg",
             "dmg-installer": "VidyoDesktopInstaller.app/Contents/Resources/VidyoDesktop.app",
             "dmg-advanced": "",
-            "hash": "ba685f9a0b4e91220629cd828e250d2fd7c9d63d8d6d2e586e109b7efa7fd1e8",
+            "hash": "d99548771c014636876cb5cca8bcbf9ca6f0800855cde8ba25aeffce636cceb1",
             "type": "dmg"
         },
         {

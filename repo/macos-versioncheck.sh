@@ -13,7 +13,7 @@
 
 expected_os="10"
 expected_major="13"
-expected_minor="0"
+expected_minor="3"
 
 os_version=$(sw_vers -productVersion | awk -F '.' '{print $1}')
 major_version=$(sw_vers -productVersion | awk -F '.' '{print $2}')

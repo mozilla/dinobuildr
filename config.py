@@ -237,7 +237,7 @@ downloader(manifest_url, manifest_file)
 hash_file(manifest_file, manifest_hash)
 
 print "\n***** DINOBUILDR IS BUILDING. RAWR. *****\n"
-
+print "Building against the [%s] branch\n" % branch
 # we read the manifest file and examine each object in it. if the object is a
 # .pkg file, then we assemble the download url of the pointer, read the pointer
 # and request the file from LFS. if the file we get has a hash that matches

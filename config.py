@@ -15,6 +15,7 @@ import shutil
 import shlex
 import pwd
 import grp
+import argparse
 from SystemConfiguration import SCDynamicStoreCopyConsoleUser
 
 # --- section 1: defining too many variables --------------------- #
@@ -30,12 +31,26 @@ global gid
 # local_dir - the local directory the builder will use
 # org - the org that is hosting the build repository
 # repo - the rep that is hosting the build
-# branch - the branch that we are using. useful to change this if developing /
+# default_branch - the default branch to build against if no --branch argument is specified
 # testing
 local_dir = "/var/tmp/dinobuildr"
 org = "mozilla"
 repo = "dinobuildr"
-branch = "master"
+default_branch = "master"
+
+# this section parses argument(s) passed to this script
+# the --branch argument specified the branch that this script will build
+# against, which is useful for testing. the script will default to the master
+# branch if no argument is specified. 
+parser = argparse.ArgumentParser()
+parser.add_argument("-b", "--branch", help="The branch name to build against. Defaults to %s" % default_branch)
+
+args = parser.parse_args()
+
+if args.branch == None:
+    branch = default_branch
+else:
+    branch = args.branch
 
 # os.environ - an environment variable for the builder's local directory to be
 # passed on to shells scripts

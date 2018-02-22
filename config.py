@@ -31,21 +31,17 @@ global gid
 # local_dir - the local directory the builder will use
 # org - the org that is hosting the build repository
 # repo - the rep that is hosting the build
-# branch - the branch that we are using. useful to change this if developing /
-# testing
+# default_branch - the branch that dinobuildr will use if no --branch is
+# specified 
 local_dir = "/var/tmp/dinobuildr"
 org = "mozilla"
 repo = "dinobuildr"
 default_branch = "master"
 
-# os.environ - an environment variable for the builder's local directory to be
-# passed on to shells scripts
-# current_user - the name of the user running the script. Apple suggests using
-# both methods.
-# uid - the UID of the user running the script
-# gid - the GID of the group "staff" which is the default primary group for all
-# users in macOS
-
+# this section parses argument(s) passed to this script
+# the --branch argument specified the branch that this script will build
+# against, which is useful for testing. the script will default to the master
+# branch if no argument is specified. 
 parser = argparse.ArgumentParser()
 parser.add_argument("-b", "--branch", help="The branch name to build against. Defaults to %s" % default_branch)
 
@@ -56,6 +52,13 @@ if args.branch == None:
 else:
     branch = args.branch
 
+# os.environ - an environment variable for the builder's local directory to be
+# passed on to shells scripts
+# current_user - the name of the user running the script. Apple suggests using
+# both methods.
+# uid - the UID of the user running the script
+# gid - the GID of the group "staff" which is the default primary group for all
+# users in macOS
 os.environ["DINOPATH"] = local_dir
 current_user = (SCDynamicStoreCopyConsoleUser(None, None, None) or [None])[0]
 current_user = [current_user, ""][current_user in [u"loginwindow", None, u""]]

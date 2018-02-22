@@ -15,6 +15,7 @@ import shutil
 import shlex
 import pwd
 import grp
+import argparse 
 from SystemConfiguration import SCDynamicStoreCopyConsoleUser
 
 # --- section 1: defining too many variables --------------------- #
@@ -35,7 +36,7 @@ global gid
 local_dir = "/var/tmp/dinobuildr"
 org = "mozilla"
 repo = "dinobuildr"
-branch = "master"
+default_branch = "master"
 
 # os.environ - an environment variable for the builder's local directory to be
 # passed on to shells scripts
@@ -44,6 +45,17 @@ branch = "master"
 # uid - the UID of the user running the script
 # gid - the GID of the group "staff" which is the default primary group for all
 # users in macOS
+
+parser = argparse.ArgumentParser()
+parser.add_argument("-b", "--branch", help="The branch name to build against. Defaults to %s" % default_branch)
+
+args = parser.parse_args()
+
+if args.branch == None:
+    branch = default_branch
+else:
+    branch = args.branch
+
 os.environ["DINOPATH"] = local_dir
 current_user = (SCDynamicStoreCopyConsoleUser(None, None, None) or [None])[0]
 current_user = [current_user, ""][current_user in [u"loginwindow", None, u""]]

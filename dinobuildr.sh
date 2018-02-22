@@ -23,7 +23,7 @@ curl_status=$?
 # script can fail in a predictable way.
 
 if [ $curl_status -eq 0 ]; then
-    python -c "$build_script" "$branch"
+    echo "$build_script" | python -
 else 
     echo "********************************************************************"
     echo "Uh oh, unable to download Dinobuildr from Github."

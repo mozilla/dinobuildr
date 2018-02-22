@@ -31,12 +31,12 @@ global gid
 # local_dir - the local directory the builder will use
 # org - the org that is hosting the build repository
 # repo - the rep that is hosting the build
-# branch - the branch that we are using. useful to change this if developing /
+# default_branch - the default branch to build against if no --branch argument is specified
 # testing
 local_dir = "/var/tmp/dinobuildr"
 org = "mozilla"
 repo = "dinobuildr"
-branch = "master"
+default_branch = "master"
 
 # this section parses argument(s) passed to this script
 # the --branch argument specified the branch that this script will build

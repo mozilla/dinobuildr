@@ -37,6 +37,7 @@ local_dir = "/var/tmp/dinobuildr"
 org = "mozilla"
 repo = "dinobuildr"
 default_branch = "master"
+default_manifest = "manifest.json"
 
 # this section parses argument(s) passed to this script
 # the --branch argument specified the branch that this script will build
@@ -44,6 +45,7 @@ default_branch = "master"
 # branch if no argument is specified. 
 parser = argparse.ArgumentParser()
 parser.add_argument("-b", "--branch", help="The branch name to build against. Defaults to %s" % default_branch)
+parser.add_argument("-m", "--manifest", help="The manifest to build against. Defaults to production macOS deployment.")
 
 args = parser.parse_args()
 
@@ -51,6 +53,11 @@ if args.branch == None:
     branch = default_branch
 else:
     branch = args.branch
+
+if args.manifest == None:
+    manifest = default_manifest
+else:
+    manifest = args.manifest
 
 # os.environ - an environment variable for the builder's local directory to be
 # passed on to shells scripts
@@ -72,9 +79,14 @@ gid = grp.getgrnam("staff").gr_gid
 # manifest_file - the expected filepath of the manifest file
 lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo)
 raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
-manifest_url = "https://raw.githubusercontent.com/%s/%s/%s/manifest.json" % (org, repo, branch)
-manifest_hash = "23a39785f7497c6c388a4b65350b6f645926607abc4ac25ad4c419bf53c681c8"
-manifest_file = "%s/manifest.json" % local_dir
+manifest_url = "https://raw.githubusercontent.com/%s/%s/%s/%s" % (org, repo, branch, manifest)
+manifest_file = "%s/%s" % (local_dir, manifest)
+default_manifest_hash = "23a39785f7497c6c388a4b65350b6f645926607abc4ac25ad4c419bf53c681c8"
+ambient_manifest_hash = "71d7d06a3c02543a67e6ba882ebc2b468896ea4c7637f0b3cb7897286019a291"
+manifest_hash = default_manifest_hash
+if manifest == "ambient_manifest.json":
+    manifest_hash = ambient_manifest_hash
+
 
 # check to see if user ran with sudo , since it's required
 
@@ -252,7 +264,7 @@ downloader(manifest_url, manifest_file)
 hash_file(manifest_file, manifest_hash)
 
 print "\n***** DINOBUILDR IS BUILDING. RAWR. *****\n"
-print "Building against the [%s] branch\n" % branch
+print "Building against the [%s] branch and the %s manifest\n" % (branch, manifest)
 # we read the manifest file and examine each object in it. if the object is a
 # .pkg file, then we assemble the download url of the pointer, read the pointer
 # and request the file from LFS. if the file we get has a hash that matches

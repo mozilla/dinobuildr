@@ -11,10 +11,24 @@
 # we blindly trust the master branch, but later we hope to put more
 # elaborate checks in place to ensure that the script is legit.
 
-# Accepts an option parameter that specifies the name of the branch we want to
-# use (defaults to master).
+# Accepts optional parameters that specifies the branch and manifest
+# to build against.
 
-branch=${1:-master}
+branch=master
+manifest=manifest.json
+
+while :; do
+    case $1 in
+        -b|--branch) branch=$2
+        shift
+        ;;
+        -m|--manifest) manifest=$2
+        shift
+        ;;
+        *) break
+    esac
+    shift
+done
 
 printf "\nPulling down dinobuildr from the [$branch] branch on github and starting the build!\n\n"
 build_script=$(curl -f https://raw.githubusercontent.com/mozilla/dinobuildr/$branch/config.py)
@@ -23,7 +37,7 @@ curl_status=$?
 # script can fail in a predictable way.
 
 if [ $curl_status -eq 0 ]; then
-    python -c "$build_script" -b "$branch"
+    python -c "$build_script" -b "$branch" -m "$manifest"
 else 
     echo "********************************************************************"
     echo "Uh oh, unable to download Dinobuildr from Github."

@@ -4,7 +4,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-# This script imports bookmarks into Firefox using the distribution.ini file.
+# This script imports bookmarks into Firefox using the Firefox policy engine.
 
 user=`python -c '
 from SystemConfiguration import SCDynamicStoreCopyConsoleUser;
@@ -16,39 +16,80 @@ sys.stdout.write(username + "\n");'`
 mkdir /Applications/Firefox.app/Contents/Resources/distribution
 chown ${user} /Applications/Firefox.app/Contents/Resources/distribution
 
-cat > /Applications/Firefox.app/Contents/Resources/distribution/distribution.ini <<- "EOF"
-[Global]
-id=dinobuildr
-version=1.0
-about=The default bookmarks were set by ServiceDesk using dinobuildr.
-
-[BookmarksMenu]
-item.1.title=Mozilla email
-item.1.link=https://sso.mozilla.com/gmail
-item.2.title=Vidyo Conferencing
-item.2.link=https://v.mozilla.com
-item.3.title=The Hub
-item.3.link=https://thehub.mozilla.com/sp
-item.4.title=Bugzilla
-item.4.link=https://bugzilla.mozilla.org
-item.5.title=Mozilla Phonebook
-item.5.link=https://phonebook.mozilla.org
-item.6.title=New Hire Info
-item.6.link=https://mana.mozilla.org/wiki/display/SD/New+Hire+IT+Information
-item.7.title=IRCCloud
-item.7.link=https://irccloud.mozilla.com
-item.8.title=Slack
-item.8.link=https://mozilla.slack.com
-item.9.title=Air Mozilla
-item.9.link=https://air.mozilla.org
-item.10.title=Mozilla Account Portal
-item.10.link=https://login.mozilla.com
-item.11.title=Workday
-item.11.link=https://sso.mozilla.com/workday
-item.12.title=Expensify
-item.12.link=https://www.expensify.com/signin
-item.13.title=Mozilla PTO
-item.13.link=https://pto.mozilla.org
+cat > /Applications/Firefox.app/Contents/Resources/distribution/policies.json <<- "EOF"
+{
+  "policies": {
+    "DisplayBookmarksToolbar": true,
+    "NoDefaultBookmarks": true,
+    "Bookmarks": [
+      {
+        "Title": "Mozilla email",
+        "URL": "https://sso.mozilla.com/gmail",
+        "Placement": "toolbar"
+      },
+      {
+        "Title": "Vidyo Conferencing",
+        "URL": "https://v.mozilla.com",
+        "Placement": "toolbar"
+      },
+      {
+        "Title": "The Hub",
+        "URL": "https://thehub.mozilla.com/sp",
+        "Placement": "toolbar"
+      },
+      {
+        "Title": "Bugzilla",
+        "URL": "https://bugzilla.mozilla.org",
+        "Placement": "toolbar"
+      },
+      {
+        "Title": "Mozilla Phonebook",
+        "URL": "https://phonebook.mozilla.org",
+        "Placement": "toolbar"
+      },
+      {
+        "Title": "New Hire Info",
+        "URL": "https://mana.mozilla.org/wiki/display/SD/New+Hire+IT+Information",
+        "Placement": "toolbar"
+      },
+      {
+        "Title": "IRCCloud",
+        "URL": "https://irccloud.mozilla.com",
+        "Placement": "toolbar"
+      },
+      {
+        "Title": "Slack",
+        "URL": "https://mozilla.slack.com",
+        "Placement": "toolbar"
+      },
+      {
+        "Title": "Air Mozilla",
+        "URL": "https://air.mozilla.org",
+        "Placement": "toolbar"
+      },
+      {
+        "Title": "Mozilla Account Portal",
+        "URL": "https://login.mozilla.com",
+        "Placement": "toolbar"
+      },
+      {
+        "Title": "Workday",
+        "URL": "https://sso.mozilla.com/workday",
+        "Placement": "toolbar"
+      },
+      {
+        "Title": "Expensify",
+        "URL": "https://sso.mozilla.com/expensify",
+        "Placement": "toolbar"
+      },
+      {
+        "Title": "Mozilla PTO",
+        "URL": "https://pto.mozilla.org",
+        "Placement": "toolbar"
+      }
+    ]
+  }
+}
 EOF
 
-chown ${user} /Applications/Firefox.app/Contents/Resources/distribution/distribution.ini
+chown ${user} /Applications/Firefox.app/Contents/Resources/distribution/policies.json

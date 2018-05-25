@@ -21,13 +21,13 @@
             "type": "file-lfs"
         },
         {
-            "item": "Install Firefox",
-            "version": "58.0.2",
-            "url": "https://download.mozilla.org/?product=firefox-${version}-SSL&os=osx&lang=en-US",
+            "item": "Install Firefox ESR",
+            "version": "60.0.1",
+            "url": "https://download.mozilla.org/?product=firefox-${version}esr-SSL&os=osx&lang=en-US",
             "filename": "firefox.dmg",
             "dmg-installer": "Firefox.app",
             "dmg-advanced": "",
-            "hash": "d30aa9862a8adc21e98d447bfeb3e50d40cbfc5aa3f9a8cdd2502a8e4c8b6c47",
+            "hash": "f3c643d9cdca6d2ab9604b99a7371f28ec08193ed92ccc217735bf7c4b81daa0",
             "type": "dmg"
         },
         {
@@ -58,6 +58,56 @@
             "dmg-installer": "",
             "dmg-advanced": "",
             "hash": "9a88799266ede381335a3ec5c23118aa6404516e6fd3ca805d238dff2eb5eefb",
+            "type": "shell"
+        },
+        {
+            "item": "Disable Screensaver",
+            "version": "",
+            "url": "repo/corsica/disable-screensaver.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "034f93d2f6616c382648a3bdffbb5214090d5047bdbb21093242a0e7d6178618",
+            "type": "shell"
+        },
+        {
+            "item": "Configure Dock",
+            "version": "",
+            "url": "repo/corsica/dock-config.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "6280674e763cf8c13edd12d6ecda93fbd7fafc1cae7d5424f487e95a36d18e24",
+            "type": "shell"
+        },
+        {
+            "item": "Configure Firefox",
+            "version": "",
+            "url": "repo/corsica/firefox-settings.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "bf822db14941b84000bec3a6162533092bc754075dcd82e06b5afcdb15d0f80d",
+            "type": "shell"
+        },
+        {
+            "item": "Launch Firefox",
+            "version": "",
+            "url": "repo/corsica/launch-firefox.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "d8d1b57da300fe812b4389ce9f84230fcedcbcbd484452ea5d344d1106bdd986",
+            "type": "shell"
+        },
+        {
+            "item": "Configure Power Settings",
+            "version": "",
+            "url": "repo/corsica/power-settings.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "3b6b3161094bbb38492bce682671e48e4099acb51bfc9379dba4961395a8408d",
             "type": "shell"
         },
         {

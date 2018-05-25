@@ -11,6 +11,15 @@
             "type": "shell"
         },
         {
+            "item": "Create Corsica User",
+            "version": "",
+            "url": "repo/createuser.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "c24629714aafc00ab720c731fdff33e93be33bba70e70281e10182fd107f77c4",
+            "type": "shell"
+        },{
             "item": "Download Wallpaper Image",
             "version": "",
             "url": "repo/wallpaper.jpg",

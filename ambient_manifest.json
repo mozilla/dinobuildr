@@ -11,15 +11,26 @@
             "type": "shell"
         },
         {
+            "item": "Download kcpassword file",
+            "version": "",
+            "url": "repo/kcpassword",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "974826327075bc318541cf3e61571b474e161d06eed0a459d2fc0fd989c8b2ad",
+            "type": "file-lfs"
+        },
+	{
             "item": "Create Corsica User",
             "version": "",
             "url": "repo/createuser.sh",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "c24629714aafc00ab720c731fdff33e93be33bba70e70281e10182fd107f77c4",
+            "hash": "63803a0c2cef8f0d79f514278eb512c53d08d9b65b065a5672bbeb800f7aa4bb",
             "type": "shell"
-        },{
+        },
+	{
             "item": "Download Wallpaper Image",
             "version": "",
             "url": "repo/wallpaper.jpg",

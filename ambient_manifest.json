@@ -81,16 +81,6 @@
             "type": "shell"
         },
         {
-            "item": "Configure Dock",
-            "version": "",
-            "url": "repo/corsica/dock-config.sh",
-            "filename": "",
-            "dmg-installer": "",
-            "dmg-advanced": "",
-            "hash": "6280674e763cf8c13edd12d6ecda93fbd7fafc1cae7d5424f487e95a36d18e24",
-            "type": "shell"
-        },
-        {
             "item": "Configure Firefox",
             "version": "",
             "url": "repo/corsica/firefox-settings.sh",

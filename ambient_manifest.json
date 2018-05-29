@@ -11,14 +11,34 @@
             "type": "shell"
         },
         {
-            "item": "Download Wallpaper Image",
+            "item": "Set Do Not Disturb",
             "version": "",
-            "url": "repo/wallpaper.jpg",
+            "url": "repo/set-donotdisturb.sh",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "8b5771b813bd684ee3ff8f6a2c205c249ca127c7c5f92c9b92b1b8fdecd389a4",
+            "hash": "0216180f5fb652e97ea11fe6fde80fe5c8c3111e29ef141d4fae09975925c6bf",
+            "type": "shell"
+        },
+	{
+            "item": "Download kcpassword file",
+            "version": "",
+            "url": "repo/kcpassword",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "974826327075bc318541cf3e61571b474e161d06eed0a459d2fc0fd989c8b2ad",
             "type": "file-lfs"
+        },
+	{
+            "item": "Create Corsica User",
+            "version": "",
+            "url": "repo/createuser.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "9cc194951c8edfb0c7f98a5c356e4249946b6a5bf252733e457739731d5f71ac",
+            "type": "shell"
         },
         {
             "item": "Install Firefox ESR",
@@ -38,16 +58,6 @@
             "dmg-installer": "",
             "dmg-advanced": "",
             "hash": "a3476f968ac645dffcecc336a0b735a7f508b30f75c9a3222e211100e58d5c0e",
-            "type": "shell"
-        },
-        {
-            "item": "Configure Wallpaper",
-            "version": "",
-            "url": "repo/wallpaper.sh",
-            "filename": "",
-            "dmg-installer": "",
-            "dmg-advanced": "",
-            "hash": "982fb8ea6442d16de0f7c0b2f062595ba25fed0d4e0c03248b7c20e7164ffa82",
             "type": "shell"
         },
         {

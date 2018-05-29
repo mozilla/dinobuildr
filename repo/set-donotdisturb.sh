@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# code provided by barnesaw in the JAMF Nation forums: https://www.jamf.com/jamf-nation/discussions/19769/disable-notifcations-via-script-equivalent-to-option-clicking-notifications
+
 MAC_UUID=$(system_profiler SPHardwareDataType | awk -F" " '/UUID/{print $3}')
 
 # Setup DND on NotificationCenter

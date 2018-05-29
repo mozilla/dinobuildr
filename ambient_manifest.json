@@ -11,6 +11,16 @@
             "type": "shell"
         },
         {
+            "item": "Set Do Not Disturb",
+            "version": "",
+            "url": "repo/set-donotdisturb.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "0216180f5fb652e97ea11fe6fde80fe5c8c3111e29ef141d4fae09975925c6bf",
+            "type": "shell"
+        },
+	{
             "item": "Download kcpassword file",
             "version": "",
             "url": "repo/kcpassword",

@@ -10,7 +10,11 @@ username=corsica
 
 echo "Creating a user: $username" 
 
+
 mkdir -p "/var/db/dslocal/nodes/Default/users/"
+
+(
+set -e
 cat > "/var/db/dslocal/nodes/Default/users/$userplist" <<- "EOF"
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -90,7 +94,9 @@ cat > "/var/db/dslocal/nodes/Default/users/$userplist" <<- "EOF"
 	</array>
 </dict>
 </plist>
-EOF     
+EOF
+set +e
+)
 
 cp "${DINOPATH}/$passwordfile" "/etc/$passwordfile"
 /bin/chmod 700 "/var/db/dslocal/nodes/Default/users/"
@@ -98,6 +104,4 @@ cp "${DINOPATH}/$passwordfile" "/etc/$passwordfile"
 /usr/sbin/chown -R root:wheel "/var/db/dslocal/nodes/Default/users/"
 /bin/chmod 600 "/etc/$passwordfile"
 /usr/sbin/chown -R root:wheel "/etc/$passwordfile"
-/usr/bin/defaults write "/Library/Preferences/com.apple.loginwindow" autoLoginUser "$username"
-/bin/chmod 644 "/Library/Preferences/com.apple.loginwindow.plist"
-/usr/bin/killall DirectoryService 2>/dev/null || /usr/bin/killall opendirectoryd 2>/dev/null
+/usr/bin/defaults write "/Library/Preferences/com.apple.loginwindow" autoLoginUser $username

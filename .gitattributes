@@ -1,1 +1,2 @@
 repo/kcpassword filter=lfs diff=lfs merge=lfs -text
+repo/corsica/kcpassword filter=lfs diff=lfs merge=lfs -text

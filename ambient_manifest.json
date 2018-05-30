@@ -13,7 +13,7 @@
         {
             "item": "Set Do Not Disturb",
             "version": "",
-            "url": "repo/set-donotdisturb.sh",
+            "url": "repo/corsica/set-donotdisturb.sh",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
@@ -23,7 +23,7 @@
 	{
             "item": "Download kcpassword file",
             "version": "",
-            "url": "repo/kcpassword",
+            "url": "repo/corsica/kcpassword",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
@@ -33,7 +33,7 @@
 	{
             "item": "Create Corsica User",
             "version": "",
-            "url": "repo/createuser.sh",
+            "url": "repo/corsica/createuser.sh",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",

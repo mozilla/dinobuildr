@@ -16,11 +16,6 @@ tell application "Firefox"
 end tell
 EOF
 
-if [ ! -d /Users/corsica/Library/LaunchAgents ]; then
-    mkdir -p /Users/corsica/Library/LaunchAgents
-#   chown corsica /Users/corsica/Library/LaunchAgents
-fi
-
 cat > /Library/LaunchAgents/launch-firefox.plist <<- "EOF"
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -38,5 +33,3 @@ cat > /Library/LaunchAgents/launch-firefox.plist <<- "EOF"
 </dict>
 </plist>
 EOF
-
-# chown corsica /Users/corsica/Library/LaunchAgents/launch-firefox.plist

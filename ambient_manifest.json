@@ -121,6 +121,26 @@
             "type": "shell"
         },
         {
+            "item": "Skip iCloud Setup Assistant",
+            "version": "",
+            "url": "repo/corsica/skip-icloud-setup.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "34f88e376cd9bc0fa782713207bb2c25c89c668952c6e14b42ed9f52ddcd4a7b",
+            "type": "shell"
+        },
+        {
+            "item": "Skip Data and Privacy Setup Assistant",
+            "version": "",
+            "url": "repo/corsica/skip-data-privacy-setup.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "c24983160d6ba44d3d48bdce83a9c6a511a6044b367e7946322aac27f9c6a244",
+            "type": "shell"
+        },
+        {
             "item": "Update macOS",
             "version": "",
             "url": "repo/update-macos.sh",

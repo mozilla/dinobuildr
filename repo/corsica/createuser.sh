@@ -4,12 +4,20 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+# this is a very crude way of generating a user. it's basically the same method
+# that Greg Neagle uses in pycreateuserpkg
+# (https://github.com/gregneagle/pycreateuserpkg), since we just used that to
+# generate a user, pasted the plist in this script and copy of the kcpassword
+# file in future times, we'd need to let dinobuildr execute python directly and
+# we'll actually write the kcpassword file dynamically
+
 userplist=corsica.plist
 passwordfile=kcpassword
 username=corsica
 
 echo "Creating a user: $username" 
 
+# we just include the user plist inside this script so we don't have to have a separate file floating around.
 
 mkdir -p "/var/db/dslocal/nodes/Default/users/"
 
@@ -97,6 +105,11 @@ cat > "/var/db/dslocal/nodes/Default/users/$userplist" <<- "EOF"
 EOF
 set +e
 )
+
+# here we copy the kcpassword file and set a bunch of perms.
+# the password is not clever or secret and would have been blank if we could
+# have made that work.  some of these ownership / permsisions changes are not
+# necessary but better safe than sorry.
 
 cp "${DINOPATH}/$passwordfile" "/etc/$passwordfile"
 /bin/chmod 700 "/var/db/dslocal/nodes/Default/users/"

@@ -1,6 +1,11 @@
 #!/bin/bash
 
-# code provided by barnesaw in the JAMF Nation forums: https://www.jamf.com/jamf-nation/discussions/19769/disable-notifcations-via-script-equivalent-to-option-clicking-notifications
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+# code provided by barnesaw in the JAMF Nation forums:
+# https://www.jamf.com/jamf-nation/discussions/19769/disable-notifcations-via-script-equivalent-to-option-clicking-notifications
 
 MAC_UUID=$(system_profiler SPHardwareDataType | awk -F" " '/UUID/{print $3}')
 

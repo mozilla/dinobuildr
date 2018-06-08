@@ -13,7 +13,7 @@ cat > /Users/Shared/SkipDataAndPrivacy.mobileconfig <<- "EOF"
 <plist version="1.0">
 	<dict>
 		<key>PayloadIdentifier</key>
-		<string>com.mozilla.cse.2F1B7BDB-C2EC-4D07-8EB5-F83D3F1E703F</string>
+		<string>2F1B7BDB-C2EC-4D07-8EB5-F83D3F1E703F</string>
 		<key>PayloadRemovalDisallowed</key>
 		<false/>
 		<key>PayloadScope</key>
@@ -38,7 +38,7 @@ cat > /Users/Shared/SkipDataAndPrivacy.mobileconfig <<- "EOF"
 				<key>PayloadVersion</key>
 				<integer>1</integer>
 				<key>PayloadIdentifier</key>
-				<string>com.mozilla.cse.4C3AFBD4-211F-46A6-81E3-168C88E443B4</string>
+				<string>4C3AFBD4-211F-46A6-81E3-168C88E443B4</string>
 				<key>PayloadEnabled</key>
 				<true/>
 				<key>PayloadUUID</key>

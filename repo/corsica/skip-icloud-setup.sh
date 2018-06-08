@@ -13,7 +13,7 @@ cat > /Users/Shared/SkipiCloudSetup.mobileconfig <<- "EOF"
 <plist version="1.0">
 	<dict>
 		<key>PayloadIdentifier</key>
-		<string>com.mozilla.cse.C933F5EA-CAD4-4268-BBC0-ADB55465926B</string>
+		<string>C933F5EA-CAD4-4268-BBC0-ADB55465926B</string>
 		<key>PayloadRemovalDisallowed</key>
 		<false/>
 		<key>PayloadScope</key>
@@ -38,7 +38,7 @@ cat > /Users/Shared/SkipiCloudSetup.mobileconfig <<- "EOF"
 				<key>PayloadVersion</key>
 				<integer>1</integer>
 				<key>PayloadIdentifier</key>
-				<string>com.mozilla.cse.7BC6F6C1-1263-44E0-AF88-B7176383F61A</string>
+				<string>7BC6F6C1-1263-44E0-AF88-B7176383F61A</string>
 				<key>PayloadEnabled</key>
 				<true/>
 				<key>PayloadUUID</key>

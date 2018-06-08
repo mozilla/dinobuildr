@@ -127,7 +127,7 @@
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "34f88e376cd9bc0fa782713207bb2c25c89c668952c6e14b42ed9f52ddcd4a7b",
+            "hash": "8c7a8ffa3672bae36a0529a8f705bfa63af31fa1726c0ae56413a3b1f23adcd4",
             "type": "shell"
         },
         {
@@ -137,17 +137,7 @@
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "c24983160d6ba44d3d48bdce83a9c6a511a6044b367e7946322aac27f9c6a244",
-            "type": "shell"
-        },
-        {
-            "item": "Skip Touch ID Setup Assistant",
-            "version": "",
-            "url": "repo/corsica/skip-touchid-setup.sh",
-            "filename": "",
-            "dmg-installer": "",
-            "dmg-advanced": "",
-            "hash": "aca6924e511d38acb3818d84c014feaf4fb424a92a19fc839e792f21bd803ae1",
+            "hash": "ff1a6f10f9637c2283951d5033d08a02829b03234c132fd8b359be319530c14c",
             "type": "shell"
         },
         {

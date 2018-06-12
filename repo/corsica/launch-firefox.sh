@@ -27,6 +27,8 @@ fi
 mv /Users/Shared/launch-firefox.plist /Users/corsica/Library/LaunchAgents/launch-firefox.plist
 chown corsica /Users/corsica/Library/LaunchAgents/launch-firefox.plist
 
+chown -R corsica:staff /Applications/Firefox.app/
+
 rm -rf /Library/LaunchDaemons/move-launch-firefox.plist
 
 rm -rf "$0"

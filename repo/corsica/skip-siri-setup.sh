@@ -23,7 +23,7 @@ cat > /Users/Shared/SkipSiriSetup.mobileconfig <<- "EOF"
 		<key>PayloadUUID</key>
 		<string>1CED00D4-CDB0-4545-9C4D-903E3247351C</string>
 		<key>PayloadOrganization</key>
-		<string>Company Name</string>
+		<string>Mozilla Corporation</string>
 		<key>PayloadVersion</key>
 		<integer>1</integer>
 		<key>PayloadDescription</key>

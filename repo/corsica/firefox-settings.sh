@@ -37,4 +37,4 @@ EOF
 set +e
 )
 
-/bin/chmod 777 "/Users/Shared/corsica-profile/prefs.js"
+/bin/chmod -r 777 "/Users/Shared/corsica-profile/"

@@ -8,14 +8,6 @@
 # launches the AppleScript under the corsica user at login and the 
 # AppleScript launches Firefox in fullscreen mode.
 
-cat > /Users/Shared/launch-firefox.applescript <<- "EOF"
-tell application "Firefox"
-    activate
-    delay 10
-    tell application "System Events" to keystroke "f"
-end tell
-EOF
-
 cat > /Users/Shared/move-launch-firefox.sh <<- "EOF"
 #!/bin/bash
 
@@ -62,8 +54,12 @@ cat > /Users/Shared/launch-firefox.plist <<- "EOF"
     <string>launch-firefox</string>
     <key>ProgramArguments</key>
     <array>
-    	<string>/usr/bin/osascript</string>
-        <string>/Users/Shared/launch-firefox.applescript</string>
+    	<string>/usr/bin/open</string>
+        <string>-a</string>
+	<string>/Applications/Firefox.app</string>
+	<string>--args</string>
+	<string>--profile</string>
+	<string>/Users/Shared/corsica-profile/</string>
     </array>
     <key>RunAtLoad</key>
     <true/>

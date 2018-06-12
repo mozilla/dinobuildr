@@ -37,4 +37,4 @@ EOF
 set +e
 )
 
-/bin/chmod -r 777 "/Users/Shared/corsica-profile/"
+/bin/chmod -R 777 /Users/Shared/corsica-profile/

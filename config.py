@@ -82,7 +82,7 @@ raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
 manifest_url = "https://raw.githubusercontent.com/%s/%s/%s/%s" % (org, repo, branch, manifest)
 manifest_file = "%s/%s" % (local_dir, manifest)
 default_manifest_hash = "61f6fc9b2bf9f2711c9eb4e2e9032dc825534fba83b02db0f1fcda09fb3fbdb5"
-ambient_manifest_hash = "b44a45251a2ca80774e94f291aed941aae23f99486d5bcbab9044bf9dc6b354c"
+ambient_manifest_hash = "9c70382c40f271bddb4136a9e2d7add0f22451e0c8fe87ccd10ce91d9bc0f367"
 manifest_hash = default_manifest_hash
 if manifest == "ambient_manifest.json":
     manifest_hash = ambient_manifest_hash
@@ -197,6 +197,14 @@ def dmg_install(filename, installer, command=None):
     if err:
         print err.decode('utf-8')
 
+# the mobileconfig_install function installs configuration profiles
+def mobileconfig_install(mobileconfig):
+    pipes = subprocess.Popen([
+        "/usr/bin/profiles", "-I", "-F" mobileconfig],
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, err = pipes.communicate()
+    if err:
+        print err.decode('utf-8')
 
 # the hash_file function accepts two arguments: the filename that you need to
 # determine the SHA256 hash of and the expected hash it returns True or False.
@@ -340,6 +348,15 @@ for item in data['packages']:
         print "Downloading:", item['item']
         downloader(lfsfile_url, local_path)
         hash_file(local_path, item['hash'])
+        print "\r"
+
+    if item['type'] == "mobileconfig":
+        dl_url = raw_url + item['url']
+        print "Downloading:", item['item']
+        downloader(dl_url, local_path)
+        hash_file(local_path, item['hash'])
+        print "Installing:", item['item']
+        mobileconfig_install(local_path)
         print "\r"
 
 # delete the temporary directory we've been downloading packages into.

@@ -19,4 +19,4 @@ dinobuildr relies on a JSON manifest to specify the actions the build will take 
 * **.pkg** - Github LFS, HTTP(S)/FTP
 * **.dmg** - HTTP(S)/FTP
 * **Bash Scripts** - Github
-* **.mobileconfig files** - Github
+* **.mobileconfig Files** - Github

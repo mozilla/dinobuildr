@@ -200,7 +200,7 @@ def dmg_install(filename, installer, command=None):
 # the mobileconfig_install function installs configuration profiles
 def mobileconfig_install(mobileconfig):
     pipes = subprocess.Popen([
-        "/usr/bin/profiles", "-I", "-F" mobileconfig],
+        "/usr/bin/profiles", "-I", "-F", mobileconfig],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = pipes.communicate()
     if err:

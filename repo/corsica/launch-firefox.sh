@@ -58,6 +58,7 @@ cat > /Users/Shared/launch-firefox.plist <<- "EOF"
         <string>-a</string>
 	<string>/Applications/Firefox.app</string>
 	<string>--args</string>
+	<string>--foreground</string>
 	<string>--profile</string>
 	<string>/Users/Shared/corsica-profile/</string>
     </array>

@@ -82,7 +82,7 @@ raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
 manifest_url = "https://raw.githubusercontent.com/%s/%s/%s/%s" % (org, repo, branch, manifest)
 manifest_file = "%s/%s" % (local_dir, manifest)
 default_manifest_hash = "61f6fc9b2bf9f2711c9eb4e2e9032dc825534fba83b02db0f1fcda09fb3fbdb5"
-ambient_manifest_hash = "9c70382c40f271bddb4136a9e2d7add0f22451e0c8fe87ccd10ce91d9bc0f367"
+ambient_manifest_hash = "f471bf3980729bf8529fdb8e9646d8fb5cc9f32a7b066c7642386c223751516e"
 manifest_hash = default_manifest_hash
 if manifest == "ambient_manifest.json":
     manifest_hash = ambient_manifest_hash

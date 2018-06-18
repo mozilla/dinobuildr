@@ -123,32 +123,32 @@
         {
             "item": "Skip iCloud Setup Assistant",
             "version": "",
-            "url": "repo/corsica/skip-icloud-setup.sh",
+            "url": "repo/corsica/skip-icloud-setup.mobileconfig",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "8c7a8ffa3672bae36a0529a8f705bfa63af31fa1726c0ae56413a3b1f23adcd4",
-            "type": "shell"
+            "hash": "8ba15813d89d84bc7d67638f8cb0a5e7a9b493d80326f7422bf8f520d5a205ee",
+            "type": "mobileconfig"
         },
         {
             "item": "Skip Data and Privacy Setup Assistant",
             "version": "",
-            "url": "repo/corsica/skip-data-privacy-setup.sh",
+            "url": "repo/corsica/skip-data-privacy-setup.mobileconfig",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "ff1a6f10f9637c2283951d5033d08a02829b03234c132fd8b359be319530c14c",
-            "type": "shell"
+            "hash": "54ccb4247f402f3c73a84e4f08da09e9bf63e0e763a9e94aa7659c5bd2ff25ca",
+            "type": "mobileconfig"
         },
         {
             "item": "Skip Siri Setup Assistant",
             "version": "",
-            "url": "repo/corsica/skip-siri-setup.sh",
+            "url": "repo/corsica/skip-siri-setup.mobileconfig",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "ecfc02d18547762ca87ef94b1cfb43f5b8fe969d9b33a99c8d5cf76bcccb91a0",
-            "type": "shell"
+            "hash": "9fc4d33f0bcd4eaf645baba7b55832e0c5fff61892e729c5e8b282a326c15f84",
+            "type": "mobileconfig"
         },
         {
             "item": "Update macOS",

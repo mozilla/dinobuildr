@@ -121,6 +121,16 @@
             "type": "shell"
         },
         {
+            "item": "Disable Bluetooth Setup Assistant",
+            "version": "",
+            "url": "repo/corsica/disable-bluetooth-setup-assistant.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "7b92fd58cd018391fd78e77cac79f2924bc156a862d2980b4ea2505e585d420a",
+            "type": "shell"
+        },
+        {
             "item": "Skip iCloud Setup Assistant",
             "version": "",
             "url": "repo/corsica/skip-icloud-setup.mobileconfig",

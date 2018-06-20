@@ -97,7 +97,7 @@
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "a48c45bce6afb352bdc1eb80232d0b24bf4119890318b874fc9c61f4b81adab7",
+            "hash": "a3bd389fac7d2c940e33e62b274a82209714426ba8a46ac0900ffe847024d235",
             "type": "shell"
         },
         {
@@ -118,6 +118,16 @@
             "dmg-installer": "",
             "dmg-advanced": "",
             "hash": "5de09057abdbc563d0cc4f802ab3138d901dd1ba711f7ddcf6de99299a54affb",
+            "type": "shell"
+        },
+        {
+            "item": "Disable Bluetooth Setup Assistant",
+            "version": "",
+            "url": "repo/corsica/disable-bluetooth-setup-assistant.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "7b92fd58cd018391fd78e77cac79f2924bc156a862d2980b4ea2505e585d420a",
             "type": "shell"
         },
         {

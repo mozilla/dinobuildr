@@ -11,23 +11,43 @@
             "type": "shell"
         },
         {
-            "item": "Download Wallpaper Image",
+            "item": "Set Do Not Disturb",
             "version": "",
-            "url": "repo/wallpaper.jpg",
+            "url": "repo/corsica/set-donotdisturb.sh",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "8b5771b813bd684ee3ff8f6a2c205c249ca127c7c5f92c9b92b1b8fdecd389a4",
+            "hash": "69a6d3d16c59b7e82439f97ed1dc5a6e1662bf737027ee945ad7421856fa52e4",
+            "type": "shell"
+        },
+	{
+            "item": "Download kcpassword file",
+            "version": "",
+            "url": "repo/corsica/kcpassword",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "974826327075bc318541cf3e61571b474e161d06eed0a459d2fc0fd989c8b2ad",
             "type": "file-lfs"
         },
+	{
+            "item": "Create Corsica User",
+            "version": "",
+            "url": "repo/corsica/createuser.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "eea0b4eae179912ff2dc3c44e4481296a0807e99cbd6e8d434e7b077726f4cc5",
+            "type": "shell"
+        },
         {
-            "item": "Install Firefox",
-            "version": "58.0.2",
-            "url": "https://download.mozilla.org/?product=firefox-${version}-SSL&os=osx&lang=en-US",
+            "item": "Install Firefox ESR",
+            "version": "60.0.1",
+            "url": "https://download.mozilla.org/?product=firefox-${version}esr-SSL&os=osx&lang=en-US",
             "filename": "firefox.dmg",
             "dmg-installer": "Firefox.app",
             "dmg-advanced": "",
-            "hash": "d30aa9862a8adc21e98d447bfeb3e50d40cbfc5aa3f9a8cdd2502a8e4c8b6c47",
+            "hash": "f3c643d9cdca6d2ab9604b99a7371f28ec08193ed92ccc217735bf7c4b81daa0",
             "type": "dmg"
         },
         {
@@ -41,16 +61,6 @@
             "type": "shell"
         },
         {
-            "item": "Configure Wallpaper",
-            "version": "",
-            "url": "repo/wallpaper.sh",
-            "filename": "",
-            "dmg-installer": "",
-            "dmg-advanced": "",
-            "hash": "982fb8ea6442d16de0f7c0b2f062595ba25fed0d4e0c03248b7c20e7164ffa82",
-            "type": "shell"
-        },
-        {
             "item": "Disable analytics settings",
             "version": "",
             "url": "repo/analytics_settings.sh",
@@ -58,6 +68,46 @@
             "dmg-installer": "",
             "dmg-advanced": "",
             "hash": "9a88799266ede381335a3ec5c23118aa6404516e6fd3ca805d238dff2eb5eefb",
+            "type": "shell"
+        },
+        {
+            "item": "Disable Screensaver",
+            "version": "",
+            "url": "repo/corsica/disable-screensaver.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "3d90259215493be7198ee639f408fc4e83887e551df99ec33689932321e01fda",
+            "type": "shell"
+        },
+        {
+            "item": "Configure Firefox",
+            "version": "",
+            "url": "repo/corsica/firefox-settings.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "73d360e49b06afcdfb2d166635cff2a62f93f4cd1136627386d990b891ba83bd",
+            "type": "shell"
+        },
+        {
+            "item": "Launch Firefox",
+            "version": "",
+            "url": "repo/corsica/launch-firefox.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "ad5fe3c7092fbf420098037f728a7626aed362723e79fd23aafa1438fb986a3d",
+            "type": "shell"
+        },
+        {
+            "item": "Configure Power Settings",
+            "version": "",
+            "url": "repo/corsica/power-settings.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "3b6b3161094bbb38492bce682671e48e4099acb51bfc9379dba4961395a8408d",
             "type": "shell"
         },
         {
@@ -69,6 +119,46 @@
             "dmg-advanced": "",
             "hash": "5de09057abdbc563d0cc4f802ab3138d901dd1ba711f7ddcf6de99299a54affb",
             "type": "shell"
+        },
+        {
+            "item": "Disable Bluetooth Setup Assistant",
+            "version": "",
+            "url": "repo/corsica/disable-bluetooth-setup-assistant.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "7b92fd58cd018391fd78e77cac79f2924bc156a862d2980b4ea2505e585d420a",
+            "type": "shell"
+        },
+        {
+            "item": "Skip iCloud Setup Assistant",
+            "version": "",
+            "url": "repo/corsica/skip-icloud-setup.mobileconfig",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "8ba15813d89d84bc7d67638f8cb0a5e7a9b493d80326f7422bf8f520d5a205ee",
+            "type": "mobileconfig"
+        },
+        {
+            "item": "Skip Data and Privacy Setup Assistant",
+            "version": "",
+            "url": "repo/corsica/skip-data-privacy-setup.mobileconfig",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "54ccb4247f402f3c73a84e4f08da09e9bf63e0e763a9e94aa7659c5bd2ff25ca",
+            "type": "mobileconfig"
+        },
+        {
+            "item": "Skip Siri Setup Assistant",
+            "version": "",
+            "url": "repo/corsica/skip-siri-setup.mobileconfig",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "9fc4d33f0bcd4eaf645baba7b55832e0c5fff61892e729c5e8b282a326c15f84",
+            "type": "mobileconfig"
         },
         {
             "item": "Update macOS",

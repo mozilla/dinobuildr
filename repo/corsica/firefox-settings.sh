@@ -19,7 +19,7 @@ cat > /Applications/Firefox.app/Contents/Resources/distribution/policies.json <<
     "OverridePostUpdatePage": "",
     "DontCheckDefaultBrowser": true,
     "Homepage": {
-      "URL": "https://corsica.mozilla.io/"
+      "URL": "http://corsica.mozilla.io/"
     }
   }
 }

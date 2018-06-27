@@ -13,11 +13,11 @@
         {
             "item": "Set Hostname",
             "version": "",
-            "url": "repo/corsica/set-computername.sh",
+            "url": "repo/corsica/prompt-computername.sh",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "0b9e0a7ef4d7366f179df103195d65557e467991b0526e15bc575a4825b778c2",
+            "hash": "ae5402f85a3a9cb2f12aecfaa2fd5106884ac139b9024e9cf846e06f4204496c",
             "type": "shell"
         },
 	{

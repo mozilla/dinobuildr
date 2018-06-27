@@ -4,8 +4,12 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-echo 'Enter desired hostname:'
-read hostname
+read -r -d '' applescriptCode <<'EOF'
+   set hostnamePrompt to text returned of (display dialog "Enter desired hostname:" default answer "")
+   return hostnamePrompt
+EOF
+
+hostname=$(osascript -e "$applescriptCode");
 
 echo "Setting LocalHostName and ComputerName to ${hostname}"
 

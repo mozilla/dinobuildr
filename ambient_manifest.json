@@ -11,6 +11,16 @@
             "type": "shell"
         },
         {
+            "item": "Set Hostname",
+            "version": "",
+            "url": "repo/corsica/prompt-computername.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "ae5402f85a3a9cb2f12aecfaa2fd5106884ac139b9024e9cf846e06f4204496c",
+            "type": "shell"
+        },
+	{
             "item": "Set Do Not Disturb",
             "version": "",
             "url": "repo/corsica/set-donotdisturb.sh",

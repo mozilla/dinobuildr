@@ -38,6 +38,8 @@ org = "mozilla"
 repo = "dinobuildr"
 default_branch = "master"
 default_manifest = "manifest.json"
+corsica_manifest = "ambient_manifest.json"
+vidyo_kiosk_manifest = "vidyo_kiosk_manifest.json"
 
 # this section parses argument(s) passed to this script
 # the --branch argument specified the branch that this script will build
@@ -56,8 +58,14 @@ else:
 
 if args.manifest == None:
     manifest = default_manifest
+elif args.manifest == "corsica":
+    manifest = corsica_manifest
+elif args.manifest == "vidyo_kiosk":
+    manifest = vidyo_kiosk_manifest
 else:
-    manifest = args.manifest
+    print "\r%s is an invalid manifest. Please enter corsica or vidyo_kiosk. " \
+    "The production macOS deployment does not require the use of the manifest argument." % args.manifest
+    exit(1)
 
 # os.environ - an environment variable for the builder's local directory to be
 # passed on to shells scripts

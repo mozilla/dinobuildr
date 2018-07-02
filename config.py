@@ -34,40 +34,10 @@ global gid
 # repo - the rep that is hosting the build
 # default_branch - the default branch to build against if no --branch argument is specified
 
-settings_file_name = "settings.ini"
-script_path = os.path.dirname(os.path.realpath(__file__)) + "/"
-settings_file = script_path + settings_file_name
-config = ConfigParser.ConfigParser()
-config.read(settings_file)
-
-if not os.path.exists(settings_file):
-    print "\rThe settings file %s is missing." % settings_file
-    exit(1)
-
-def get_config(option):
-    return config.get("settings", option)
-
-local_dir = get_config("local_dir")
-org = get_config("org")
-repo = get_config("repo")
-default_branch = get_config("default_branch")
-default_manifest = get_config("default_manifest")
-corsica_manifest = get_config("corsica_manifest")
-vidyo_kiosk_manifest = get_config("vidyo_kiosk_manifest")
-default_manifest_hash = get_config("default_manifest_hash")
-ambient_manifest_hash = get_config("ambient_manifest_hash")
-vidyo_kiosk_manifest_hash = get_config("vidyo_kiosk_manifest_hash")
-
-secrets_file_name = "secrets.ini"
-secrets_file = script_path + secrets_file_name
-secrets = ConfigParser.ConfigParser()
-secrets.read(secrets_file)
-
-def get_secret(option):
-    return secrets.get("settings", option)
-
-if os.path.exists(secrets_file):
-    jamf_invite_key = get_secret("jamf_invite_key")
+local_dir = "/var/tmp/dinobuildr"
+org = "mozilla"
+repo = "dinobuildr"
+default_branch = "master"
 
 # this section parses argument(s) passed to this script
 # the --branch argument specified the branch that this script will build
@@ -84,6 +54,60 @@ if args.branch == None:
 else:
     branch = args.branch
 
+settings_file_name = "settings.ini"
+settings_url = "https://raw.githubusercontent.com/%s/%s/%s/%s" % (org, repo, branch, settings_file_name)
+
+# the downloader function accepts three arguments: the url of the file you are
+# downloading, the filename (path) of the file you are downloading and an
+# optional password if the download requires Basic authentication. the
+# downloader reads the Content-Length portion of the header of the incoming
+# file and determines the expected file size then reads the incoming file in
+# chunks of 8192 bytes and displays the currently read bytes and percentage
+# complete
+
+def downloader(url, file_path):
+    if not os.path.exists(local_dir):
+        os.makedirs(local_dir)
+    download = urllib2.urlopen(url)
+    meta = download.info()
+    file_size = int(meta.getheaders("Content-Length")[0])
+    print "%s is %s bytes." % (file_path, file_size)
+    with open(file_path, 'wb') as code:
+        chunk_size = 8192
+        bytes_read = 0
+        while True:
+            data = download.read(chunk_size)
+            bytes_read += len(data)
+            code.write(data)
+            status = r"%10d [%3.2f%%]" % (bytes_read, bytes_read * 100 / file_size)
+            status = status + chr(8) * (len(status) + 1)
+            print "\r", status,
+            if len(data) < chunk_size:
+                break
+
+script_path = os.path.dirname(os.path.realpath(__file__)) + "/"
+settings_file = script_path + settings_file_name
+
+print "\nDownloading the settings file.\n"
+downloader(settings_url, settings_file)
+
+config = ConfigParser.ConfigParser()
+config.read(settings_file)
+
+if not os.path.exists(settings_file):
+    print "\rThe settings file %s is missing." % settings_file
+    exit(1)
+
+def get_config(option):
+    return config.get("settings", option)
+
+default_manifest = get_config("default_manifest")
+corsica_manifest = get_config("corsica_manifest")
+vidyo_kiosk_manifest = get_config("vidyo_kiosk_manifest")
+default_manifest_hash = get_config("default_manifest_hash")
+ambient_manifest_hash = get_config("ambient_manifest_hash")
+vidyo_kiosk_manifest_hash = get_config("vidyo_kiosk_manifest_hash")
+
 if args.manifest == None:
     manifest = default_manifest
     manifest_hash = default_manifest_hash
@@ -97,6 +121,17 @@ else:
     print "\r%s is an invalid manifest. Please enter corsica or vidyo_kiosk. " \
     "The production macOS deployment does not require the use of the manifest argument." % args.manifest
     exit(1)
+
+secrets_file_name = "secrets.ini"
+secrets_file = script_path + secrets_file_name
+secrets = ConfigParser.ConfigParser()
+secrets.read(secrets_file)
+
+def get_secret(option):
+    return secrets.get("settings", option)
+
+if os.path.exists(secrets_file):
+    jamf_invite_key = get_secret("jamf_invite_key")
 
 # os.environ - an environment variable for the builder's local directory to be
 # passed on to shells scripts
@@ -130,36 +165,6 @@ if os.getuid() != 0:
 # --- section 2: functions on functions on functions -------------------- #
 # in this section we define all the important functions we will use.
 # ----------------------------------------------------------------------- #
-
-
-# the downloader function accepts three arguments: the url of the file you are
-# downloading, the filename (path) of the file you are downloading and an
-# optional password if the download requires Basic authentication. the
-# downloader reads the Content-Length portion of the header of the incoming
-# file and determines the expected file size then reads the incoming file in
-# chunks of 8192 bytes and displays the currently read bytes and percentage
-# complete
-
-def downloader(url, file_path):
-    if not os.path.exists(local_dir):
-        os.makedirs(local_dir)
-    download = urllib2.urlopen(url)
-    meta = download.info()
-    file_size = int(meta.getheaders("Content-Length")[0])
-    print "%s is %s bytes." % (file_path, file_size)
-    with open(file_path, 'wb') as code:
-        chunk_size = 8192
-        bytes_read = 0
-        while True:
-            data = download.read(chunk_size)
-            bytes_read += len(data)
-            code.write(data)
-            status = r"%10d [%3.2f%%]" % (bytes_read, bytes_read * 100 / file_size)
-            status = status + chr(8) * (len(status) + 1)
-            print "\r", status,
-            if len(data) < chunk_size:
-                break
-
 
 # the package installer function runs the installer binary in macOS and pipes
 # stdout and stderr to the python console the return code of the package run

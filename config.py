@@ -29,12 +29,17 @@ from SystemConfiguration import SCDynamicStoreCopyConsoleUser
 global uid
 global gid
 
+# check to see if user ran with sudo , since it's required
+if os.getuid() != 0:
+    print "This script requires root to run, please try again with sudo."
+    exit(1)
+
 # local_dir - the local directory the builder will use
 # org - the org that is hosting the build repository
 # repo - the rep that is hosting the build
 # default_branch - the default branch to build against if no --branch argument is specified
 
-local_dir = "/var/tmp/dinobuildr"
+local_dir = "/var/tmp/dinobuildr/"
 org = "mozilla"
 repo = "dinobuildr"
 default_branch = "master"
@@ -85,8 +90,7 @@ def downloader(url, file_path):
             if len(data) < chunk_size:
                 break
 
-script_path = os.path.dirname(os.path.realpath(__file__)) + "/"
-settings_file = script_path + settings_file_name
+settings_file = local_dir + settings_file_name
 
 print "\nDownloading the settings file.\n"
 downloader(settings_url, settings_file)
@@ -122,17 +126,6 @@ else:
     "The production macOS deployment does not require the use of the manifest argument." % args.manifest
     exit(1)
 
-secrets_file_name = "secrets.ini"
-secrets_file = script_path + secrets_file_name
-secrets = ConfigParser.ConfigParser()
-secrets.read(secrets_file)
-
-def get_secret(option):
-    return secrets.get("settings", option)
-
-if os.path.exists(secrets_file):
-    jamf_invite_key = get_secret("jamf_invite_key")
-
 # os.environ - an environment variable for the builder's local directory to be
 # passed on to shells scripts
 # current_user - the name of the user running the script. Apple suggests using
@@ -154,13 +147,7 @@ gid = grp.getgrnam("staff").gr_gid
 lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo)
 raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
 manifest_url = "https://raw.githubusercontent.com/%s/%s/%s/%s" % (org, repo, branch, manifest)
-manifest_file = "%s/%s" % (local_dir, manifest)
-
-# check to see if user ran with sudo , since it's required
-
-if os.getuid() != 0:
-    print "This script requires root to run, please try again with sudo."
-    exit(1)
+manifest_file = "%s%s" % (local_dir, manifest)
 
 # --- section 2: functions on functions on functions -------------------- #
 # in this section we define all the important functions we will use.
@@ -332,7 +319,7 @@ for item in data['packages']:
         ).rsplit('/', 1)[-1]
     # TODO: this variable name is dumb, this is the path to the file we're
     # working with
-    local_path = "%s/%s" % (local_dir, file_name)
+    local_path = "%s%s" % (local_dir, file_name)
 
     if item['type'] == "pkg-lfs":
         dl_url = raw_url + item['url']

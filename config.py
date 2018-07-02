@@ -4,6 +4,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+import ConfigParser
 import subprocess
 import json
 import os
@@ -32,14 +33,41 @@ global gid
 # org - the org that is hosting the build repository
 # repo - the rep that is hosting the build
 # default_branch - the default branch to build against if no --branch argument is specified
-# testing
-local_dir = "/var/tmp/dinobuildr"
-org = "mozilla"
-repo = "dinobuildr"
-default_branch = "master"
-default_manifest = "manifest.json"
-corsica_manifest = "ambient_manifest.json"
-vidyo_kiosk_manifest = "vidyo_kiosk_manifest.json"
+
+settings_file_name = "settings.ini"
+script_path = os.path.dirname(os.path.realpath(__file__)) + "/"
+settings_file = script_path + settings_file_name
+config = ConfigParser.ConfigParser()
+config.read(settings_file)
+
+if not os.path.exists(settings_file):
+    print "\rThe settings file %s is missing." % settings_file
+    exit(1)
+
+def get_config(option):
+    return config.get("settings", option)
+
+local_dir = get_config("local_dir")
+org = get_config("org")
+repo = get_config("repo")
+default_branch = get_config("default_branch")
+default_manifest = get_config("default_manifest")
+corsica_manifest = get_config("corsica_manifest")
+vidyo_kiosk_manifest = get_config("vidyo_kiosk_manifest")
+default_manifest_hash = get_config("default_manifest_hash")
+ambient_manifest_hash = get_config("ambient_manifest_hash")
+vidyo_kiosk_manifest_hash = get_config("vidyo_kiosk_manifest_hash")
+
+secrets_file_name = "secrets.ini"
+secrets_file = script_path + secrets_file_name
+secrets = ConfigParser.ConfigParser()
+secrets.read(secrets_file)
+
+def get_secret(option):
+    return secrets.get("settings", option)
+
+if os.path.exists(secrets_file):
+    jamf_invite_key = get_secret("jamf_invite_key")
 
 # this section parses argument(s) passed to this script
 # the --branch argument specified the branch that this script will build
@@ -58,10 +86,13 @@ else:
 
 if args.manifest == None:
     manifest = default_manifest
+    manifest_hash = default_manifest_hash
 elif args.manifest == "corsica":
     manifest = corsica_manifest
+    manifest_hash = ambient_manifest_hash
 elif args.manifest == "vidyo_kiosk":
     manifest = vidyo_kiosk_manifest
+    manifest_hash = vidyo_kiosk_manifest_hash
 else:
     print "\r%s is an invalid manifest. Please enter corsica or vidyo_kiosk. " \
     "The production macOS deployment does not require the use of the manifest argument." % args.manifest
@@ -89,12 +120,6 @@ lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo)
 raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
 manifest_url = "https://raw.githubusercontent.com/%s/%s/%s/%s" % (org, repo, branch, manifest)
 manifest_file = "%s/%s" % (local_dir, manifest)
-default_manifest_hash = "61f6fc9b2bf9f2711c9eb4e2e9032dc825534fba83b02db0f1fcda09fb3fbdb5"
-ambient_manifest_hash = "a6d094f81899483194fae05e45d351743825435f87e94eb567a26b386c8f3759"
-manifest_hash = default_manifest_hash
-if manifest == "ambient_manifest.json":
-    manifest_hash = ambient_manifest_hash
-
 
 # check to see if user ran with sudo , since it's required
 

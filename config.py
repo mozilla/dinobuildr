@@ -102,15 +102,17 @@ if not os.path.exists(settings_file):
     print "\rThe settings file %s is missing." % settings_file
     exit(1)
 
-def get_config(option):
-    return config.get("settings", option)
+def load_settings(settings, section):
+    settings_dictionary = {}
+    options = settings.options(section)
+    for option in options:
+        settings_dictionary[option] = settings.get(section, option)
+    return settings_dictionary
 
-default_manifest = get_config("default_manifest")
-corsica_manifest = get_config("corsica_manifest")
-vidyo_kiosk_manifest = get_config("vidyo_kiosk_manifest")
-default_manifest_hash = get_config("default_manifest_hash")
-ambient_manifest_hash = get_config("ambient_manifest_hash")
-vidyo_kiosk_manifest_hash = get_config("vidyo_kiosk_manifest_hash")
+all_settings = load_settings(config, "settings")
+
+for option,value in all_settings.items():
+        exec(option + '=value')
 
 if args.manifest == None:
     manifest = default_manifest

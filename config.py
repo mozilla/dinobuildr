@@ -39,62 +39,9 @@ if os.getuid() != 0:
 # repo - the rep that is hosting the build
 # default_branch - the default branch to build against if no --branch argument is specified
 
-local_dir = "/var/tmp/dinobuildr/"
-org = "mozilla"
-repo = "dinobuildr"
-default_branch = "master"
-
-# this section parses argument(s) passed to this script
-# the --branch argument specified the branch that this script will build
-# against, which is useful for testing. the script will default to the master
-# branch if no argument is specified. 
-parser = argparse.ArgumentParser()
-parser.add_argument("-b", "--branch", help="The branch name to build against. Defaults to %s" % default_branch)
-parser.add_argument("-m", "--manifest", help="The manifest to build against. Defaults to production macOS deployment.")
-
-args = parser.parse_args()
-
-if args.branch == None:
-    branch = default_branch
-else:
-    branch = args.branch
-
 settings_file_name = "settings.ini"
-settings_url = "https://raw.githubusercontent.com/%s/%s/%s/%s" % (org, repo, branch, settings_file_name)
-
-# the downloader function accepts three arguments: the url of the file you are
-# downloading, the filename (path) of the file you are downloading and an
-# optional password if the download requires Basic authentication. the
-# downloader reads the Content-Length portion of the header of the incoming
-# file and determines the expected file size then reads the incoming file in
-# chunks of 8192 bytes and displays the currently read bytes and percentage
-# complete
-
-def downloader(url, file_path):
-    if not os.path.exists(local_dir):
-        os.makedirs(local_dir)
-    download = urllib2.urlopen(url)
-    meta = download.info()
-    file_size = int(meta.getheaders("Content-Length")[0])
-    print "%s is %s bytes." % (file_path, file_size)
-    with open(file_path, 'wb') as code:
-        chunk_size = 8192
-        bytes_read = 0
-        while True:
-            data = download.read(chunk_size)
-            bytes_read += len(data)
-            code.write(data)
-            status = r"%10d [%3.2f%%]" % (bytes_read, bytes_read * 100 / file_size)
-            status = status + chr(8) * (len(status) + 1)
-            print "\r", status,
-            if len(data) < chunk_size:
-                break
-
-settings_file = local_dir + settings_file_name
-
-print "\nDownloading the settings file.\n"
-downloader(settings_url, settings_file)
-
+script_path = os.path.dirname(os.path.realpath(__file__)) + "/"
+settings_file = script_path + settings_file_name
 config = ConfigParser.ConfigParser()
 config.read(settings_file)
 
@@ -113,6 +60,21 @@ all_settings = load_settings(config, "settings")
 
 for option,value in all_settings.items():
         exec(option + '=value')
+
+# this section parses argument(s) passed to this script
+# the --branch argument specified the branch that this script will build
+# against, which is useful for testing. the script will default to the master
+# branch if no argument is specified.
+parser = argparse.ArgumentParser()
+parser.add_argument("-b", "--branch", help="The branch name to build against. Defaults to %s" % default_branch)
+parser.add_argument("-m", "--manifest", help="The manifest to build against. Defaults to production macOS deployment.")
+
+args = parser.parse_args()
+
+if args.branch == None:
+    branch = default_branch
+else:
+    branch = args.branch
 
 if args.manifest == None:
     manifest = default_manifest
@@ -154,6 +116,36 @@ manifest_file = "%s%s" % (local_dir, manifest)
 # --- section 2: functions on functions on functions -------------------- #
 # in this section we define all the important functions we will use.
 # ----------------------------------------------------------------------- #
+
+# the downloader function accepts three arguments: the url of the file you are
+# downloading, the filename (path) of the file you are downloading and an
+# optional password if the download requires Basic authentication. the
+# downloader reads the Content-Length portion of the header of the incoming
+# file and determines the expected file size then reads the incoming file in
+# chunks of 8192 bytes and displays the currently read bytes and percentage
+# complete
+
+
+def downloader(url, file_path):
+    if not os.path.exists(local_dir):
+        os.makedirs(local_dir)
+    download = urllib2.urlopen(url)
+    meta = download.info()
+    file_size = int(meta.getheaders("Content-Length")[0])
+    print "%s is %s bytes." % (file_path, file_size)
+    with open(file_path, 'wb') as code:
+        chunk_size = 8192
+        bytes_read = 0
+        while True:
+            data = download.read(chunk_size)
+            bytes_read += len(data)
+            code.write(data)
+            status = r"%10d [%3.2f%%]" % (bytes_read, bytes_read * 100 / file_size)
+            status = status + chr(8) * (len(status) + 1)
+            print "\r", status,
+            if len(data) < chunk_size:
+                break
+
 
 # the package installer function runs the installer binary in macOS and pipes
 # stdout and stderr to the python console the return code of the package run

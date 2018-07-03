@@ -31,13 +31,16 @@ while :; do
 done
 
 printf "\nPulling down dinobuildr from the [$branch] branch on github and starting the build!\n\n"
-build_script=$(curl -f https://raw.githubusercontent.com/mozilla/dinobuildr/$branch/config.py)
+settings_file=$(curl -f https://raw.githubusercontent.com/mozilla/dinobuildr/$branch/settings.ini)
+local_dir=$(echo "${settings_file}" | grep "local_dir" | awk '{print $3}')
+echo "${settings_file}" > local_dir"settings.ini"
+curl --create-dirs -f -o $local_dir"config.py" https://raw.githubusercontent.com/mozilla/dinobuildr/$branch/config.py
 curl_status=$?
 # If curl fails for some reason, we return it's non-zero exit code so that the
 # script can fail in a predictable way.
 
 if [ $curl_status -eq 0 ]; then
-    python -c "$build_script" -b "$branch" -m "$manifest"
+    python $local_dir"config.py" -b "$branch" -m "$manifest"
 else 
     echo "********************************************************************"
     echo "Uh oh, unable to download Dinobuildr from Github."

@@ -35,6 +35,8 @@ settings_file=$(curl -f https://raw.githubusercontent.com/mozilla/dinobuildr/$br
 local_dir=$(echo "${settings_file}" | grep "local_dir" | awk '{print $3}')
 mkdir -p $local_dir
 echo "${settings_file}" > $local_dir"settings.ini"
+dinobuildr_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"/
+echo "dinobuildr_dir = $dinobuildr_dir" >> $local_dir"settings.ini"
 curl -f -o $local_dir"config.py" https://raw.githubusercontent.com/mozilla/dinobuildr/$branch/config.py
 curl_status=$?
 # If curl fails for some reason, we return it's non-zero exit code so that the

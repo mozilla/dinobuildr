@@ -90,6 +90,17 @@ else:
     "The production macOS deployment does not require the use of the manifest argument." % args.manifest
     exit(1)
 
+# The secrets file must be in the same directory as the dinobuildr.sh script."
+secrets_file_name = "secrets.ini"
+secrets_file = dinobuildr_dir + secrets_file_name
+if os.path.exists(secrets_file):
+    secrets = ConfigParser.ConfigParser()
+    secrets.read(secrets_file)
+    all_secrets = load_settings(secrets, "settings")
+    for option,value in all_secrets.items():
+        exec(option + '=value')
+os.environ["DINOSHPATH"] = dinobuildr_dir
+
 # os.environ - an environment variable for the builder's local directory to be
 # passed on to shells scripts
 # current_user - the name of the user running the script. Apple suggests using

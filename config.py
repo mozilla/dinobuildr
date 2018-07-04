@@ -76,7 +76,7 @@ if args.branch == None:
 else:
     branch = args.branch
 
-if args.manifest == None:
+if args.manifest == None or "default":
     manifest = default_manifest
     manifest_hash = default_manifest_hash
 elif args.manifest == "corsica":

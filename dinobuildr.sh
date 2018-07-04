@@ -15,7 +15,7 @@
 # to build against.
 
 branch=master
-manifest=manifest.json
+manifest=default
 
 while :; do
     case $1 in
@@ -33,7 +33,7 @@ done
 printf "\nPulling down dinobuildr from the [$branch] branch on github and starting the build!\n\n"
 settings_file=$(curl -f https://raw.githubusercontent.com/mozilla/dinobuildr/$branch/settings.ini)
 local_dir=$(echo "${settings_file}" | grep "local_dir" | awk '{print $3}')
-mkdir $local_dir
+mkdir -p $local_dir
 echo "${settings_file}" > $local_dir"settings.ini"
 curl -f -o $local_dir"config.py" https://raw.githubusercontent.com/mozilla/dinobuildr/$branch/config.py
 curl_status=$?

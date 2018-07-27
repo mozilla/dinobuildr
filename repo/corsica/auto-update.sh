@@ -12,7 +12,7 @@ cat > /Library/LaunchDaemons/update-ff-macos.plist <<- "EOF"
         <string>bash</string>
         <string>-c</string>
         <string>softwareupdate -ia;
-        osascript -e 'tell app "System Events" to restart'</string>
+        shutdown -r now</string>
     </array>
     <key>StartCalendarInterval</key>
     <dict>

@@ -123,7 +123,7 @@
         {
             "item": "Enable automatic updates",
             "version": "",
-            "url": "repo/auto-update.sh",
+            "url": "repo/corsica/auto-update.sh",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",

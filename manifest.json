@@ -62,12 +62,12 @@
         },
         {
             "item": "Install Firefox",
-            "version": "60.0",
+            "version": "60.0.2",
             "url": "https://download.mozilla.org/?product=firefox-${version}-SSL&os=osx&lang=en-US",
             "filename": "firefox.dmg",
             "dmg-installer": "Firefox.app",
             "dmg-advanced": "",
-            "hash": "1e9145ee978ebd8d1712f48aae4cbe016ebe68254141b978061e240474bcb2ea",
+            "hash": "c229cf2135a1380dfcd1439c15ebb7a36df6b3055dc2e07da584404a6414d732",
             "type": "dmg"
         },
         {

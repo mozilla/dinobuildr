@@ -169,6 +169,16 @@
             "dmg-advanced": "",
             "hash": "9fc4d33f0bcd4eaf645baba7b55832e0c5fff61892e729c5e8b282a326c15f84",
             "type": "mobileconfig"
+        },
+        {
+            "item": "Update macOS",
+            "version": "",
+            "url": "repo/update-macos.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "fd2426aedee44e6af72dcca2953a885e9b7486982fd85ad30f328c8384b545e9",
+            "type": "shell"
         }
     ]
 }

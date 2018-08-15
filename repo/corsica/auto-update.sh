@@ -2,7 +2,7 @@
 
 cat > /usr/local/auto-update-routine.sh <<- "EOF"
 	#!/bin/bash
-	if [ "$(curl https://raw.githubusercontent.com/luciusbono/informant/master/informant.txt)" = "greenlight" ]; then
+	if [ "$(curl https://raw.githubusercontent.com/mozilla-it/informant/master/informant.txt)" = "greenlight" ]; then
 	    softwareupdate -ia
 	fi
 

@@ -123,11 +123,11 @@
         {
             "item": "Enable automatic updates",
             "version": "",
-            "url": "repo/app-store-updates.sh",
+            "url": "repo/corsica/auto-update.sh",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "5de09057abdbc563d0cc4f802ab3138d901dd1ba711f7ddcf6de99299a54affb",
+            "hash": "5c2beeb3f17983d42ec1f0525791847745c993b1fb1bc0a5098cdd459120b9c4",
             "type": "shell"
         },
         {

@@ -88,7 +88,7 @@ manifest_hash = default_manifest_hash
 
 if manifest == "ambient_manifest.json":
     manifest_hash = ambient_manifest_hash
-if manifest == "vidyo_manifest.json":
+if manifest == "vidyokiosk_manifest.json":
     manifest_hash = vidyo_manifest_hash
 
 # check to see if user ran with sudo , since it's required

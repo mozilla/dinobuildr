@@ -1,0 +1,124 @@
+{
+    "packages": [
+        {
+            "item": "Check macOS Version",
+            "version": "",
+            "url": "repo/macos-versioncheck.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "777ec350c6b7dd3516ff97364fffaa5691337ed885f7e5f5fc582489d1e78074",
+            "type": "shell"
+        },
+        {
+            "item": "Set Hostname",
+            "version": "",
+            "url": "repo/corsica/prompt-computername.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "ae5402f85a3a9cb2f12aecfaa2fd5106884ac139b9024e9cf846e06f4204496c",
+            "type": "shell"
+        },
+	{
+            "item": "Set Do Not Disturb",
+            "version": "",
+            "url": "repo/corsica/set-donotdisturb.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "69a6d3d16c59b7e82439f97ed1dc5a6e1662bf737027ee945ad7421856fa52e4",
+            "type": "shell"
+        },
+        {
+            "item": "Configure Firewall",
+            "version": "",
+            "url": "repo/firewall.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "a3476f968ac645dffcecc336a0b735a7f508b30f75c9a3222e211100e58d5c0e",
+            "type": "shell"
+        },
+        {
+            "item": "Disable analytics settings",
+            "version": "",
+            "url": "repo/analytics_settings.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "9a88799266ede381335a3ec5c23118aa6404516e6fd3ca805d238dff2eb5eefb",
+            "type": "shell"
+        },
+        {
+            "item": "Disable Screensaver",
+            "version": "",
+            "url": "repo/corsica/disable-screensaver.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "3d90259215493be7198ee639f408fc4e83887e551df99ec33689932321e01fda",
+            "type": "shell"
+        },
+        {
+            "item": "Configure Power Settings",
+            "version": "",
+            "url": "repo/corsica/power-settings.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "3b6b3161094bbb38492bce682671e48e4099acb51bfc9379dba4961395a8408d",
+            "type": "shell"
+        },
+        {
+            "item": "Skip iCloud Setup Assistant",
+            "version": "",
+            "url": "repo/corsica/skip-icloud-setup.mobileconfig",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "8ba15813d89d84bc7d67638f8cb0a5e7a9b493d80326f7422bf8f520d5a205ee",
+            "type": "mobileconfig"
+        },
+        {
+            "item": "Skip Data and Privacy Setup Assistant",
+            "version": "",
+            "url": "repo/corsica/skip-data-privacy-setup.mobileconfig",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "54ccb4247f402f3c73a84e4f08da09e9bf63e0e763a9e94aa7659c5bd2ff25ca",
+            "type": "mobileconfig"
+        },
+        {
+            "item": "Skip Siri Setup Assistant",
+            "version": "",
+            "url": "repo/corsica/skip-siri-setup.mobileconfig",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "9fc4d33f0bcd4eaf645baba7b55832e0c5fff61892e729c5e8b282a326c15f84",
+            "type": "mobileconfig"
+        },
+        {
+            "item": "Crashplan PostInstall",
+            "version": "",
+            "url": "repo/crashplan-postinstall.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "3b8711139c03f203330c55db8d55a4311d46a0df6addc28111a9ab7d4578be72",
+            "type": "shell"
+        }, 
+        {
+            "item": "Update macOS",
+            "version": "",
+            "url": "repo/update-macos.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "fd2426aedee44e6af72dcca2953a885e9b7486982fd85ad30f328c8384b545e9",
+            "type": "shell"
+        }
+    ]
+}

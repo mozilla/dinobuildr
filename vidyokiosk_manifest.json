@@ -121,16 +121,26 @@
             "type": "shell"
         },
 	{
-            "item": "Crashplan PostInstall",
+            "item": "Install Vidyo",
+            "version": "3.6.14",
+            "url": "https://v.mozilla.com/upload/VidyoDesktopInstaller-macosx-TAG_VD_3_6_14_0003.dmg",
+            "filename": "vidyodesktop.dmg",
+            "dmg-installer": "VidyoDesktopInstaller.app/Contents/Resources/VidyoDesktop.app",
+            "dmg-advanced": "",
+            "hash": "d99548771c014636876cb5cca8bcbf9ca6f0800855cde8ba25aeffce636cceb1",
+            "type": "dmg"
+        }, 
+        {
+            "item": "Launch Vidyo",
             "version": "",
-            "url": "repo/crashplan-postinstall.sh",
+            "url": "repo/vidyo-kiosk/launch-vidyo.sh",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "3b8711139c03f203330c55db8d55a4311d46a0df6addc28111a9ab7d4578be72",
+            "hash": "9283e9f451fefea73efb05d95349891915bb6a050b91bbe8636897208f1fa70d",
             "type": "shell"
-        }, 
-        {
+        },
+	{
             "item": "Update macOS",
             "version": "",
             "url": "repo/update-macos.sh",

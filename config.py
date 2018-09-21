@@ -83,7 +83,7 @@ manifest_url = "https://raw.githubusercontent.com/%s/%s/%s/%s" % (org, repo, bra
 manifest_file = "%s/%s" % (local_dir, manifest)
 default_manifest_hash = "411c03a12662be23831210c210ee65bc3f7e9bbae12c42d40188cb677e89a7d4"
 ambient_manifest_hash = "7f77147b246c1e56d8c635b217f6de5eb21964999b15847b45b2a3a6eafb77e5"
-vidyo_manifest_hash = "f09f84cc9ab95633553a13415cdb5f5525af8c9da0b4249cace89da67a427323"
+vidyo_manifest_hash = "399016c550e2acfd7f1eb045fff67fcb9dff791a896d509d56f38a30f5fef89d"
 manifest_hash = default_manifest_hash
 
 if manifest == "ambient_manifest.json":

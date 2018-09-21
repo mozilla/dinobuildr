@@ -100,26 +100,6 @@
             "hash": "9fc4d33f0bcd4eaf645baba7b55832e0c5fff61892e729c5e8b282a326c15f84",
             "type": "mobileconfig"
         },
-        {
-            "item": "Download Wallpaper Image",
-            "version": "",
-            "url": "repo/wallpaper.jpg",
-            "filename": "",
-            "dmg-installer": "",
-            "dmg-advanced": "",
-            "hash": "8b5771b813bd684ee3ff8f6a2c205c249ca127c7c5f92c9b92b1b8fdecd389a4",
-            "type": "file-lfs"
-        },
-	{
-            "item": "Configure Wallpaper",
-            "version": "",
-            "url": "repo/vidyo-kiosk/wallpaper-vidyo.sh",
-            "filename": "",
-            "dmg-installer": "",
-            "dmg-advanced": "",
-            "hash": "2e89738c8a9d568fe6dfce5f18ce039eccb4d4c5b8d85f7c9930f9f669f19322",
-            "type": "shell"
-        },
 	{
             "item": "Install Vidyo",
             "version": "3.6.14",

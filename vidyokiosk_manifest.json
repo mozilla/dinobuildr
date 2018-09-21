@@ -63,11 +63,11 @@
         {
             "item": "Configure Power Settings",
             "version": "",
-            "url": "repo/corsica/power-settings.sh",
+            "url": "repo/vidyo-kiosk/power-settings-vidyo.sh",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "3b6b3161094bbb38492bce682671e48e4099acb51bfc9379dba4961395a8408d",
+            "hash": "3d78fb9a940aaf673b142b5fcb328ff3d89fa40f150e0d73049b1e8d9a501820",
             "type": "shell"
         },
         {
@@ -101,6 +101,26 @@
             "type": "mobileconfig"
         },
         {
+            "item": "Download Wallpaper Image",
+            "version": "",
+            "url": "repo/wallpaper.jpg",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "8b5771b813bd684ee3ff8f6a2c205c249ca127c7c5f92c9b92b1b8fdecd389a4",
+            "type": "file-lfs"
+        },
+	{
+            "item": "Configure Wallpaper",
+            "version": "",
+            "url": "repo/vidyo-kiosk/wallpaper-vidyo.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "682fa5ce186ac4b44d33b6976d429f286072d523dec2f6098e8d7da153999846",
+            "type": "shell"
+        },
+	{
             "item": "Crashplan PostInstall",
             "version": "",
             "url": "repo/crashplan-postinstall.sh",

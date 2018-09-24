@@ -11,6 +11,16 @@
             "type": "shell"
         },
         {
+            "item": "Download Wallpaper Image",
+            "version": "",
+            "url": "repo/wallpaper.jpg",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "8b5771b813bd684ee3ff8f6a2c205c249ca127c7c5f92c9b92b1b8fdecd389a4",
+            "type": "file-lfs"
+        },
+	{
             "item": "Configure Screensaver",
             "version": "",
             "url": "repo/screensaver.sh",
@@ -49,16 +59,6 @@
             "dmg-advanced": "",
             "hash": "3b8711139c03f203330c55db8d55a4311d46a0df6addc28111a9ab7d4578be72",
             "type": "shell"
-        },
-        {
-            "item": "Download Wallpaper Image",
-            "version": "",
-            "url": "repo/wallpaper.jpg",
-            "filename": "",
-            "dmg-installer": "",
-            "dmg-advanced": "",
-            "hash": "8b5771b813bd684ee3ff8f6a2c205c249ca127c7c5f92c9b92b1b8fdecd389a4",
-            "type": "file-lfs"
         },
         {
             "item": "Install Firefox",

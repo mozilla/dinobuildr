@@ -11,6 +11,16 @@
             "type": "shell"
         },
         {
+            "item": "Configure Wallpaper",
+            "version": "",
+            "url": "repo/wallpaper.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "982fb8ea6442d16de0f7c0b2f062595ba25fed0d4e0c03248b7c20e7164ffa82",
+            "type": "shell"
+       },
+       {
             "item": "Download Wallpaper Image",
             "version": "",
             "url": "repo/wallpaper.jpg",
@@ -38,6 +48,16 @@
             "dmg-installer": "",
             "dmg-advanced": "",
             "hash": "26f27eff72ee2d335bd2948291a1b4173c63186fd2504dc08be9b94755abd325",
+            "type": "shell"
+        },
+        {
+            "item": "Configure Dock",
+            "version": "",
+            "url": "repo/dock-config.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "3395fd4b292a298944980af30d97e52ff956d8c0021d4b26a6c294026f78d3bf",
             "type": "shell"
         },
         {
@@ -98,26 +118,6 @@
             "dmg-installer": "",
             "dmg-advanced": "",
             "hash": "a3476f968ac645dffcecc336a0b735a7f508b30f75c9a3222e211100e58d5c0e",
-            "type": "shell"
-        },
-        {
-            "item": "Configure Wallpaper",
-            "version": "",
-            "url": "repo/wallpaper.sh",
-            "filename": "",
-            "dmg-installer": "",
-            "dmg-advanced": "",
-            "hash": "982fb8ea6442d16de0f7c0b2f062595ba25fed0d4e0c03248b7c20e7164ffa82",
-            "type": "shell"
-        },
-        {
-            "item": "Configure Dock",
-            "version": "",
-            "url": "repo/dock-config.sh",
-            "filename": "",
-            "dmg-installer": "",
-            "dmg-advanced": "",
-            "hash": "3395fd4b292a298944980af30d97e52ff956d8c0021d4b26a6c294026f78d3bf",
             "type": "shell"
         },
         {

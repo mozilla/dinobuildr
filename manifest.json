@@ -7,7 +7,7 @@
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "7c6144fbeb20361d33d65dc87cfa93419f6e7ae5fbaab6299bd3cf43c6581f8e",
+            "hash": "777ec350c6b7dd3516ff97364fffaa5691337ed885f7e5f5fc582489d1e78074",
             "type": "shell"
         },
         {
@@ -30,7 +30,7 @@
             "hash": "982fb8ea6442d16de0f7c0b2f062595ba25fed0d4e0c03248b7c20e7164ffa82",
             "type": "shell"
         },
-	{
+        {
             "item": "Configure Screensaver",
             "version": "",
             "url": "repo/screensaver.sh",
@@ -51,33 +51,43 @@
             "type": "shell"
         },
         {
-            "item": "Configure Dock",
+            "item": "Download Crashplan custom.properties",
             "version": "",
-            "url": "repo/dock-config.sh",
+            "url": "repo/custom.properties",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "3395fd4b292a298944980af30d97e52ff956d8c0021d4b26a6c294026f78d3bf",
-            "type": "shell"
+            "hash": "aca997947edd05c808034c019c7e43633cc482050b8f7d2e58d65f10e8cfaf56",
+            "type": "file"
         },
         {
-            "item": "Install Crashplan",
+            "item": "Download Crashplan userInfo.sh",
+            "version": "",
+            "url": "repo/userInfo.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "1d0373d3aa6431257ed552f87ce9c986a19f42fc9ed1d99ae7f4c8b0cf996852",
+            "type": "file"
+        },
+        {
+            "item": "Download Crashplan",
             "version": "4.5.2",
             "url": "https://download.code42.com/installs/mac/install/CrashPlanPROe/CrashPlanPROe_${version}_Mac.dmg",
             "filename": "",
-            "dmg-installer": "Install CrashPlan PROe.pkg",
+            "dmg-installer": "",
             "dmg-advanced": "",
             "hash": "21fcf556dc06f06ff81956901414d71c1a168974567189aadd934ede8b1f6d91",
             "type": "dmg"
         },
         {
-            "item": "Crashplan PostInstall",
+            "item": "Crashplan Custom Install",
             "version": "",
             "url": "repo/crashplan-postinstall.sh",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "3b8711139c03f203330c55db8d55a4311d46a0df6addc28111a9ab7d4578be72",
+            "hash": "66c81396666a6a4318cf78eaa7bf33ac77dfa53ef3ea32bd57dd9a5965e88526",
             "type": "shell"
         },
         {
@@ -138,6 +148,16 @@
             "dmg-installer": "",
             "dmg-advanced": "",
             "hash": "5de09057abdbc563d0cc4f802ab3138d901dd1ba711f7ddcf6de99299a54affb",
+            "type": "shell"
+        },
+        {
+            "item": "Configure Dock",
+            "version": "",
+            "url": "repo/dock-config.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "3395fd4b292a298944980af30d97e52ff956d8c0021d4b26a6c294026f78d3bf",
             "type": "shell"
         },
         {

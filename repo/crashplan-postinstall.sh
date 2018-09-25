@@ -4,11 +4,51 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-# This script closes CrashPlan, which automatically launches after
-# installation. While there are methods to customize the CrashPlan installer
-# and tell it not to auto-launch, those customizations involve modifying the
-# installer and we're trying to avoid doing that. 
+PRODUCT_TYPE="CrashPlanPROe"
+VERSION_PATTERN="*"
+MAC_FILENAME_END="Mac.dmg"
+MAC_PATTERN="${PRODUCT_TYPE}_${VERSION_PATTERN}_${MAC_FILENAME_END}"
 
-echo "Waiting for Crashplan to launch and then quitting it..."
-killall -TERM CrashPlan 
-exit 0
+echo $DINOPATH
+echo $MAC_PATTERN
+
+DMG=$(find $DINOPATH | grep -i -E $DINOPATH/$MAC_PATTERN)
+
+echo $DMG
+
+USERINFO_PATH="${DINOPATH}/userInfo.sh"
+CUSTOMPROS_PATH="${DINOPATH}/custom.properties"
+INSTALLER="Install CrashPlan PROe.pkg"
+INSTALLER_PATH="/Volumes/${PRODUCT_TYPE}/${INSTALLER}"
+
+if [ -z "${DMG}" ] || [ ! -e "${DMG}" ]; then
+echo "Expected to find file matching this pattern: ${EXAMPLE_PATTERN}_${MAC_FILENAME_END}"
+fi
+
+## eject
+if [ -e /Volumes/${PRODUCT_TYPE} ]; then
+    echo "Eject ${PRODUCT_TYPE}"
+    hdiutil eject /Volumes/${PRODUCT_TYPE}
+fi
+
+## mount dmg
+echo "Mount DMG."
+hdiutil attach ${DMG} 
+
+## copy custom
+DST="/Volumes/${PRODUCT_TYPE}/.Custom"
+if [ -e "${DST}" ]; then
+    rm -rf "${DST}"
+fi
+
+mkdir -v "${DST}"
+
+cp -v "${USERINFO_PATH}" "${DST}"
+cp -v "${CUSTOMPROS_PATH}" "${DST}"
+
+## install
+/usr/sbin/installer -pkg "${INSTALLER_PATH}" -target /
+
+## eject
+echo "Eject ${PRODUCT_TYPE}"
+hdiutil eject "/Volumes/${PRODUCT_TYPE}"

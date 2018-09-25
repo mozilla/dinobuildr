@@ -11,16 +11,6 @@
             "type": "shell"
         },
         {
-            "item": "Configure Wallpaper",
-            "version": "",
-            "url": "repo/wallpaper.sh",
-            "filename": "",
-            "dmg-installer": "",
-            "dmg-advanced": "",
-            "hash": "982fb8ea6442d16de0f7c0b2f062595ba25fed0d4e0c03248b7c20e7164ffa82",
-            "type": "shell"
-       },
-       {
             "item": "Download Wallpaper Image",
             "version": "",
             "url": "repo/wallpaper.jpg",
@@ -29,6 +19,16 @@
             "dmg-advanced": "",
             "hash": "8b5771b813bd684ee3ff8f6a2c205c249ca127c7c5f92c9b92b1b8fdecd389a4",
             "type": "file-lfs"
+        },
+        {
+            "item": "Configure Wallpaper",
+            "version": "",
+            "url": "repo/wallpaper.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "982fb8ea6442d16de0f7c0b2f062595ba25fed0d4e0c03248b7c20e7164ffa82",
+            "type": "shell"
         },
 	{
             "item": "Configure Screensaver",

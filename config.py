@@ -81,7 +81,7 @@ lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo)
 raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
 manifest_url = "https://raw.githubusercontent.com/%s/%s/%s/%s" % (org, repo, branch, manifest)
 manifest_file = "%s/%s" % (local_dir, manifest)
-default_manifest_hash = "411c03a12662be23831210c210ee65bc3f7e9bbae12c42d40188cb677e89a7d4"
+default_manifest_hash = "e4543f76de2aaf0b52cf1953f0f90cc8022a29931e8a9bc32d68d3bbd9a75fa5"
 ambient_manifest_hash = "7f77147b246c1e56d8c635b217f6de5eb21964999b15847b45b2a3a6eafb77e5"
 manifest_hash = default_manifest_hash
 
@@ -320,19 +320,22 @@ for item in data['packages']:
 
     if item['type'] == "dmg":
         # TODO: consisitency: there should be URL checks everywhere or do this
+        # TODO: dmg-installer / dmg-advanced are not being checked to allow
+        # for functionality that should be in a downloader function
         # in the manifest generator
         if item['url'] == '':
             print "No URL specified for %s" % item['item']
-            break
-        if item['dmg-installer'] == '' and item['dmg-advanced'] == '':
-            print "No installer or install command specified for %s" % item['item']
             break
         dl_url = item['url'].replace('${version}', item['version'])
         print "Downloading:", item['item']
         downloader(dl_url, local_path)
         hash_file(local_path, item['hash'])
-        print local_path
-        print item['dmg-installer']
+        if item['dmg-installer'] != '':
+            print "Installing:", item['dmg-installer']
+        if item['dmg-advanced'] != '':
+            print "Getting fancy and executing:", item['dmg-advanced']
+        if item['dmg-installer'] == '' and item['dmg-advanced'] == '':   
+            print "No installer or install command specified for %s. Assuming this is download only." % item['item']
         if item['dmg-installer'] != '':
             dmg_install(local_path, item['dmg-installer'])
         if item['dmg-advanced'] != '':
@@ -348,6 +351,16 @@ for item in data['packages']:
         lfsfile_url = get_lfs_url(json_data, lfs_url)
         print "Downloading:", item['item']
         downloader(lfsfile_url, local_path)
+        hash_file(local_path, item['hash'])
+        print "\r"
+
+    if item['type'] == "file":
+        if item['url'] == '':
+            print "No URL specified for %s" % item['item']
+            break
+        dl_url = raw_url + item['url']
+        print "Downloading:", item['item']
+        downloader(dl_url, local_path)
         hash_file(local_path, item['hash'])
         print "\r"
 

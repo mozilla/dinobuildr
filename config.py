@@ -320,13 +320,14 @@ for item in data['packages']:
 
     if item['type'] == "dmg":
         # TODO: consisitency: there should be URL checks everywhere or do this
+        # TODO: dmg-installer / dmg-advanced are not being checked to allow
+        # for functionality that should be in a downloader function
         # in the manifest generator
         if item['url'] == '':
             print "No URL specified for %s" % item['item']
             break
         if item['dmg-installer'] == '' and item['dmg-advanced'] == '':
-            print "No installer or install command specified for %s" % item['item']
-            break
+            print "No installer or install command specified for %s. Assuming this is download only." % item['item']
         dl_url = item['url'].replace('${version}', item['version'])
         print "Downloading:", item['item']
         downloader(dl_url, local_path)

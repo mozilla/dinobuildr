@@ -326,14 +326,16 @@ for item in data['packages']:
         if item['url'] == '':
             print "No URL specified for %s" % item['item']
             break
-        if item['dmg-installer'] == '' and item['dmg-advanced'] == '':
-            print "No installer or install command specified for %s. Assuming this is download only." % item['item']
         dl_url = item['url'].replace('${version}', item['version'])
         print "Downloading:", item['item']
         downloader(dl_url, local_path)
         hash_file(local_path, item['hash'])
-        print local_path
-        print item['dmg-installer']
+        if item['dmg-installer'] != '':
+            print "Installing:", item['dmg-installer']
+        if item['dmg-advanced'] != '':
+            print "Getting fancy and executing:", item['dmg-advanced']
+        if item['dmg-installer'] == '' and item['dmg-advanced'] == '':   
+            print "No installer or install command specified for %s. Assuming this is download only." % item['item']
         if item['dmg-installer'] != '':
             dmg_install(local_path, item['dmg-installer'])
         if item['dmg-advanced'] != '':
@@ -349,6 +351,16 @@ for item in data['packages']:
         lfsfile_url = get_lfs_url(json_data, lfs_url)
         print "Downloading:", item['item']
         downloader(lfsfile_url, local_path)
+        hash_file(local_path, item['hash'])
+        print "\r"
+
+    if item['type'] == "file":
+        if item['url'] == '':
+            print "No URL specified for %s" % item['item']
+            break
+        dl_url = raw_url + item['url']
+        print "Downloading:", item['item']
+        downloader(dl_url, local_path)
         hash_file(local_path, item['hash'])
         print "\r"
 

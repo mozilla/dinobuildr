@@ -7,7 +7,7 @@
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "777ec350c6b7dd3516ff97364fffaa5691337ed885f7e5f5fc582489d1e78074",
+            "hash": "7c6144fbeb20361d33d65dc87cfa93419f6e7ae5fbaab6299bd3cf43c6581f8e",
             "type": "shell"
         },
         {
@@ -31,24 +31,14 @@
             "type": "shell"
         },
 	{
-            "item": "Download kcpassword file",
-            "version": "",
-            "url": "repo/corsica/kcpassword",
-            "filename": "",
-            "dmg-installer": "",
-            "dmg-advanced": "",
-            "hash": "974826327075bc318541cf3e61571b474e161d06eed0a459d2fc0fd989c8b2ad",
-            "type": "file-lfs"
-        },
-	{
             "item": "Create Corsica User",
             "version": "",
-            "url": "repo/corsica/createuser.sh",
+            "url": "repo/corsica/corsica-user.pkg",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "eea0b4eae179912ff2dc3c44e4481296a0807e99cbd6e8d434e7b077726f4cc5",
-            "type": "shell"
+            "hash": "810422bed023a2812182e1870d38aa04a6cccf08d12cc1a20a94f6dd7bb8bbef",
+            "type": "pkg-lfs"
         },
         {
             "item": "Install Firefox ESR",
@@ -148,6 +138,16 @@
             "dmg-installer": "",
             "dmg-advanced": "",
             "hash": "8ba15813d89d84bc7d67638f8cb0a5e7a9b493d80326f7422bf8f520d5a205ee",
+            "type": "mobileconfig"
+        },
+        {
+            "item": "Skip Appearence Window Setup Assistant",
+            "version": "",
+            "url": "repo/corsica/skip-appearence-window.mobileconfig",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "65a5dc820588fc4324651ea04f8516e92cd17447ea79a10e00000ef0d1baeb4e",
             "type": "mobileconfig"
         },
         {

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PayloadContent</key>
+	<array>
+		<dict>
+			<key>PayloadDescription</key>
+			<string>Configures Setup Assistant settings</string>
+			<key>PayloadDisplayName</key>
+			<string>Setup Assistant</string>
+			<key>PayloadIdentifier</key>
+			<string>com.mozilla.skipappearance.6DBE3179-5168-443A-A61F-5E681D492361.com.apple.SetupAssistant.managed.0665E809-53D9-4365-917C-4A601E5CC1DF</string>
+			<key>PayloadOrganization</key>
+			<string></string>
+			<key>PayloadType</key>
+			<string>com.apple.SetupAssistant.managed</string>
+			<key>PayloadUUID</key>
+			<string>0665E809-53D9-4365-917C-4A601E5CC1DF</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+			<key>SkipAppearance</key>
+			<true/>
+		</dict>
+	</array>
+	<key>PayloadDescription</key>
+	<string>This profile skips the appearence selector window in the setup assistant.</string>
+	<key>PayloadDisplayName</key>
+	<string>Skip Appearence Window</string>
+	<key>PayloadIdentifier</key>
+	<string>com.mozilla.skipappearance.6DBE3179-5168-443A-A61F-5E681D492361</string>
+	<key>PayloadOrganization</key>
+	<string>Mozilla Corporation</string>
+	<key>PayloadScope</key>
+	<string>User</string>
+	<key>PayloadType</key>
+	<string>Configuration</string>
+	<key>PayloadUUID</key>
+	<string>6DBE3179-5168-443A-A61F-5E681D492361</string>
+	<key>PayloadVersion</key>
+	<integer>1</integer>
+</dict>
+</plist>

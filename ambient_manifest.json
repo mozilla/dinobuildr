@@ -31,24 +31,14 @@
             "type": "shell"
         },
 	{
-            "item": "Download kcpassword file",
-            "version": "",
-            "url": "repo/corsica/kcpassword",
-            "filename": "",
-            "dmg-installer": "",
-            "dmg-advanced": "",
-            "hash": "974826327075bc318541cf3e61571b474e161d06eed0a459d2fc0fd989c8b2ad",
-            "type": "file-lfs"
-        },
-	{
             "item": "Create Corsica User",
             "version": "",
-            "url": "repo/corsica/createuser.sh",
+            "url": "repo/corsica/corsica-user.pkg",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "eea0b4eae179912ff2dc3c44e4481296a0807e99cbd6e8d434e7b077726f4cc5",
-            "type": "shell"
+            "hash": "810422bed023a2812182e1870d38aa04a6cccf08d12cc1a20a94f6dd7bb8bbef",
+            "type": "pkg-lfs"
         },
         {
             "item": "Install Firefox ESR",

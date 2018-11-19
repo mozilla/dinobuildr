@@ -72,8 +72,8 @@ cat > /usr/local/bin/chownfvkey.sh <<-EOF
 	chown $loggedInUser /Users/${loggedInUser}/Library/fvkey.plist
 
 	rm /usr/local/bin/chownfvkey.sh
-	launchctl unload /Library/LaunchDaemons/com.mozilla-it.chownfvkey.plist
 	rm /Library/LaunchDaemons/com.mozilla-it.chownfvkey.plist
+    launchctl remove com.mozilla-it.chownfvkey
 EOF
 
 # If the user's LaunchAgents directory doesn't exist, create it so we can drop a
@@ -119,7 +119,7 @@ EOF
 # in to this heredoc from the main script, because we're using a command
 # subsitution and if I don't specify a literal interpretation of the heredoc,
 # the script attempts to run the command substitution. This is something that
-# should probably be fixed later by either avoiding the subsitution or learning
+# should probably be fixed later by either avo iding the subsitution or learning
 # more about heredocs. 
 
 cat > /usr/local/bin/fv-keyprompt.sh <<-"EOF"
@@ -144,8 +144,8 @@ cat > /usr/local/bin/fv-keyprompt.sh <<-"EOF"
 
 	rm /Users/${loggedInUser}/Library/fvkey.plist
 	rm /usr/local/bin/fv-keyprompt.sh 
-	launchctl unload /Users/${loggedInUser}/Library/LaunchAgents/com.mozilla-it.fv-keyprompt.plist
 	rm /Users/${loggedInUser}/Library/LaunchAgents/com.mozilla-it.fv-keyprompt.plist
+    launchctl remove com.mozilla-it.fv-keyprompt
 EOF
 
 # Make the scripts we drop with the above heredocs executable for good measure. 

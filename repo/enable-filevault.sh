@@ -13,6 +13,17 @@ username = (SCDynamicStoreCopyConsoleUser(None, None, None) or [None])[0];
 username = [username,""][username in [u"loginwindow", None, u""]];
 sys.stdout.write(username + "\n");'`
 
+# Enable Filevault 2 using the defer option, this will attempt to turn on
+# Filevault 2 at the next login/logout and prompt the user for the account
+# password that executed this command, then drops the recovery key in a plist
+# owned by roo at the location we specify. 
+#
+# We use this method because all other methods of programmatically enabling FV2
+# require the user password to be passed to fdesetup and we don't want to
+# encourage people to type their account passwords into random dialog boxes. 
+
+fdesetup enable -defer /Users/${loggedInUser}/Library/fvkey.plist
+
 # Generate a LaunchDaemon via heredoc that will execute the chownfvkey.sh that
 # we will write later in this script. 
 
@@ -33,6 +44,13 @@ cat > /Library/LaunchDaemons/com.mozilla-it.chownfvkey.plist<<-"EOF"
 	</dict>
 	</plist>
 EOF
+
+# Create /usr/local/bin if it doesn't exist so we can throw scripts in it.
+
+if [ ! -d /usr/local/bin ]; then
+    mkdir /usr/local/bin
+    chown ${loggedInUser} /usr/local/bin
+fi
 
 # Generate a script that will take ownership of a file called fvkey.plist. This
 # file is normally owned by root, and is an artifact of the FileVault 2 deffered
@@ -55,7 +73,7 @@ cat > /usr/local/bin/chownfvkey.sh <<-EOF
 
 	rm /usr/local/bin/chownfvkey.sh
 	launchctl unload /Library/LaunchDaemons/com.mozilla-it.chownfvkey.plist
-	rm //Library/LaunchDaemons/com.mozilla-it.chownfvkey.plist
+	rm /Library/LaunchDaemons/com.mozilla-it.chownfvkey.plist
 EOF
 
 # If the user's LaunchAgents directory doesn't exist, create it so we can drop a
@@ -86,13 +104,6 @@ cat > /Users/${loggedInUser}/Library/LaunchAgents/com.mozilla-it.fv-keyprompt.pl
 	</dict>
 	</plist>
 EOF
-
-# Create /usr/local/bin if it doesn't exist so we can throw scripts in it.
-
-if [ ! -d /usr/local/bin ]; then
-    mkdir /usr/local/bin
-    chown ${loggedInUser} /usr/local/bin
-fi
 
 # Generate the Filevault 2 prompt script via a heredoc that the LaunchAgent will
 # fire off.
@@ -133,9 +144,11 @@ cat > /usr/local/bin/fv-keyprompt.sh <<-"EOF"
 
 	rm /Users/${loggedInUser}/Library/fvkey.plist
 	rm /usr/local/bin/fv-keyprompt.sh 
-	launchctl unload /Users/${loggedInUser}/Library/LaunchAgents/fv-keyprompt.plist
-	rm /Users/${loggedInUser}/Library/LaunchAgents/fv-keyprompt.plist
+	launchctl unload /Users/${loggedInUser}/Library/LaunchAgents/com.mozilla-it.fv-keyprompt.plist
+	rm /Users/${loggedInUser}/Library/LaunchAgents/com.mozilla-it.fv-keyprompt.plist
 EOF
+
+# Make the scripts we drop with the above heredocs executable for good measure. 
 
 chmod +x /usr/local/bin/fv-keyprompt.sh
 chmod +x /usr/local/bin/chownfvkey.sh

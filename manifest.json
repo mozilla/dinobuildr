@@ -161,6 +161,16 @@
             "type": "shell"
         },
         {
+            "item": "Enable Filevault",
+            "version": "",
+            "url": "repo/enable-filevault.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "99490f0efa38fae8b98a59af02b4ae749364e7c441f9a7e34854119631627a1d",
+            "type": "shell"
+        },
+        {
             "item": "Update macOS",
             "version": "",
             "url": "repo/update-macos.sh",

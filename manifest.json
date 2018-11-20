@@ -11,6 +11,16 @@
             "type": "shell"
         },
         {
+            "item": "Configure ComputerName",
+            "version": "",
+            "url": "repo/prompt-assettag.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "5ce57b921616faa7f78149c8f9163270d6ba601aaf10d73909ce4c32e49cacef",
+            "type": "shell"
+        },
+        {
             "item": "Download Wallpaper Image",
             "version": "",
             "url": "repo/wallpaper.jpg",
@@ -38,16 +48,6 @@
             "dmg-installer": "",
             "dmg-advanced": "",
             "hash": "7379e34055d357f9fcd661d45c8381c8b9fb851f26def5ce30caf68aab1f4323",
-            "type": "shell"
-        },
-        {
-            "item": "Configure ComputerName",
-            "version": "",
-            "url": "repo/set-computername.sh",
-            "filename": "",
-            "dmg-installer": "",
-            "dmg-advanced": "",
-            "hash": "26f27eff72ee2d335bd2948291a1b4173c63186fd2504dc08be9b94755abd325",
             "type": "shell"
         },
         {

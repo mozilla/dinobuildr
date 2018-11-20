@@ -47,7 +47,7 @@ else
     HASH="e42761c63203225ba46e9e460ea07b23738bc5e3a5b19d425a6314688a445d4b" # change only after thorough testing
 
     if [ $(echo "$WALLPAPER_SH" | shasum -a 256 | awk {'print $1'}) == $HASH ]; then #  if the hashes match then proceed
-        echo "We're on Mojave (or newer) so we're going to pull down Steve Ward's method for setting the wallpaper."
+        echo "We're on Mojave (or newer) so we're going to use the new way to set the wallpaper."
         /bin/bash -c "$WALLPAPER_SH" -s "/Users/Shared/$WALLPAPER_FILENAME"
         
     else 

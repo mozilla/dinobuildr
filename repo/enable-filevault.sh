@@ -145,7 +145,7 @@ cat > /usr/local/bin/fv-keyprompt.sh <<-"EOF"
 	rm /Users/${loggedInUser}/Library/fvkey.plist
 	rm /usr/local/bin/fv-keyprompt.sh 
 	rm /Users/${loggedInUser}/Library/LaunchAgents/com.mozilla-it.fv-keyprompt.plist
-    launchctl remove com.mozilla-it.fv-keyprompt
+	launchctl remove com.mozilla-it.fv-keyprompt
 EOF
 
 # Make the scripts we drop with the above heredocs executable for good measure. 

@@ -14,7 +14,7 @@
 # the hash or the url without testing.
 
 hash="c49ba68db90f7ac3a50a490e597078df6de6a8feba16c24ccced7b34d84f705e" # change only after thorough testing
-dockutil=$(curl -fsSL https://raw.githubusercontent.com/kcrawford/dockutil/b7fcec8aae863cd83cb27c2cf8bd3e739ece0795/scripts/dockutil)
+dockutil=$(curl -fsSL https://raw.githubusercontent.com/mozilla/dockutil/26b13d380f67dc79251cf0ea6280dbaa603308be/scripts/dockutil)
 
 if [ $(echo "$dockutil" | shasum -a 256 | awk {'print $1'}) == $hash ]; then #  if the hashes match then proceed
     echo "Executing dockutil - hash matches expected value."

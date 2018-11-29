@@ -11,7 +11,10 @@
 # on.
 #
 # You can see Steve's script the follow github repo: https://github.com/tech-otaku/macos-desktop
-
+# 
+# We fork the repo so that we can ensure that we have access to a version of
+# this project. 
+# 
 # Set the filename of the wallpaper file
 
 WALLPAPER_FILENAME=wallpaper.jpg
@@ -43,8 +46,8 @@ if [[ "$os_version" -le "10" && "$major_version" -le "13" ]]; then
     $(which osascript) -e 'tell application "Finder" to set desktop picture to POSIX file "/Users/Shared/'"$WALLPAPER_FILENAME"'"'
 else
 
-    WALLPAPER_SH=$(curl -sc - https://raw.githubusercontent.com/tech-otaku/macos-desktop/3e29f30853552e2288c56699b3214ecff6fed44b/set-desktop-mojave.sh)
-    HASH="e42761c63203225ba46e9e460ea07b23738bc5e3a5b19d425a6314688a445d4b" # change only after thorough testing
+    WALLPAPER_SH=$(curl -sc - https://raw.githubusercontent.com/mozilla/macos-desktop/abfb607953e0c789bb8e853ec28f545e89ddebbe/set-desktop-mojave.sh)
+    HASH="50b049f9cf9a57582fa83f411b66c61fed854f553102c05ca91cbd249cdb9ac8" # change only after thorough testing
 
     if [ $(echo "$WALLPAPER_SH" | shasum -a 256 | awk {'print $1'}) == $HASH ]; then #  if the hashes match then proceed
         echo "We're on Mojave (or newer) so we're going to use the new way to set the wallpaper."

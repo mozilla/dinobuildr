@@ -32,7 +32,7 @@ while :; do
     shift
 done
 
-if [ $branch != '' ]; then
+if [ "$branch" != '' ]; then
     if [[ "$branch" =~ [^a-zA-Z0-9] ]]; then
         echo "********************************************************************"
         echo "Branch name must be numbers and letters only"
@@ -40,7 +40,7 @@ if [ $branch != '' ]; then
     fi
 fi
 
-if [ $manifest != '' ]; then
+if [ "$manifest" != '' ]; then
     if [[ "$manifest" =~ [^a-zA-Z0-9{.}] ]]; then
         echo "********************************************************************"
         echo "Manifest name must be numbers and letters only"

@@ -17,6 +17,11 @@
 # 
 # Set the filename of the wallpaper file
 
+if [ ! -d /usr/local/bin ]; then
+    mkdir /usr/local/bin
+    chown ${loggedInUser} /usr/local/bin
+fi
+
 cat > /usr/local/bin/wallpaper.sh <<-EOF
 	#/bin/bash
 	

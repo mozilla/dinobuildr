@@ -27,7 +27,7 @@
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "982fb8ea6442d16de0f7c0b2f062595ba25fed0d4e0c03248b7c20e7164ffa82",
+            "hash": "008c5f772e48aeea179548c2849f069de9144ef6bd51e13f0948b723f9d3dacc",
             "type": "shell"
         },
         {
@@ -92,12 +92,12 @@
         },
         {
             "item": "Install Firefox",
-            "version": "62.0.2",
+            "version": "63.0.3",
             "url": "https://download.mozilla.org/?product=firefox-${version}-SSL&os=osx&lang=en-US",
             "filename": "firefox.dmg",
             "dmg-installer": "Firefox.app",
             "dmg-advanced": "",
-            "hash": "cebf49cade2daa5b17dffd14bebc092193b7c0618adbd0492ab8b5acec5eb6a0",
+            "hash": "2f201a7d1a3bae2533546b892cc43dcb9d6808d182174d64c53cd84fd0d48211",
             "type": "dmg"
         },
         {
@@ -157,7 +157,17 @@
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "3395fd4b292a298944980af30d97e52ff956d8c0021d4b26a6c294026f78d3bf",
+            "hash": "1096e180fcde42c72b777c0db5b53083191ce934864cf89cdd4f0d90153fc540",
+            "type": "shell"
+        },
+        {
+            "item": "Disable Guest Login",
+            "version": "",
+            "url": "repo/disable-guest.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "b4d565ca544ffa7559ccfab4d80467316f9c6531f1f7d0b97cc9010553876216",
             "type": "shell"
         },
         {

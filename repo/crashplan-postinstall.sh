@@ -9,12 +9,12 @@ VERSION_PATTERN="*"
 MAC_FILENAME_END="Mac.dmg"
 MAC_PATTERN="${PRODUCT_TYPE}_${VERSION_PATTERN}_${MAC_FILENAME_END}"
 
-echo $DINOPATH
-echo $MAC_PATTERN
+echo "$DINOPATH"
+echo "$MAC_PATTERN"
 
-DMG=$(find $DINOPATH | grep -i -E $DINOPATH/$MAC_PATTERN)
+DMG=$(find "$DINOPATH" | grep -i -E "$DINOPATH"/"$MAC_PATTERN")
 
-echo $DMG
+echo "$DMG"
 
 USERINFO_PATH="${DINOPATH}/userInfo.sh"
 CUSTOMPROS_PATH="${DINOPATH}/custom.properties"
@@ -33,7 +33,7 @@ fi
 
 ## mount dmg
 echo "Mount DMG."
-hdiutil attach ${DMG} 
+hdiutil attach "${DMG}" 
 
 ## copy custom
 DST="/Volumes/${PRODUCT_TYPE}/.Custom"

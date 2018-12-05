@@ -14,8 +14,6 @@
 # Accepts optional parameters that specifies the branch and manifest
 # to build against.
 
-set -x
-
 branch=master
 manifest=manifest.json
 

@@ -31,7 +31,7 @@ while :; do
 done
 
 if [ "$branch" != '' ]; then
-    if [[ "$branch" =~ [^a-zA-Z0-9] ]]; then
+    if [[ "$branch" =~ [^a-zA-Z0-9{-.}] ]]; then
         echo "********************************************************************"
         echo "Branch name must be numbers and letters only"
         exit 1

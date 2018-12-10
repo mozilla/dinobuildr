@@ -9,17 +9,17 @@
 # and re-enables the screensaver to start after five minutes and 
 # then self-destructs.
 
-user=`python -c '
+user=$(python -c '
 from SystemConfiguration import SCDynamicStoreCopyConsoleUser;
 import sys;
 username = (SCDynamicStoreCopyConsoleUser(None, None, None) or [None])[0];
 username = [username,""][username in [u"loginwindow", None, u""]];
-sys.stdout.write(username + "\n");'`
+sys.stdout.write(username + "\n");')
 
-sudo -u ${user} defaults -currentHost write com.apple.screensaver idleTime 0
+sudo -u "${user}" defaults -currentHost write com.apple.screensaver idleTime 0
 
 mkdir ~/Library/LaunchAgents
-chown ${user} ~/Library/LaunchAgents
+chown "${user}" ~/Library/LaunchAgents
 
 cat > ~/Library/LaunchAgents/Enable_Screensaver.plist <<- "EOF"
 <?xml version="1.0" encoding="UTF-8"?>
@@ -41,4 +41,4 @@ cat > ~/Library/LaunchAgents/Enable_Screensaver.plist <<- "EOF"
 </plist>
 EOF
 
-chown ${user} ~/Library/LaunchAgents/Enable_Screensaver.plist
+chown "${user}" ~/Library/LaunchAgents/Enable_Screensaver.plist

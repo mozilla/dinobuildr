@@ -4,6 +4,8 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+# shellcheck disable=SC2086
+
 PRODUCT_TYPE="CrashPlanPROe"
 VERSION_PATTERN="*"
 MAC_FILENAME_END="Mac.dmg"
@@ -12,7 +14,7 @@ MAC_PATTERN="${PRODUCT_TYPE}_${VERSION_PATTERN}_${MAC_FILENAME_END}"
 echo "$DINOPATH"
 echo "$MAC_PATTERN"
 
-DMG=$(find "$DINOPATH" | grep -i -E "$DINOPATH"/"$MAC_PATTERN")
+DMG=$(find "$DINOPATH" | grep -i -E ${DINOPATH}/${MAC_PATTERN})
 
 echo "$DMG"
 
@@ -22,7 +24,7 @@ INSTALLER="Install CrashPlan PROe.pkg"
 INSTALLER_PATH="/Volumes/${PRODUCT_TYPE}/${INSTALLER}"
 
 if [ -z "${DMG}" ] || [ ! -e "${DMG}" ]; then
-echo "Expected to find file matching this pattern: ${EXAMPLE_PATTERN}_${MAC_FILENAME_END}"
+echo "Expected to find file matching this pattern: ${MAC_PATTERN}_${MAC_FILENAME_END}"
 fi
 
 ## eject

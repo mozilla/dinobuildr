@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# shellcheck disable=SC2034
 #
 # Optional script by which you can control the user installation.
 #
@@ -25,8 +26,8 @@ startDesktop=false
 # Also: You will want to populate CP_USER_NAME with the right email address unless you don't want your users or admins receiving reports and alerts. 
 # 
 CP_USER_HOME="$HOME"
-user=`basename $CP_USER_HOME`
-userGroup=`id -gn "$user"`
+user=$(basename "$CP_USER_HOME")
+userGroup=$(id -gn "$user")
 CP_USER_NAME="$user"
 
 

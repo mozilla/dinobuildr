@@ -13,5 +13,5 @@ hostname=$(osascript -e "$applescriptCode");
 
 echo "Setting LocalHostName and ComputerName to ${hostname}"
 
-scutil --set LocalHostName $hostname
-scutil --set ComputerName $hostname
+scutil --set LocalHostName "$hostname"
+scutil --set ComputerName "$hostname"

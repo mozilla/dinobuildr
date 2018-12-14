@@ -13,16 +13,17 @@ lastSNdigits=$(system_profiler SPHardwareDataType |
                grep 'Serial Number (system)' | 
                awk '{print $NF}' | 
                tail -c 7)
-user=`python -c '
+user=$(python -c '
 from SystemConfiguration import SCDynamicStoreCopyConsoleUser;
 import sys;
 username = (SCDynamicStoreCopyConsoleUser(None, None, None) or [None])[0];
 username = [username,""][username in [u"loginwindow", None, u""]];
-sys.stdout.write(username + "\n");'`
-hostname="${user}-"${lastSNdigits}""
-hostname=$(echo $hostname | tr '[:upper:]' '[:lower:]')
+sys.stdout.write(username + "\n");')
+
+hostname="${user}-${lastSNdigits}"
+hostname=$(echo "$hostname" | tr '[:upper:]' '[:lower:]')
 
 echo "Setting LocalHostName and ComputerName to ${hostname}"
 
-scutil --set LocalHostName $hostname
-scutil --set ComputerName $hostname
+scutil --set LocalHostName "$hostname"
+scutil --set ComputerName "$hostname"

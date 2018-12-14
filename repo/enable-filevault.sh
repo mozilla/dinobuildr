@@ -6,12 +6,12 @@
 
 # Determine logged in user through the "usual apple way"
 
-loggedInUser=`python -c '
+loggedInUser=$(python -c '
 from SystemConfiguration import SCDynamicStoreCopyConsoleUser;
 import sys;
 username = (SCDynamicStoreCopyConsoleUser(None, None, None) or [None])[0];
 username = [username,""][username in [u"loginwindow", None, u""]];
-sys.stdout.write(username + "\n");'`
+sys.stdout.write(username + "\n");')
 
 # Enable Filevault 2 using the defer option, this will attempt to turn on
 # Filevault 2 at the next login/logout and prompt the user for the account
@@ -22,7 +22,7 @@ sys.stdout.write(username + "\n");'`
 # require the user password to be passed to fdesetup and we don't want to
 # encourage people to type their account passwords into random dialog boxes. 
 
-fdesetup enable -defer /Users/${loggedInUser}/Library/fvkey.plist
+fdesetup enable -defer /Users/"${loggedInUser}"/Library/fvkey.plist
 
 # Generate a LaunchDaemon via heredoc that will execute the chownfvkey.sh that
 # we will write later in this script. 
@@ -49,7 +49,7 @@ EOF
 
 if [ ! -d /usr/local/bin ]; then
     mkdir /usr/local/bin
-    chown ${loggedInUser} /usr/local/bin
+    chown "$loggedInUser" /usr/local/bin
 fi
 
 # Generate a script that will take ownership of a file called fvkey.plist. This
@@ -65,11 +65,11 @@ fi
 cat > /usr/local/bin/chownfvkey.sh <<-EOF
 	#!/bin/bash
 
-	while [ ! -f /Users/${loggedInUser}/Library/fvkey.plist ]; do
+	while [ ! -f /Users/"${loggedInUser}"/Library/fvkey.plist ]; do
 	    sleep 2
 	done
 
-	chown $loggedInUser /Users/${loggedInUser}/Library/fvkey.plist
+	chown "$loggedInUser" /Users/"${loggedInUser}"/Library/fvkey.plist
 
 	rm /usr/local/bin/chownfvkey.sh
 	rm /Library/LaunchDaemons/com.mozilla-it.chownfvkey.plist
@@ -79,15 +79,15 @@ EOF
 # If the user's LaunchAgents directory doesn't exist, create it so we can drop a
 # LaunchAgent. 
 
-if [ ! -d /Users/${loggedInUser}/Library/LaunchAgents ]; then
-    mkdir /Users/${loggedInUser}/Library/LaunchAgents
-    chown ${loggedInUser} /Users/${loggedInUser}/Library/LaunchAgents
+if [ ! -d /Users/"${loggedInUser}"/Library/LaunchAgents ]; then
+    mkdir /Users/"${loggedInUser}"/Library/LaunchAgents
+    chown "$loggedInUser" /Users/"${loggedInUser}"/Library/LaunchAgents
 fi
 
 # Generate a LaunchAgent via heredoc that will execute the fv-keyprompt.sh
 # script that we will write later on in this script. 
 
-cat > /Users/${loggedInUser}/Library/LaunchAgents/com.mozilla-it.fv-keyprompt.plist <<-"EOF"
+cat > /Users/"${loggedInUser}"/Library/LaunchAgents/com.mozilla-it.fv-keyprompt.plist <<-"EOF"
 	<?xml version="1.0" encoding="UTF-8"?>
 	<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 	<plist version="1.0">

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# shellcheck disable=SC2088
+
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -16,7 +18,7 @@
 hash="c49ba68db90f7ac3a50a490e597078df6de6a8feba16c24ccced7b34d84f705e" # change only after thorough testing
 dockutil=$(curl -fsSL https://raw.githubusercontent.com/mozilla/dockutil/26b13d380f67dc79251cf0ea6280dbaa603308be/scripts/dockutil)
 
-if [ $(echo "$dockutil" | shasum -a 256 | awk {'print $1'}) == $hash ]; then #  if the hashes match then proceed
+if [ "$(echo "$dockutil" | shasum -a 256 | awk '{print $1}')" == $hash ]; then #  if the hashes match then proceed
     echo "Executing dockutil - hash matches expected value."
     python -c "$dockutil" --remove all --no-restart
     python -c "$dockutil" --add "/Applications/Launchpad.app" --position beginning --no-restart

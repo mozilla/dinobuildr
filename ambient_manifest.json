@@ -7,7 +7,7 @@
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "7c6144fbeb20361d33d65dc87cfa93419f6e7ae5fbaab6299bd3cf43c6581f8e",
+            "hash": "e844fcf24f1e4d48f1719dca1ac0d381052c9e27ad402ae181d0feeda55f459e",
             "type": "shell"
         },
         {
@@ -17,7 +17,7 @@
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "ae5402f85a3a9cb2f12aecfaa2fd5106884ac139b9024e9cf846e06f4204496c",
+            "hash": "5bd19a59b61380ec75ffe6c1e27941065bfb92aa5461c5b6bc96726ff468d15c",
             "type": "shell"
         },
 	{
@@ -27,7 +27,7 @@
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "69a6d3d16c59b7e82439f97ed1dc5a6e1662bf737027ee945ad7421856fa52e4",
+            "hash": "caa7d4fc46dd998119fc60f14bf62667128318df364727ec6083e8f94da79f29",
             "type": "shell"
         },
 	{
@@ -77,7 +77,7 @@
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "3d90259215493be7198ee639f408fc4e83887e551df99ec33689932321e01fda",
+            "hash": "04a61587519fa63b833c92aaa6190f3c9961afaf90f777f8d2510707a37cfd01",
             "type": "shell"
         },
         {
@@ -187,7 +187,7 @@
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "fd2426aedee44e6af72dcca2953a885e9b7486982fd85ad30f328c8384b545e9",
+            "hash": "444591b5f64b5280935bc8b3459778a63a106399080bf4dfb854f5fad2c60562",
             "type": "shell"
         }
     ]

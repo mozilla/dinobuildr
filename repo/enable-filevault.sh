@@ -13,8 +13,8 @@ username = (SCDynamicStoreCopyConsoleUser(None, None, None) or [None])[0];
 username = [username,""][username in [u"loginwindow", None, u""]];
 sys.stdout.write(username + "\n");')
 
-# Enable Filevault 2 using the defer option, this will attempt to turn on
-# Filevault 2 at the next login/logout and prompt the user for the account
+# Enable FileVault 2 using the defer option, this will attempt to turn on
+# FileVault 2 at the next login/logout and prompt the user for the account
 # password that executed this command, then drops the recovery key in a plist
 # owned by roo at the location we specify. 
 #
@@ -105,7 +105,7 @@ cat > /Users/"${loggedInUser}"/Library/LaunchAgents/com.mozilla-it.fv-keyprompt.
 	</plist>
 EOF
 
-# Generate the Filevault 2 prompt script via a heredoc that the LaunchAgent will
+# Generate the FileVault 2 prompt script via a heredoc that the LaunchAgent will
 # fire off.
 
 # First, determine the logged in user through the usual "apple way"
@@ -138,7 +138,7 @@ cat > /usr/local/bin/fv-keyprompt.sh <<-"EOF"
 
 	recovery_key=$(/usr/libexec/PlistBuddy -c "Print :RecoveryKey" /Users/"${loggedInUser}"/Library/fvkey.plist)	
 	osascript <<-EOF2
-		display dialog "Filevault has been activated on this machine.\n\nYour Filevault recovery key is:\n\n${recovery_key}\n\nPlease escrow this key in WDE by browsing to:\n https://wde.allizom.org" buttons {"Continue"} default button 1 with title "Filevault Recovery Key"
+		display dialog "FileVault has been activated on this machine.\n\nYour FileVault recovery key is:\n\n${recovery_key}\n\nPlease escrow this key in WDE by browsing to:\nhttps://wde.mozilla.org/" buttons {"Continue"} default button 1 with title "FileVault Recovery Key"
 			return
 	EOF2
 

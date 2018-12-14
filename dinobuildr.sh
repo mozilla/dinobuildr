@@ -33,7 +33,7 @@ done
 if [ "$branch" != '' ]; then
     if [[ "$branch" =~ [^a-zA-Z0-9{-.}] ]]; then
         echo "********************************************************************"
-        echo "Branch name must be numbers and letters only"
+        echo "Branch name must be numbers, letters, - and . only."
         exit 1
     fi
 fi
@@ -41,7 +41,7 @@ fi
 if [ "$manifest" != '' ]; then
     if [[ "$manifest" =~ [^a-zA-Z0-9{._}] ]]; then
         echo "********************************************************************"
-        echo "Manifest name must be numbers and letters only"
+        echo "Manifest name must be numbers, letters, . and _ only"
         exit 1
     fi
 fi

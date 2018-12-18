@@ -15,7 +15,7 @@
 # to build against.
 
 branch=master
-manifest=manifest.json
+manifest=production_manifest.json
 
 while :; do
     case $1 in
@@ -48,7 +48,7 @@ fi
 
 printf "\nPulling down dinobuildr from the [%s] branch on github and starting
 the build!\n\n" "$branch"
-build_script=$(curl -f https://raw.githubusercontent.com/mozilla/dinobuildr/"$branch"/config.py)
+build_script=$(curl -f https://raw.githubusercontent.com/mozilla/dinobuildr/"$branch"/dino_engine.py)
 curl_status=$?
 
 # If curl fails for some reason, we return it's non-zero exit code so that the

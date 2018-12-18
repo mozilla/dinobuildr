@@ -3,7 +3,7 @@
         {
             "item": "Check macOS Version",
             "version": "",
-            "url": "repo/macos-versioncheck.sh",
+            "url": "resources/macos-versioncheck.sh",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
@@ -13,7 +13,7 @@
         {
             "item": "Set Hostname",
             "version": "",
-            "url": "repo/corsica/prompt-computername.sh",
+            "url": "resources/corsica/prompt-computername.sh",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
@@ -23,7 +23,7 @@
 	{
             "item": "Set Do Not Disturb",
             "version": "",
-            "url": "repo/corsica/set-donotdisturb.sh",
+            "url": "resources/corsica/set-donotdisturb.sh",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
@@ -33,7 +33,7 @@
 	{
             "item": "Create Corsica User",
             "version": "",
-            "url": "repo/corsica/corsica-user.pkg",
+            "url": "resources/corsica/corsica-user.pkg",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
@@ -53,7 +53,7 @@
         {
             "item": "Configure Firewall",
             "version": "",
-            "url": "repo/firewall.sh",
+            "url": "resources/firewall.sh",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
@@ -63,7 +63,7 @@
         {
             "item": "Disable analytics settings",
             "version": "",
-            "url": "repo/analytics_settings.sh",
+            "url": "resources/analytics_settings.sh",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
@@ -73,7 +73,7 @@
         {
             "item": "Disable Screensaver",
             "version": "",
-            "url": "repo/corsica/disable-screensaver.sh",
+            "url": "resources/corsica/disable-screensaver.sh",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
@@ -83,7 +83,7 @@
         {
             "item": "Configure Firefox",
             "version": "",
-            "url": "repo/corsica/firefox-settings.sh",
+            "url": "resources/corsica/firefox-settings.sh",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
@@ -93,7 +93,7 @@
         {
             "item": "Launch Firefox",
             "version": "",
-            "url": "repo/corsica/launch-firefox.sh",
+            "url": "resources/corsica/launch-firefox.sh",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
@@ -103,7 +103,7 @@
         {
             "item": "Configure Power Settings",
             "version": "",
-            "url": "repo/corsica/power-settings.sh",
+            "url": "resources/corsica/power-settings.sh",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
@@ -113,7 +113,7 @@
         {
             "item": "Enable automatic updates",
             "version": "",
-            "url": "repo/corsica/auto-update.sh",
+            "url": "resources/corsica/auto-update.sh",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
@@ -123,7 +123,7 @@
         {
             "item": "Disable Bluetooth Setup Assistant",
             "version": "",
-            "url": "repo/corsica/disable-bluetooth-setup-assistant.sh",
+            "url": "resources/corsica/disable-bluetooth-setup-assistant.sh",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
@@ -133,7 +133,7 @@
         {
             "item": "Skip iCloud Setup Assistant",
             "version": "",
-            "url": "repo/corsica/skip-icloud-setup.mobileconfig",
+            "url": "resources/corsica/skip-icloud-setup.mobileconfig",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
@@ -143,7 +143,7 @@
         {
             "item": "Skip Appearence Window Setup Assistant",
             "version": "",
-            "url": "repo/corsica/skip-appearence-window.mobileconfig",
+            "url": "resources/corsica/skip-appearence-window.mobileconfig",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
@@ -153,7 +153,7 @@
         {
             "item": "Skip Data and Privacy Setup Assistant",
             "version": "",
-            "url": "repo/corsica/skip-data-privacy-setup.mobileconfig",
+            "url": "resources/corsica/skip-data-privacy-setup.mobileconfig",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
@@ -163,7 +163,7 @@
         {
             "item": "Skip Siri Setup Assistant",
             "version": "",
-            "url": "repo/corsica/skip-siri-setup.mobileconfig",
+            "url": "resources/corsica/skip-siri-setup.mobileconfig",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
@@ -173,7 +173,7 @@
         {
             "item": "Disable Guest Login",
             "version": "",
-            "url": "repo/disable-guest.sh",
+            "url": "resources/disable-guest.sh",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
@@ -183,7 +183,7 @@
         {
             "item": "Update macOS",
             "version": "",
-            "url": "repo/update-macos.sh",
+            "url": "resources/update-macos.sh",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",

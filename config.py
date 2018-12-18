@@ -37,7 +37,7 @@ local_dir = "/var/tmp/dinobuildr"
 org = "mozilla"
 repo = "dinobuildr"
 default_branch = "master"
-default_manifest = "manifest.json"
+default_manifest = "production_manifest.json"
 
 # this section parses argument(s) passed to this script
 # the --branch argument specified the branch that this script will build
@@ -81,12 +81,12 @@ lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo)
 raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
 manifest_url = "https://raw.githubusercontent.com/%s/%s/%s/%s" % (org, repo, branch, manifest)
 manifest_file = "%s/%s" % (local_dir, manifest)
-default_manifest_hash = "4f30d26c67b96dd33dca98872508fba0028b8d5efc8149d0e9d90cd3a5380c06"
-ambient_manifest_hash = "56592f48558895ed8ab693095d00bca58f676d42316c5d22420c8df9b95d3442"
+default_manifest_hash = "f666a31b3e07b387193a3994162ee05cce478e6142b364e00e26f080509b6ba7"
+ambient_display_manifest_hash = "d291d6dd00a69490798970a40dff9e13340455db6b3711c843e90a5f48733772"
 manifest_hash = default_manifest_hash
 
-if manifest == "ambient_manifest.json":
-    manifest_hash = ambient_manifest_hash
+if manifest == "ambient_display_manifest.json":
+    manifest_hash = ambient_display_manifest_hash
 
 
 # check to see if user ran with sudo , since it's required

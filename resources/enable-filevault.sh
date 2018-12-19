@@ -22,7 +22,8 @@ sys.stdout.write(username + "\n");')
 # require the user password to be passed to fdesetup and we don't want to
 # encourage people to type their account passwords into random dialog boxes. 
 
-fdesetup enable -defer /Users/"${loggedInUser}"/Library/fvkey.plist
+echo "Enabling FileVault deffered enrollment."
+fdesetup enable -defer /Users/"${loggedInUser}"/Library/fvkey.plist -forceatlogin 0 -dontaskatlogout
 
 # Generate a LaunchDaemon via heredoc that will execute the chownfvkey.sh that
 # we will write later in this script. 

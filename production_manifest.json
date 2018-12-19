@@ -51,44 +51,34 @@
             "type": "shell"
         },
         {
-            "item": "Download Crashplan custom.properties",
+            "item": "Download Crashplan deploy.properties",
             "version": "",
-            "url": "resources/custom.properties",
+            "url": "resources/deploy.properties",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "4ff51f41dd634f509f107c60400a7a312b0a765a813f83420adb03f9cba96e5a",
+            "hash": "4f674399b3a9d290ce9d050383aca5c57de7c239b19540818559d43a6f4c9f62",
             "type": "file"
         },
         {
-            "item": "Download Crashplan userInfo.sh",
+            "item": "Crashplan Preflight",
             "version": "",
-            "url": "resources/userInfo.sh",
+            "url": "resources/crashplan_preflight.sh",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "0aa94da32525e21f6477bc4be05f4a307f20669d8ee092271af2672e69ba9b90",
-            "type": "file"
+            "hash": "aeb26d1ead4245817ad1e7ba29daaf11598bcac2154d9c60c5b1eb24e3ecfb94",
+            "type": "shell"
         },
         {
-            "item": "Download Crashplan",
+            "item": "Install Crashplan",
             "version": "6.9.0",
             "url": "https://download.code42.com/installs/mac/install/Code42CrashPlan/Code42CrashPlan_${version}_Mac.dmg",
             "filename": "",
-            "dmg-installer": "",
+            "dmg-installer": "Install Code42 CrashPlan.pkg",
             "dmg-advanced": "",
-            "hash": "21fcf556dc06f06ff81956901414d71c1a168974567189aadd934ede8b1f6d91",
+            "hash": "2aa00419b2b02238ec7f96835d2e82fa80de288276a8a46995f4146032115097",
             "type": "dmg"
-        },
-        {
-            "item": "Crashplan Custom Install",
-            "version": "",
-            "url": "resources/crashplan-postinstall.sh",
-            "filename": "",
-            "dmg-installer": "",
-            "dmg-advanced": "",
-            "hash": "ce3f7fe1c2d73f2dfc7fd5664d712c8f111be02a1a54cb896f31db77f3d75b7a",
-            "type": "shell"
         },
         {
             "item": "Install Firefox",

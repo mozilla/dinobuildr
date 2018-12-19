@@ -57,7 +57,7 @@ curl_status=$?
 if [ $curl_status -eq 0 ]; then
     if python -c "$build_script" -b "$branch" -m "$manifest"; then
         echo "Rebooting!"
-        osascript -e 'tell app "System Events" to restart'
+        osascript -e 'tell app "System Events" to restart' 
     else
         echo "********************************************************************"
         echo "HOUSTON WE HAVE A PROBLEM: Dinobuildr did not complete successfully."

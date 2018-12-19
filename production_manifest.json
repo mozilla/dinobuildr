@@ -72,8 +72,8 @@
         },
         {
             "item": "Download Crashplan",
-            "version": "4.5.2",
-            "url": "https://download.code42.com/installs/mac/install/CrashPlanPROe/CrashPlanPROe_${version}_Mac.dmg",
+            "version": "6.9.0",
+            "url": "https://download.code42.com/installs/mac/install/Code42CrashPlan/Code42CrashPlan_${version}_Mac.dmg",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",

@@ -42,19 +42,21 @@ default_manifest = "production_manifest.json"
 # this section parses argument(s) passed to this script
 # the --branch argument specified the branch that this script will build
 # against, which is useful for testing. the script will default to the master
-# branch if no argument is specified. 
+# branch if no argument is specified.
 parser = argparse.ArgumentParser()
-parser.add_argument("-b", "--branch", help="The branch name to build against. Defaults to %s" % default_branch)
-parser.add_argument("-m", "--manifest", help="The manifest to build against. Defaults to production macOS deployment.")
+parser.add_argument("-b", "--branch",
+                    help="The branch name to build against. Defaults to %s" % default_branch)
+parser.add_argument("-m", "--manifest",
+                    help="The manifest to build against. Defaults to production macOS deployment.")
 
 args = parser.parse_args()
 
-if args.branch == None:
+if args.branch is None:
     branch = default_branch
 else:
     branch = args.branch
 
-if args.manifest == None:
+if args.manifest is None:
     manifest = default_manifest
 else:
     manifest = args.manifest
@@ -169,7 +171,7 @@ def dmg_install(filename, installer, command=None):
     out, err = pipes.communicate()
     if err:
         print err.decode('utf-8')
-    volume_path = re.search("(\/Volumes\/).*$", out).group(0)
+    volume_path = re.search(r'(\/Volumes\/).*$', out).group(0)
     installer_path = "%s/%s" % (volume_path, installer)
     if command is not None and installer == '':
         command = command.replace('${volume}', volume_path).encode("utf-8")
@@ -198,6 +200,7 @@ def dmg_install(filename, installer, command=None):
     if err:
         print err.decode('utf-8')
 
+
 # the mobileconfig_install function installs configuration profiles
 def mobileconfig_install(mobileconfig):
     pipes = subprocess.Popen([
@@ -206,6 +209,7 @@ def mobileconfig_install(mobileconfig):
     out, err = pipes.communicate()
     if err:
         print err.decode('utf-8')
+
 
 # the hash_file function accepts two arguments: the filename that you need to
 # determine the SHA256 hash of and the expected hash it returns True or False.
@@ -267,6 +271,8 @@ if not os.path.exists(local_dir):
 
 # download the manifest.json file.
 print "\nDownloading the manifest file and hash-checking it.\n"
+print manifest_url
+print manifest_file
 downloader(manifest_url, manifest_file)
 
 # check the hash of the incoming manifest file and bail if the hash doesn't match.
@@ -334,8 +340,9 @@ for item in data['packages']:
             print "Installing:", item['dmg-installer']
         if item['dmg-advanced'] != '':
             print "Getting fancy and executing:", item['dmg-advanced']
-        if item['dmg-installer'] == '' and item['dmg-advanced'] == '':   
-            print "No installer or install command specified for %s. Assuming this is download only." % item['item']
+        if item['dmg-installer'] == '' and item['dmg-advanced'] == '':
+            print(("No installer or install command specified for %s."
+                   "Assuming this is download only." % item['item']))
         if item['dmg-installer'] != '':
             dmg_install(local_path, item['dmg-installer'])
         if item['dmg-advanced'] != '':

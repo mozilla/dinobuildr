@@ -19,7 +19,7 @@ os_version=$(sw_vers -productVersion | awk -F '.' '{print $1}')
 major_version=$(sw_vers -productVersion | awk -F '.' '{print $2}')
 minor_version=$(sw_vers -productVersion | awk -F '.' '{print $3}')
 
-if [[ "$minor_version" -eq $null ]]; then
+if [[ "$minor_version" -eq '' ]]; then
     minor_version=0
 fi
 

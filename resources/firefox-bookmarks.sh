@@ -6,15 +6,15 @@
 
 # This script imports bookmarks into Firefox using the Firefox policy engine.
 
-user=`python -c '
+user=$(python -c '
 from SystemConfiguration import SCDynamicStoreCopyConsoleUser;
 import sys;
 username = (SCDynamicStoreCopyConsoleUser(None, None, None) or [None])[0];
 username = [username,""][username in [u"loginwindow", None, u""]];
-sys.stdout.write(username + "\n");'`
+sys.stdout.write(username + "\n");')
 
 mkdir /Applications/Firefox.app/Contents/Resources/distribution
-chown ${user} /Applications/Firefox.app/Contents/Resources/distribution
+chown "${user}" /Applications/Firefox.app/Contents/Resources/distribution
 
 cat > /Applications/Firefox.app/Contents/Resources/distribution/policies.json <<- "EOF"
 {
@@ -92,4 +92,4 @@ cat > /Applications/Firefox.app/Contents/Resources/distribution/policies.json <<
 }
 EOF
 
-chown ${user} /Applications/Firefox.app/Contents/Resources/distribution/policies.json
+chown "${user}" /Applications/Firefox.app/Contents/Resources/distribution/policies.json

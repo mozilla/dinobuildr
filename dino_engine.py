@@ -37,24 +37,26 @@ local_dir = "/var/tmp/dinobuildr"
 org = "mozilla"
 repo = "dinobuildr"
 default_branch = "master"
-default_manifest = "manifest.json"
+default_manifest = "production_manifest.json"
 
 # this section parses argument(s) passed to this script
 # the --branch argument specified the branch that this script will build
 # against, which is useful for testing. the script will default to the master
-# branch if no argument is specified. 
+# branch if no argument is specified.
 parser = argparse.ArgumentParser()
-parser.add_argument("-b", "--branch", help="The branch name to build against. Defaults to %s" % default_branch)
-parser.add_argument("-m", "--manifest", help="The manifest to build against. Defaults to production macOS deployment.")
+parser.add_argument("-b", "--branch",
+                    help="The branch name to build against. Defaults to %s" % default_branch)
+parser.add_argument("-m", "--manifest",
+                    help="The manifest to build against. Defaults to production macOS deployment.")
 
 args = parser.parse_args()
 
-if args.branch == None:
+if args.branch is None:
     branch = default_branch
 else:
     branch = args.branch
 
-if args.manifest == None:
+if args.manifest is None:
     manifest = default_manifest
 else:
     manifest = args.manifest
@@ -81,12 +83,12 @@ lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo)
 raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
 manifest_url = "https://raw.githubusercontent.com/%s/%s/%s/%s" % (org, repo, branch, manifest)
 manifest_file = "%s/%s" % (local_dir, manifest)
-default_manifest_hash = "aa4bfe165331150fcde2bac301355aad74543a5c1e62707a7c86825010b85edc"
-ambient_manifest_hash = "ab4b17776386a3d543947f4ed106e5030943ca0355f96a4edc8d2f26bd70c9fb"
+default_manifest_hash = "e85dbc1c100f0adaa945ec1f839299113af44c352c726b75a3865667df4760d9"
+ambient_display_manifest_hash = "d291d6dd00a69490798970a40dff9e13340455db6b3711c843e90a5f48733772"
 manifest_hash = default_manifest_hash
 
-if manifest == "ambient_manifest.json":
-    manifest_hash = ambient_manifest_hash
+if manifest == "ambient_display_manifest.json":
+    manifest_hash = ambient_display_manifest_hash
 
 
 # check to see if user ran with sudo , since it's required
@@ -169,7 +171,7 @@ def dmg_install(filename, installer, command=None):
     out, err = pipes.communicate()
     if err:
         print err.decode('utf-8')
-    volume_path = re.search("(\/Volumes\/).*$", out).group(0)
+    volume_path = re.search(r'(\/Volumes\/).*$', out).group(0)
     installer_path = "%s/%s" % (volume_path, installer)
     if command is not None and installer == '':
         command = command.replace('${volume}', volume_path).encode("utf-8")
@@ -198,6 +200,7 @@ def dmg_install(filename, installer, command=None):
     if err:
         print err.decode('utf-8')
 
+
 # the mobileconfig_install function installs configuration profiles
 def mobileconfig_install(mobileconfig):
     pipes = subprocess.Popen([
@@ -206,6 +209,7 @@ def mobileconfig_install(mobileconfig):
     out, err = pipes.communicate()
     if err:
         print err.decode('utf-8')
+
 
 # the hash_file function accepts two arguments: the filename that you need to
 # determine the SHA256 hash of and the expected hash it returns True or False.
@@ -267,6 +271,8 @@ if not os.path.exists(local_dir):
 
 # download the manifest.json file.
 print "\nDownloading the manifest file and hash-checking it.\n"
+print manifest_url
+print manifest_file
 downloader(manifest_url, manifest_file)
 
 # check the hash of the incoming manifest file and bail if the hash doesn't match.
@@ -334,8 +340,9 @@ for item in data['packages']:
             print "Installing:", item['dmg-installer']
         if item['dmg-advanced'] != '':
             print "Getting fancy and executing:", item['dmg-advanced']
-        if item['dmg-installer'] == '' and item['dmg-advanced'] == '':   
-            print "No installer or install command specified for %s. Assuming this is download only." % item['item']
+        if item['dmg-installer'] == '' and item['dmg-advanced'] == '':
+            print(("No installer or install command specified for %s."
+                   "Assuming this is download only." % item['item']))
         if item['dmg-installer'] != '':
             dmg_install(local_path, item['dmg-installer'])
         if item['dmg-advanced'] != '':

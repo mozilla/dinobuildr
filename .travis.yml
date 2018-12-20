@@ -3,8 +3,6 @@ matrix:
         - language: shell
           script:
              - bash -c 'shopt -s globstar; shellcheck **/*.sh'
-
-    include:
         - language: python
           python: 2.7
           script:

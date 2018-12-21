@@ -1,4 +1,4 @@
-Contributing to dinobuildr
+# Contributing to dinobuildr
 
 Anyone may contribute issues or code to dinobuildr as long as the following guidelines are adhered to.
 

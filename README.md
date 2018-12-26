@@ -5,7 +5,7 @@ The dinobuildr project is the current production macOS deployment and configurat
 
 1. Install and/or update to the latest revision of the current release of macOS using Apple sanctioned installation methods
 2. Follow the macOS Setup Assistant to create a user account for the person that will be receiving the machine, and set some basic configurations
-3. Utilize the 'dinobuildr.sh' script to pull down a verified commit of the `dino_engine.py` configuration script and run it on behalf of the user account created in step 2
+3. Utilize the `dinobuildr.sh` script to pull down a verified commit of the `dino_engine.py` configuration script and run it on behalf of the user account created in step 2
 4. Enable Filevault and ensure that the password for the user account is set to something sufficiently random and complicated and hand over the machine to the person who requested it
 
 dinobuildr is intended to be a transparent, reliable, and auditable deployment solution. Anyone may inspect the automated components of our build, review what software is being deployed by default, and what configuration changes are made to a machine. Unlike most deployment and configuration management solutions dinobuildr is intended to be easy to understand, contribute to, and to audit. It does not rely on management binaries or other artifacts to work as it operates using Python 2.7 (which is built into macOS) and uses no external Python libraries. All configuration scripts exist in code that has been written and audited by Mozilla IT and all software packages come from trusted sources and are independently hashed by Mozilla IT. 

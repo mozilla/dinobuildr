@@ -83,7 +83,7 @@ lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo)
 raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
 manifest_url = "https://raw.githubusercontent.com/%s/%s/%s/%s" % (org, repo, branch, manifest)
 manifest_file = "%s/%s" % (local_dir, manifest)
-default_manifest_hash = "e85dbc1c100f0adaa945ec1f839299113af44c352c726b75a3865667df4760d9"
+default_manifest_hash = "57d5f588ae6fed4b712d396f46a1b0865fc0e9e7c64ef6bc673e345643971148"
 ambient_display_manifest_hash = "d291d6dd00a69490798970a40dff9e13340455db6b3711c843e90a5f48733772"
 manifest_hash = default_manifest_hash
 

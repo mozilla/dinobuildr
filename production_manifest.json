@@ -103,8 +103,8 @@
         {
             "item": "Install Zoom",
             "version": "4.4.52595.0425",
-            "url": "https://zoom.us/client/${version}/Zoom.pkg",
-            "filename": "zoom.pkg",
+            "url": "https://zoom.us/client/4.4.52595.0425/Zoom.pkg",
+            "filename": "Zoom.pkg",
             "dmg-installer": "",
             "dmg-advanced": "",
             "hash": "85c96d9ee17e700f6cd1a1ca205823ff6cdec8ada0812f2826e02cbd763035be",
@@ -138,16 +138,6 @@
             "dmg-installer": "",
             "dmg-advanced": "",
             "hash": "5de09057abdbc563d0cc4f802ab3138d901dd1ba711f7ddcf6de99299a54affb",
-            "type": "shell"
-        },
-        {
-            "item": "Configure Dock",
-            "version": "",
-            "url": "resources/dock-config.sh",
-            "filename": "",
-            "dmg-installer": "",
-            "dmg-advanced": "",
-            "hash": "11fc69ed7fe89de385bd0968709f9481eebf52172b27b283d5cb53fa8709a0b6",
             "type": "shell"
         },
         {

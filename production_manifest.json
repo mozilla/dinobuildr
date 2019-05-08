@@ -103,12 +103,12 @@
         {
             "item": "Install Zoom",
             "version": "4.4.52595.0425",
-            "url": "https://zoom.us/client/4.4.52595.0425/Zoom.pkg",
+            "url": "https://zoom.us/client/${version}/Zoom.pkg",
             "filename": "Zoom.pkg",
             "dmg-installer": "",
             "dmg-advanced": "",
             "hash": "85c96d9ee17e700f6cd1a1ca205823ff6cdec8ada0812f2826e02cbd763035be",
-            "type": "pkg"
+            "type": "pkg-lfs"
         },
         {
             "item": "Configure Firewall",

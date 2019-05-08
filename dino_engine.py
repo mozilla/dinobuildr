@@ -310,6 +310,7 @@ for item in data['packages']:
         print "Downloading:", item['item']
         downloader(lfsfile_url, local_path)
         hash_file(local_path, item['hash'])
+        print "Installing:", item['local_path']
         pkg_install(local_path)
         print "\r"
 
@@ -318,6 +319,7 @@ for item in data['packages']:
         print "Downloading:", item['item']
         downloader(lfsfile_url, local_path)
         hash_file(local_path, item['hash'])
+        print "Installing:", item['local_path']
         pkg_install(local_path)
         print "\r"
 
@@ -366,6 +368,7 @@ for item in data['packages']:
         lfsfile_url = get_lfs_url(json_data, lfs_url)
         print "Downloading:", item['item']
         downloader(lfsfile_url, local_path)
+        print "File downloaded to", item['local_path']
         hash_file(local_path, item['hash'])
         print "\r"
 
@@ -376,6 +379,7 @@ for item in data['packages']:
         dl_url = raw_url + item['url']
         print "Downloading:", item['item']
         downloader(dl_url, local_path)
+        print "File downloaded to", item['local_path']
         hash_file(local_path, item['hash'])
         print "\r"
 
@@ -384,7 +388,7 @@ for item in data['packages']:
         print "Downloading:", item['item']
         downloader(dl_url, local_path)
         hash_file(local_path, item['hash'])
-        print "Installing:", item['item']
+        print "Applying Mobileconfig:", item['item']
         mobileconfig_install(local_path)
         print "\r"
 

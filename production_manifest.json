@@ -101,14 +101,14 @@
             "type": "shell"
         },
         {
-            "item": "Install Vidyo",
-            "version": "3.6.14",
-            "url": "https://v.mozilla.com/upload/VidyoDesktopInstaller-macosx-TAG_VD_3_6_14_0003.dmg",
-            "filename": "vidyodesktop.dmg",
-            "dmg-installer": "VidyoDesktopInstaller.app/Contents/Resources/VidyoDesktop.app",
+            "item": "Install Zoom",
+            "version": "4.4.52595.0425",
+            "url": "https://zoom.us/client/${version}/Zoom.pkg",
+            "filename": "zoom.pkg",
+            "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "d99548771c014636876cb5cca8bcbf9ca6f0800855cde8ba25aeffce636cceb1",
-            "type": "dmg"
+            "hash": "85c96d9ee17e700f6cd1a1ca205823ff6cdec8ada0812f2826e02cbd763035be",
+            "type": "pkg"
         },
         {
             "item": "Configure Firewall",

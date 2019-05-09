@@ -83,7 +83,7 @@ lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo)
 raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
 manifest_url = "https://raw.githubusercontent.com/%s/%s/%s/%s" % (org, repo, branch, manifest)
 manifest_file = "%s/%s" % (local_dir, manifest)
-default_manifest_hash = "01ec13b53c785a996c58ff9430ddaa466965beb8ae049718d7d2ec354696725e"
+default_manifest_hash = "4cf576ef390f5fee38217d434a67f81600bb6d7e333477f078556f6082e3f413"
 ambient_display_manifest_hash = "d291d6dd00a69490798970a40dff9e13340455db6b3711c843e90a5f48733772"
 manifest_hash = default_manifest_hash
 
@@ -141,10 +141,11 @@ def pkg_install(package):
         "sudo",
         "installer", "-pkg", package, "-target", "/"],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    out, err = pipes.communicate()
-    if err:
-        print err.decode('utf-8')
-
+    stdout, stderr = pipes.communicate()
+    if pipes.returncode == 1:
+        print stdout
+        print stderr 
+        exit(1)
 
 # the script executer executes any .sh file using bash and pipes stdout and
 # stderr to the python console. the return code of the script execution can be
@@ -168,10 +169,12 @@ def dmg_install(filename, installer, command=None):
     pipes = subprocess.Popen([
         "hdiutil", "attach", filename],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    out, err = pipes.communicate()
-    if err:
-        print err.decode('utf-8')
-    volume_path = re.search(r'(\/Volumes\/).*$', out).group(0)
+    stdout, stderr = pipes.communicate()
+    if pipes.returncode == 1:
+        print stdout
+        print stderr 
+        exit(1)
+    volume_path = re.search(r'(\/Volumes\/).*$', stdout).group(0)
     installer_path = "%s/%s" % (volume_path, installer)
     if command is not None and installer == '':
         command = command.replace('${volume}', volume_path).encode("utf-8")
@@ -179,9 +182,11 @@ def dmg_install(filename, installer, command=None):
         pipes = subprocess.Popen(
             command,
             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        out, err = pipes.communicate()
-        if err:
-            print err.decode('utf-8')
+        stdout, stderr = pipes.communicate()
+        if pipes.returncode == 1:
+            print stdout
+            print stderr 
+            exit(1)
     if ".pkg" in installer:
         installer_destination = "%s/%s" % (local_dir, installer)
         shutil.copyfile(installer_path, installer_destination)
@@ -196,20 +201,22 @@ def dmg_install(filename, installer, command=None):
     pipes = subprocess.Popen([
         "hdiutil", "detach", volume_path],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    out, err = pipes.communicate()
-    if err:
-        print err.decode('utf-8')
-
+    stdout, stderr = pipes.communicate()
+    if pipes.returncode == 1:
+        print stdout
+        print stderr 
+        exit(1)
 
 # the mobileconfig_install function installs configuration profiles
 def mobileconfig_install(mobileconfig):
     pipes = subprocess.Popen([
         "/usr/bin/profiles", "-I", "-F", mobileconfig],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    out, err = pipes.communicate()
-    if err:
-        print err.decode('utf-8')
-
+    stdout, stderr = pipes.communicate()
+    if pipes.returncode == 1:
+        print stdout
+        print stderr 
+        exit(1)
 
 # the hash_file function accepts two arguments: the filename that you need to
 # determine the SHA256 hash of and the expected hash it returns True or False.
@@ -315,9 +322,9 @@ for item in data['packages']:
         print "\r"
 
     if item['type'] == "pkg":
-        dl_url = raw_url + item['url']
+        dl_url = item['url']
         print "Downloading:", item['item']
-        downloader(lfsfile_url, local_path)
+        downloader(dl_url, local_path)
         hash_file(local_path, item['hash'])
         print "Installing:", item['item']
         pkg_install(local_path)

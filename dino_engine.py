@@ -144,8 +144,9 @@ def pkg_install(package):
     stdout, stderr = pipes.communicate()
     if pipes.returncode == 1:
         print stdout
-        print stderr 
+        print stderr
         exit(1)
+
 
 # the script executer executes any .sh file using bash and pipes stdout and
 # stderr to the python console. the return code of the script execution can be
@@ -172,7 +173,7 @@ def dmg_install(filename, installer, command=None):
     stdout, stderr = pipes.communicate()
     if pipes.returncode == 1:
         print stdout
-        print stderr 
+        print stderr
         exit(1)
     volume_path = re.search(r'(\/Volumes\/).*$', stdout).group(0)
     installer_path = "%s/%s" % (volume_path, installer)
@@ -185,7 +186,7 @@ def dmg_install(filename, installer, command=None):
         stdout, stderr = pipes.communicate()
         if pipes.returncode == 1:
             print stdout
-            print stderr 
+            print stderr
             exit(1)
     if ".pkg" in installer:
         installer_destination = "%s/%s" % (local_dir, installer)
@@ -204,8 +205,9 @@ def dmg_install(filename, installer, command=None):
     stdout, stderr = pipes.communicate()
     if pipes.returncode == 1:
         print stdout
-        print stderr 
+        print stderr
         exit(1)
+
 
 # the mobileconfig_install function installs configuration profiles
 def mobileconfig_install(mobileconfig):
@@ -215,8 +217,9 @@ def mobileconfig_install(mobileconfig):
     stdout, stderr = pipes.communicate()
     if pipes.returncode == 1:
         print stdout
-        print stderr 
+        print stderr
         exit(1)
+
 
 # the hash_file function accepts two arguments: the filename that you need to
 # determine the SHA256 hash of and the expected hash it returns True or False.

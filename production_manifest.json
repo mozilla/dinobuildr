@@ -47,7 +47,7 @@
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "67db5d7c7c5c4a2dc99ee619388dfb8da5c0af1bfed4b7f2d0173e257634e724",
+            "hash": "f933954b5e4e82fa3aed0c7d81d6f5659b49eac1129fe331d09ec7afae0e3ceb",
             "type": "shell"
         },
         {
@@ -82,12 +82,12 @@
         },
         {
             "item": "Install Firefox",
-            "version": "65.0.2",
+            "version": "66.0.5",
             "url": "https://download.mozilla.org/?product=firefox-${version}-SSL&os=osx&lang=en-US",
             "filename": "firefox.dmg",
             "dmg-installer": "Firefox.app",
             "dmg-advanced": "",
-            "hash": "8eeb1fdc8bea3465dc4a9914957185fdf15fd092ddf57694b7f3476d72d42826",
+            "hash": "cabe2fe0832df2ef1c81a953c28844d78c38d5046ca7cfbaf6601d1c1a465235",
             "type": "dmg"
         },
         {
@@ -97,18 +97,18 @@
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "5d6cb5e71deb217f278b5fb5c5240482ddd701fd81bdb221c0884745024c6f65",
+            "hash": "de78e5e82c2c811b2951428a3fdd5ccf6ec20063dff34210105c99b8de719f52",
             "type": "shell"
         },
         {
-            "item": "Install Vidyo",
-            "version": "3.6.14",
-            "url": "https://v.mozilla.com/upload/VidyoDesktopInstaller-macosx-TAG_VD_3_6_14_0003.dmg",
-            "filename": "vidyodesktop.dmg",
-            "dmg-installer": "VidyoDesktopInstaller.app/Contents/Resources/VidyoDesktop.app",
+            "item": "Install Zoom",
+            "version": "4.4.52595.0425",
+            "url": "https://zoom.us/client/${version}/ZoomInstallerIT.pkg",
+            "filename": "ZoomInstallerIT.pkg",
+            "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "d99548771c014636876cb5cca8bcbf9ca6f0800855cde8ba25aeffce636cceb1",
-            "type": "dmg"
+            "hash": "9c8c585d3becb576716e9bc06d7f0c080948d2369013b977aefa5e0cbb3eaedb",
+            "type": "pkg"
         },
         {
             "item": "Configure Firewall",
@@ -147,7 +147,7 @@
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "11fc69ed7fe89de385bd0968709f9481eebf52172b27b283d5cb53fa8709a0b6",
+            "hash": "5063270b1401b98ac417ebd5eb4199c77b9894750b08ee3b6573823f310472ff",
             "type": "shell"
         },
         {

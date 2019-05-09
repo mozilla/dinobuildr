@@ -83,7 +83,7 @@ lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo)
 raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
 manifest_url = "https://raw.githubusercontent.com/%s/%s/%s/%s" % (org, repo, branch, manifest)
 manifest_file = "%s/%s" % (local_dir, manifest)
-default_manifest_hash = "9fb7796c003d2b858a115c22793ab84d41b0464eaab96fbf1cd3a8f166acd04d"
+default_manifest_hash = "ef34e8eb741ad7146c476f9a1f62c02256422bb0771fc80e04a83266e4bb7ee8"
 ambient_display_manifest_hash = "d291d6dd00a69490798970a40dff9e13340455db6b3711c843e90a5f48733772"
 manifest_hash = default_manifest_hash
 
@@ -141,9 +141,11 @@ def pkg_install(package):
         "sudo",
         "installer", "-pkg", package, "-target", "/"],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    out, err = pipes.communicate()
-    if err:
-        print err.decode('utf-8')
+    stdout, stderr = pipes.communicate()
+    if pipes.returncode == 1:
+        print stdout
+        print stderr
+        exit(1)
 
 
 # the script executer executes any .sh file using bash and pipes stdout and
@@ -168,10 +170,12 @@ def dmg_install(filename, installer, command=None):
     pipes = subprocess.Popen([
         "hdiutil", "attach", filename],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    out, err = pipes.communicate()
-    if err:
-        print err.decode('utf-8')
-    volume_path = re.search(r'(\/Volumes\/).*$', out).group(0)
+    stdout, stderr = pipes.communicate()
+    if pipes.returncode == 1:
+        print stdout
+        print stderr
+        exit(1)
+    volume_path = re.search(r'(\/Volumes\/).*$', stdout).group(0)
     installer_path = "%s/%s" % (volume_path, installer)
     if command is not None and installer == '':
         command = command.replace('${volume}', volume_path).encode("utf-8")
@@ -179,9 +183,11 @@ def dmg_install(filename, installer, command=None):
         pipes = subprocess.Popen(
             command,
             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        out, err = pipes.communicate()
-        if err:
-            print err.decode('utf-8')
+        stdout, stderr = pipes.communicate()
+        if pipes.returncode == 1:
+            print stdout
+            print stderr
+            exit(1)
     if ".pkg" in installer:
         installer_destination = "%s/%s" % (local_dir, installer)
         shutil.copyfile(installer_path, installer_destination)
@@ -196,9 +202,11 @@ def dmg_install(filename, installer, command=None):
     pipes = subprocess.Popen([
         "hdiutil", "detach", volume_path],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    out, err = pipes.communicate()
-    if err:
-        print err.decode('utf-8')
+    stdout, stderr = pipes.communicate()
+    if pipes.returncode == 1:
+        print stdout
+        print stderr
+        exit(1)
 
 
 # the mobileconfig_install function installs configuration profiles
@@ -206,9 +214,11 @@ def mobileconfig_install(mobileconfig):
     pipes = subprocess.Popen([
         "/usr/bin/profiles", "-I", "-F", mobileconfig],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    out, err = pipes.communicate()
-    if err:
-        print err.decode('utf-8')
+    stdout, stderr = pipes.communicate()
+    if pipes.returncode == 1:
+        print stdout
+        print stderr
+        exit(1)
 
 
 # the hash_file function accepts two arguments: the filename that you need to
@@ -310,6 +320,16 @@ for item in data['packages']:
         print "Downloading:", item['item']
         downloader(lfsfile_url, local_path)
         hash_file(local_path, item['hash'])
+        print "Installing:", item['item']
+        pkg_install(local_path)
+        print "\r"
+
+    if item['type'] == "pkg":
+        dl_url = item['url'].replace('${version}', item['version'])
+        print "Downloading:", item['item']
+        downloader(dl_url, local_path)
+        hash_file(local_path, item['hash'])
+        print "Installing:", item['item']
         pkg_install(local_path)
         print "\r"
 
@@ -359,6 +379,7 @@ for item in data['packages']:
         print "Downloading:", item['item']
         downloader(lfsfile_url, local_path)
         hash_file(local_path, item['hash'])
+        print "File downloaded to:", local_path
         print "\r"
 
     if item['type'] == "file":
@@ -369,6 +390,7 @@ for item in data['packages']:
         print "Downloading:", item['item']
         downloader(dl_url, local_path)
         hash_file(local_path, item['hash'])
+        print "File downloaded to:", local_path
         print "\r"
 
     if item['type'] == "mobileconfig":
@@ -376,7 +398,7 @@ for item in data['packages']:
         print "Downloading:", item['item']
         downloader(dl_url, local_path)
         hash_file(local_path, item['hash'])
-        print "Installing:", item['item']
+        print "Applying Mobileconfig:", item['item']
         mobileconfig_install(local_path)
         print "\r"
 

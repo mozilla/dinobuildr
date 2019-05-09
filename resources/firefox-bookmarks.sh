@@ -28,8 +28,8 @@ cat > /Applications/Firefox.app/Contents/Resources/distribution/policies.json <<
         "Placement": "toolbar"
       },
       {
-        "Title": "Vidyo Conferencing",
-        "URL": "https://v.mozilla.com",
+        "Title": "Mozilla SSO",
+        "URL": "https://sso.mozilla.com",
         "Placement": "toolbar"
       },
       {

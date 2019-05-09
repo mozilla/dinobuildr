@@ -325,7 +325,7 @@ for item in data['packages']:
         print "\r"
 
     if item['type'] == "pkg":
-        dl_url = item['url']
+        dl_url = item['url'].replace('${version}', item['version'])
         print "Downloading:", item['item']
         downloader(dl_url, local_path)
         hash_file(local_path, item['hash'])

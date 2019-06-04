@@ -16,6 +16,8 @@
 
 branch=master
 manifest=production_manifest.json
+repo=dinobuildr
+org=mozilla
 
 while :; do
     case $1 in
@@ -23,6 +25,12 @@ while :; do
         shift
         ;;
         -m|--manifest) manifest=$2
+        shift
+        ;;
+        -r|--repo) repo=$2
+        shift
+        ;;
+        -o|--org) org=$2
         shift
         ;;
         *) break
@@ -46,8 +54,25 @@ if [ "$manifest" != '' ]; then
     fi
 fi
 
-printf "\nPulling down dinobuildr from the [%s] branch on github and starting
-the build!\n\n" "$branch"
+if [ "$repo" != '' ]; then
+    if [[ "$repo" =~ [^a-zA-Z0-9{._}] ]]; then
+        echo "********************************************************************"
+        echo "Repo name must be numbers, letters, . and _ only"
+        exit 1
+    fi
+fi
+
+if [ "$org" != '' ]; then
+    if [[ "$org" =~ [^a-zA-Z0-9{._}] ]]; then
+        echo "********************************************************************"
+        echo "Org name must be numbers, letters, . and _ only"
+        exit 1
+    fi
+fi
+
+printf "\nPulling down dinobuildr from the [%s] branch from the [%s] repo in the [%s] org on github.
+\n\n" "$branch" "$repo" "$org"
+
 build_script=$(curl -f https://raw.githubusercontent.com/mozilla/dinobuildr/"$branch"/dino_engine.py)
 curl_status=$?
 
@@ -55,7 +80,8 @@ curl_status=$?
 # script can fail in a predictable way.
 
 if [ $curl_status -eq 0 ]; then
-    if python -c "$build_script" -b "$branch" -m "$manifest"; then
+    echo "Starting the build!\n"
+    if python -c "$build_script" -b "$branch" -m "$manifest" -r "$repo" -o "$org"; then
         echo "Rebooting!"
         osascript -e 'tell app "System Events" to restart' 
     else
@@ -69,7 +95,7 @@ else
     if [ $curl_status -eq 6 ]; then
         echo "Check your internet connection and try again!"
     elif [ $curl_status -eq 22 ]; then
-        echo "$branch is not a valid branch. Please verify the branch name and try again."
+        echo "We can't find the branch or repo you're trying to use. Please try again!"
     fi
     exit 1
 fi

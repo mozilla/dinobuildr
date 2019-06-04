@@ -80,7 +80,7 @@ curl_status=$?
 # script can fail in a predictable way.
 
 if [ $curl_status -eq 0 ]; then
-    echo "Starting the build!\n"
+    printf "\nStarting the build!\n"
     if python -c "$build_script" -b "$branch" -m "$manifest" -r "$repo" -o "$org"; then
         echo "Rebooting!"
         osascript -e 'tell app "System Events" to restart' 

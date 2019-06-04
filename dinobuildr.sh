@@ -18,6 +18,7 @@ branch=master
 manifest=production_manifest.json
 repo=dinobuildr
 org=mozilla
+dino_engine=dino_engine.py
 
 while :; do
     case $1 in
@@ -73,7 +74,7 @@ fi
 printf "\nPulling down dinobuildr from the [%s] branch from the [%s] repo in the [%s] org on github.
 \n\n" "$branch" "$repo" "$org"
 
-build_script=$(curl -f https://raw.githubusercontent.com/mozilla/dinobuildr/"$branch"/dino_engine.py)
+build_script=$(curl -f https://raw.githubusercontent.com/"$org"/"$repo"/"$branch"/"$dino_engine")
 curl_status=$?
 
 # If curl fails for some reason, we return it's non-zero exit code so that the

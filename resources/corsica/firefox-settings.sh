@@ -29,14 +29,10 @@ set +e
 
 mkdir /Users/Shared/corsica-profile
 
-# Set preferences
-# * full-screen-api.allow-trusted-requests-only = false - Allow Corsica to go full screen without interaction
-# * media.autoplay.default = 0 - Allow video autoplay, even with sound
 (
 set -e
 cat > /Users/Shared/corsica-profile/prefs.js <<- "EOF"
 user_pref("full-screen-api.allow-trusted-requests-only", false);
-user_pref("media.autoplay.default", 0);
 EOF
 set +e
 )

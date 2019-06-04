@@ -66,12 +66,12 @@ else:
     manifest = args.manifest
 
 if args.repo is None:
-    repo = default_repo 
+    repo = default_repo
 else:
     repo = args.repo
 
 if args.org is None:
-    org = default_org 
+    org = default_org
 else:
     org = args.org
 

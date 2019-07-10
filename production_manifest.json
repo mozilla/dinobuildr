@@ -82,12 +82,12 @@
         },
         {
             "item": "Install Firefox",
-            "version": "66.0.5",
+            "version": "68.0",
             "url": "https://download.mozilla.org/?product=firefox-${version}-SSL&os=osx&lang=en-US",
             "filename": "firefox.dmg",
             "dmg-installer": "Firefox.app",
             "dmg-advanced": "",
-            "hash": "cabe2fe0832df2ef1c81a953c28844d78c38d5046ca7cfbaf6601d1c1a465235",
+            "hash": "f5abf49daddd95e621c596670fa65d6add1b8815860ced3970c47c92ccc87fc5",
             "type": "dmg"
         },
         {
@@ -102,12 +102,12 @@
         },
         {
             "item": "Install Zoom",
-            "version": "4.4.52595.0425",
+            "version": "4.4.53932.0709",
             "url": "https://zoom.us/client/${version}/ZoomInstallerIT.pkg",
             "filename": "ZoomInstallerIT.pkg",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "9c8c585d3becb576716e9bc06d7f0c080948d2369013b977aefa5e0cbb3eaedb",
+            "hash": "68bb730f32a3f98286381d9299cec9d5dd37657128ca1750375942143e71ef49",
             "type": "pkg"
         },
         {

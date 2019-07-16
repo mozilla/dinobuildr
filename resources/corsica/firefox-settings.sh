@@ -20,6 +20,9 @@ cat > /Applications/Firefox.app/Contents/Resources/distribution/policies.json <<
     "DontCheckDefaultBrowser": true,
     "Homepage": {
       "URL": "https://corsica.mozilla.io/"
+    },
+    "Preferences": {
+      "browser.tabs.warnOnClose": false
     }
   }
 }

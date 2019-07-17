@@ -203,8 +203,6 @@ def dmg_install(filename, installer, command=None):
             print stderr
             exit(1)
     if ".pkg" in installer:
-        installer_destination = "%s/%s" % (local_dir, installer)
-        shutil.copyfile(installer_path, installer_destination)
         pkg_install(installer_path)
     if ".app" in installer:
         applications_path = "/Applications/%s" % installer.rsplit('/', 1)[-1]

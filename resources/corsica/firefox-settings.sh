@@ -20,6 +20,9 @@ cat > /Applications/Firefox.app/Contents/Resources/distribution/policies.json <<
     "DontCheckDefaultBrowser": true,
     "Homepage": {
       "URL": "https://corsica.mozilla.io/"
+    },
+    "Preferences": {
+      "browser.tabs.warnOnClose": false
     }
   }
 }
@@ -33,6 +36,7 @@ mkdir /Users/Shared/corsica-profile
 set -e
 cat > /Users/Shared/corsica-profile/prefs.js <<- "EOF"
 user_pref("full-screen-api.allow-trusted-requests-only", false);
+user_pref("media.autoplay.default", 0);
 EOF
 set +e
 )

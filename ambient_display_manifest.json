@@ -42,12 +42,12 @@
         },
         {
             "item": "Install Firefox ESR",
-            "version": "60.3.0",
+            "version": "68.0",
             "url": "https://download.mozilla.org/?product=firefox-${version}esr-SSL&os=osx&lang=en-US",
             "filename": "firefox.dmg",
             "dmg-installer": "Firefox.app",
             "dmg-advanced": "",
-            "hash": "94ec8e878fce8e67b92c764b38049cb9befc3b9ab6deff243219aab73d194764",
+            "hash": "298a982c23db714fc7c3d4915450cc0d5ea2d37f52a68dd440a3ab31c8c53348",
             "type": "dmg"
         },
         {
@@ -87,7 +87,7 @@
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "560e006e435def8135beb1011a61e03571b46b5d91aa42de23cddfa73437385f",
+            "hash": "ae63aa2a891bdd327d0f8d6641e4004ec4b132c2bd19d7653443b1c661e7434d",
             "type": "shell"
         },
         {

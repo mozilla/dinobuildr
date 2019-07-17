@@ -34,8 +34,8 @@ global gid
 # default_branch - the default branch to build against if no --branch argument is specified
 # testing
 local_dir = "/var/tmp/dinobuildr"
-org = "mozilla"
-repo = "dinobuildr"
+default_org = "mozilla"
+default_repo = "dinobuildr"
 default_branch = "master"
 default_manifest = "production_manifest.json"
 
@@ -48,6 +48,10 @@ parser.add_argument("-b", "--branch",
                     help="The branch name to build against. Defaults to %s" % default_branch)
 parser.add_argument("-m", "--manifest",
                     help="The manifest to build against. Defaults to production macOS deployment.")
+parser.add_argument("-r", "--repo",
+                    help="The repo to build against. Defaults to %s" % default_repo)
+parser.add_argument("-o", "--org",
+                    help="The org to build against. Defaults to %s" % default_org)
 
 args = parser.parse_args()
 
@@ -60,6 +64,16 @@ if args.manifest is None:
     manifest = default_manifest
 else:
     manifest = args.manifest
+
+if args.repo is None:
+    repo = default_repo
+else:
+    repo = args.repo
+
+if args.org is None:
+    org = default_org
+else:
+    org = args.org
 
 # os.environ - an environment variable for the builder's local directory to be
 # passed on to shells scripts
@@ -84,7 +98,7 @@ raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
 manifest_url = "https://raw.githubusercontent.com/%s/%s/%s/%s" % (org, repo, branch, manifest)
 manifest_file = "%s/%s" % (local_dir, manifest)
 default_manifest_hash = "5d0c82205869e7219ec76276408b5e562ea42af9637bbe74466f43667cae692b"
-ambient_display_manifest_hash = "9aa2e442404d94151cd2f5ae5e9abe1f9101104299e092668f73a5f57521f892"
+ambient_display_manifest_hash = "7fd9fe4615df117c1679b0d50d53c45f9f7e116e556a8315ee84857992e2abdd"
 manifest_hash = default_manifest_hash
 
 if manifest == "ambient_display_manifest.json":

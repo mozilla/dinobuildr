@@ -18,115 +18,15 @@ import grp
 import argparse
 from SystemConfiguration import SCDynamicStoreCopyConsoleUser
 
-# --- section 1: defining too many variables --------------------- #
-# in this section we define way too many variables and things.
-# ---------------------------------------------------------------- #
 
-# globalize the uid and gid variables so the DMG installer can use it without
-# needing to pass it every time.
-# TODO: this is lazy and a better method should be used.
-global uid
-global gid
-
-# local_dir - the local directory the builder will use
-# org - the org that is hosting the build repository
-# repo - the rep that is hosting the build
-# default_branch - the default branch to build against if no --branch argument is specified
-# testing
-local_dir = "/var/tmp/dinobuildr"
-default_org = "mozilla"
-default_repo = "dinobuildr"
-default_branch = "master"
-default_manifest = "production_manifest.json"
-
-# this section parses argument(s) passed to this script
-# the --branch argument specified the branch that this script will build
-# against, which is useful for testing. the script will default to the master
-# branch if no argument is specified.
-parser = argparse.ArgumentParser()
-parser.add_argument("-b", "--branch",
-                    help="The branch name to build against. Defaults to %s" % default_branch)
-parser.add_argument("-m", "--manifest",
-                    help="The manifest to build against. Defaults to production macOS deployment.")
-parser.add_argument("-r", "--repo",
-                    help="The repo to build against. Defaults to %s" % default_repo)
-parser.add_argument("-o", "--org",
-                    help="The org to build against. Defaults to %s" % default_org)
-
-args = parser.parse_args()
-
-if args.branch is None:
-    branch = default_branch
-else:
-    branch = args.branch
-
-if args.manifest is None:
-    manifest = default_manifest
-else:
-    manifest = args.manifest
-
-if args.repo is None:
-    repo = default_repo
-else:
-    repo = args.repo
-
-if args.org is None:
-    org = default_org
-else:
-    org = args.org
-
-# os.environ - an environment variable for the builder's local directory to be
-# passed on to shells scripts
-# current_user - the name of the user running the script. Apple suggests using
-# both methods.
-# uid - the UID of the user running the script
-# gid - the GID of the group "staff" which is the default primary group for all
-# users in macOS
-os.environ["DINOPATH"] = local_dir
-current_user = (SCDynamicStoreCopyConsoleUser(None, None, None) or [None])[0]
-current_user = [current_user, ""][current_user in [u"loginwindow", None, u""]]
-uid = pwd.getpwnam(current_user).pw_uid
-gid = grp.getgrnam("staff").gr_gid
-
-# lfs_url -  the generic LFS url structure that github uses
-# raw_url - the generic RAW url structure that github uses
-# manifest_url - the url of the manifest file
-# manifest_hash - the hash of the manifest file
-# manifest_file - the expected filepath of the manifest file
-lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo)
-raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
-manifest_url = "https://raw.githubusercontent.com/%s/%s/%s/%s" % (org, repo, branch, manifest)
-manifest_file = "%s/%s" % (local_dir, manifest)
-default_manifest_hash = "5d0c82205869e7219ec76276408b5e562ea42af9637bbe74466f43667cae692b"
-ambient_display_manifest_hash = "7fd9fe4615df117c1679b0d50d53c45f9f7e116e556a8315ee84857992e2abdd"
-manifest_hash = default_manifest_hash
-
-if manifest == "ambient_display_manifest.json":
-    manifest_hash = ambient_display_manifest_hash
-
-
-# check to see if user ran with sudo , since it's required
-
-if os.getuid() != 0:
-    print "This script requires root to run, please try again with sudo."
-    exit(1)
-
-# --- section 2: functions on functions on functions -------------------- #
-# in this section we define all the important functions we will use.
-# ----------------------------------------------------------------------- #
-
-
-# the downloader function accepts three arguments: the url of the file you are
-# downloading, the filename (path) of the file you are downloading and an
-# optional password if the download requires Basic authentication. the
+# the downloader function accepts two arguments: the url of the file you are
+# downloading and the filename (path) of the file you are downloading. The
 # downloader reads the Content-Length portion of the header of the incoming
 # file and determines the expected file size then reads the incoming file in
 # chunks of 8192 bytes and displays the currently read bytes and percentage
 # complete
 
 def downloader(url, file_path):
-    if not os.path.exists(local_dir):
-        os.makedirs(local_dir)
     download = urllib2.urlopen(url)
     meta = download.info()
     file_size = int(meta.getheaders("Content-Length")[0])
@@ -209,6 +109,15 @@ def dmg_install(filename, installer, command=None):
         if os.path.exists(applications_path):
             shutil.rmtree(applications_path)
         shutil.copytree(installer_path, applications_path)
+        # current_user - the name of the user running the script. Apple suggests using
+        # both methods.
+        # uid - the UID of the user running the script
+        # gid - the GID of the group "staff" which is the default primary group for all
+        # users in macOS
+        current_user = (SCDynamicStoreCopyConsoleUser(None, None, None) or [None])[0]
+        current_user = [current_user, ""][current_user in [u"loginwindow", None, u""]]
+        uid = pwd.getpwnam(current_user).pw_uid
+        gid = grp.getgrnam("staff").gr_gid
         os.chown(applications_path, uid, gid)
         os.chmod(applications_path, 0o755)
     pipes = subprocess.Popen([
@@ -239,11 +148,11 @@ def hash_file(filename, man_hash):
     if man_hash == "skip":
         print "NOTICE: Manifest file is instructing us to SKIP hashing %s." % filename
     else:
-        hash = hashlib.sha256()
-        with open(filename, 'rb') as file:
-            for chunk in iter(lambda: file.read(4096), b""):
-                hash.update(chunk)
-        if hash.hexdigest() == man_hash:
+        hash_check = hashlib.sha256()
+        with open(filename, 'rb') as f:
+            for chunk in iter(lambda: f.read(4096), b""):
+                hash_check.update(chunk)
+        if hash_check.hexdigest() == man_hash:
             print "\rThe hash for %s match the manifest file" % filename
             return True
         else:
@@ -283,139 +192,213 @@ def get_lfs_url(json_input, lfs_url):
     return file_url
 
 
-# --- section 3: actually doing stuff! --------------------- #
-# now the fun bit: we actually get to do stuff!
-# ---------------------------------------------------------- #
+def main():
+    # local_dir - the local directory the builder will use
+    # org - the org that is hosting the build repository
+    # repo - the rep that is hosting the build
+    # default_branch - the default branch to build against if no --branch argument is specified
+    # testing
+    local_dir = "/var/tmp/dinobuildr"
+    default_org = "mozilla"
+    default_repo = "dinobuildr"
+    default_branch = "master"
+    default_manifest = "production_manifest.json"
 
-# if the local directory doesn't exist, we make it.
-if not os.path.exists(local_dir):
-    os.makedirs(local_dir)
+    # this section parses argument(s) passed to this script
+    # the --branch argument specified the branch that this script will build
+    # against, which is useful for testing. the script will default to the master
+    # branch if no argument is specified.
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-b", "--branch",
+                        help="The branch name to build against. Defaults to %s" % default_branch)
+    parser.add_argument("-m", "--manifest",
+                        help="The manifest to build against. Defaults to production macOS deployment.")
+    parser.add_argument("-r", "--repo",
+                        help="The repo to build against. Defaults to %s" % default_repo)
+    parser.add_argument("-o", "--org",
+                        help="The org to build against. Defaults to %s" % default_org)
 
-# download the manifest.json file.
-print "\nDownloading the manifest file and hash-checking it.\n"
-print manifest_url
-print manifest_file
-downloader(manifest_url, manifest_file)
+    args = parser.parse_args()
 
-# check the hash of the incoming manifest file and bail if the hash doesn't match.
-hash_file(manifest_file, manifest_hash)
-
-print "\n***** DINOBUILDR IS BUILDING. RAWR. *****\n"
-print "Building against the [%s] branch and the %s manifest\n" % (branch, manifest)
-# we read the manifest file and examine each object in it. if the object is a
-# .pkg file, then we assemble the download url of the pointer, read the pointer
-# and request the file from LFS. if the file we get has a hash that matches
-# what's in the manifest, we Popen the installer function if the object is a
-# .sh file, we assemble the download url and download the file directly. if the
-# script we get has a hash that matches what's in the manifest, we set the
-# execute flag and Popen the script_exec function. same with dmgs, although
-# dmgs are real complicated so we may end up running an arbitrary command,
-# copying the installer or installing a pkg.
-with open(manifest_file, 'r') as manifest_data:
-    data = json.load(manifest_data)
-
-for item in data['packages']:
-    if item['filename'] != "":
-        file_name = item['filename']
+    if args.branch is None:
+        branch = default_branch
     else:
-        file_name = (
-            item['url'].replace('${version}', item['version'])
-        ).rsplit('/', 1)[-1]
-    # TODO: this variable name is dumb, this is the path to the file we're
-    # working with
-    local_path = "%s/%s" % (local_dir, file_name)
+        branch = args.branch
 
-    if item['type'] == "pkg-lfs":
-        dl_url = raw_url + item['url']
-        json_data = pointer_to_json(dl_url)
-        lfsfile_url = get_lfs_url(json_data, lfs_url)
-        print "Downloading:", item['item']
-        downloader(lfsfile_url, local_path)
-        hash_file(local_path, item['hash'])
-        print "Installing:", item['item']
-        pkg_install(local_path)
-        print "\r"
+    if args.manifest is None:
+        manifest = default_manifest
+    else:
+        manifest = args.manifest
 
-    if item['type'] == "pkg":
-        dl_url = item['url'].replace('${version}', item['version'])
-        print "Downloading:", item['item']
-        downloader(dl_url, local_path)
-        hash_file(local_path, item['hash'])
-        print "Installing:", item['item']
-        pkg_install(local_path)
-        print "\r"
+    if args.repo is None:
+        repo = default_repo
+    else:
+        repo = args.repo
 
-    if item['type'] == "shell":
-        dl_url = raw_url + item['url']
-        print "Downloading:", item['item']
-        downloader(dl_url, local_path)
-        hash_file(local_path, item['hash'])
-        print "Executing:", item['item']
-        perms = os.stat(local_path)
-        os.chmod(local_path, perms.st_mode | stat.S_IEXEC)
-        script_exec(local_path)
-        print "\r"
+    if args.org is None:
+        org = default_org
+    else:
+        org = args.org
 
-    if item['type'] == "dmg":
-        # TODO: consisitency: there should be URL checks everywhere or do this
-        # TODO: dmg-installer / dmg-advanced are not being checked to allow
-        # for functionality that should be in a downloader function
-        # in the manifest generator
-        if item['url'] == '':
-            print "No URL specified for %s" % item['item']
-            break
-        dl_url = item['url'].replace('${version}', item['version'])
-        print "Downloading:", item['item']
-        downloader(dl_url, local_path)
-        hash_file(local_path, item['hash'])
-        if item['dmg-installer'] != '':
-            print "Installing:", item['dmg-installer']
-        if item['dmg-advanced'] != '':
-            print "Getting fancy and executing:", item['dmg-advanced']
-        if item['dmg-installer'] == '' and item['dmg-advanced'] == '':
-            print(("No installer or install command specified for %s."
-                   "Assuming this is download only." % item['item']))
-        if item['dmg-installer'] != '':
-            dmg_install(local_path, item['dmg-installer'])
-        if item['dmg-advanced'] != '':
-            dmg_install(local_path, '', item['dmg-advanced'])
-        print "\r"
+    # os.environ - an environment variable for the builder's local directory to be
+    # passed on to shells scripts
+    os.environ["DINOPATH"] = local_dir
 
-    if item['type'] == "file-lfs":
-        if item['url'] == '':
-            print "No URL specified for %s" % item['item']
-            break
-        dl_url = raw_url + item['url']
-        json_data = pointer_to_json(dl_url)
-        lfsfile_url = get_lfs_url(json_data, lfs_url)
-        print "Downloading:", item['item']
-        downloader(lfsfile_url, local_path)
-        hash_file(local_path, item['hash'])
-        print "File downloaded to:", local_path
-        print "\r"
+    # lfs_url -  the generic LFS url structure that github uses
+    # raw_url - the generic RAW url structure that github uses
+    # manifest_url - the url of the manifest file
+    # manifest_hash - the hash of the manifest file
+    # manifest_file - the expected filepath of the manifest file
+    lfs_url = "https://github.com/%s/%s.git/info/lfs/objects/batch" % (org, repo)
+    raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
+    manifest_url = "https://raw.githubusercontent.com/%s/%s/%s/%s" % (org, repo, branch, manifest)
+    manifest_file = "%s/%s" % (local_dir, manifest)
+    default_manifest_hash = "5d0c82205869e7219ec76276408b5e562ea42af9637bbe74466f43667cae692b"
+    ambient_display_manifest_hash = "7fd9fe4615df117c1679b0d50d53c45f9f7e116e556a8315ee84857992e2abdd"
+    manifest_hash = default_manifest_hash
 
-    if item['type'] == "file":
-        if item['url'] == '':
-            print "No URL specified for %s" % item['item']
-            break
-        dl_url = raw_url + item['url']
-        print "Downloading:", item['item']
-        downloader(dl_url, local_path)
-        hash_file(local_path, item['hash'])
-        print "File downloaded to:", local_path
-        print "\r"
+    if manifest == "ambient_display_manifest.json":
+        manifest_hash = ambient_display_manifest_hash
 
-    if item['type'] == "mobileconfig":
-        dl_url = raw_url + item['url']
-        print "Downloading:", item['item']
-        downloader(dl_url, local_path)
-        hash_file(local_path, item['hash'])
-        print "Applying Mobileconfig:", item['item']
-        mobileconfig_install(local_path)
-        print "\r"
+    # check to see if user ran with sudo , since it's required
 
-# delete the temporary directory we've been downloading packages into.
-print "Cleanup: Deleting %s" % local_dir
-shutil.rmtree(local_dir)
+    if os.getuid() != 0:
+        print "This script requires root to run, please try again with sudo."
+        exit(1)
 
-print "Build complete!"
+    # if the local directory doesn't exist, we make it.
+    if not os.path.exists(local_dir):
+        os.makedirs(local_dir)
+
+    # download the manifest.json file.
+    print "\nDownloading the manifest file and hash-checking it.\n"
+    print manifest_url
+    print manifest_file
+    downloader(manifest_url, manifest_file)
+
+    # check the hash of the incoming manifest file and bail if the hash doesn't match.
+    hash_file(manifest_file, manifest_hash)
+
+    print "\n***** DINOBUILDR IS BUILDING. RAWR. *****\n"
+    print "Building against the [%s] branch and the %s manifest\n" % (branch, manifest)
+    # we read the manifest file and examine each object in it. if the object is a
+    # .pkg file, then we assemble the download url of the pointer, read the pointer
+    # and request the file from LFS. if the file we get has a hash that matches
+    # what's in the manifest, we Popen the installer function if the object is a
+    # .sh file, we assemble the download url and download the file directly. if the
+    # script we get has a hash that matches what's in the manifest, we set the
+    # execute flag and Popen the script_exec function. same with dmgs, although
+    # dmgs are real complicated so we may end up running an arbitrary command,
+    # copying the installer or installing a pkg.
+    with open(manifest_file, 'r') as manifest_data:
+        data = json.load(manifest_data)
+
+    for item in data['packages']:
+        if item['filename'] != "":
+            file_name = item['filename']
+        else:
+            file_name = (
+                item['url'].replace('${version}', item['version'])
+            ).rsplit('/', 1)[-1]
+        # TODO: this variable name is dumb, this is the path to the file we're
+        # working with
+        local_path = "%s/%s" % (local_dir, file_name)
+
+        if item['type'] == "pkg-lfs":
+            dl_url = raw_url + item['url']
+            json_data = pointer_to_json(dl_url)
+            lfsfile_url = get_lfs_url(json_data, lfs_url)
+            print "Downloading:", item['item']
+            downloader(lfsfile_url, local_path)
+            hash_file(local_path, item['hash'])
+            print "Installing:", item['item']
+            pkg_install(local_path)
+            print "\r"
+
+        if item['type'] == "pkg":
+            dl_url = item['url'].replace('${version}', item['version'])
+            print "Downloading:", item['item']
+            downloader(dl_url, local_path)
+            hash_file(local_path, item['hash'])
+            print "Installing:", item['item']
+            pkg_install(local_path)
+            print "\r"
+
+        if item['type'] == "shell":
+            dl_url = raw_url + item['url']
+            print "Downloading:", item['item']
+            downloader(dl_url, local_path)
+            hash_file(local_path, item['hash'])
+            print "Executing:", item['item']
+            perms = os.stat(local_path)
+            os.chmod(local_path, perms.st_mode | stat.S_IEXEC)
+            script_exec(local_path)
+            print "\r"
+
+        if item['type'] == "dmg":
+            # TODO: consisitency: there should be URL checks everywhere or do this
+            # TODO: dmg-installer / dmg-advanced are not being checked to allow
+            # for functionality that should be in a downloader function
+            # in the manifest generator
+            if item['url'] == '':
+                print "No URL specified for %s" % item['item']
+                break
+            dl_url = item['url'].replace('${version}', item['version'])
+            print "Downloading:", item['item']
+            downloader(dl_url, local_path)
+            hash_file(local_path, item['hash'])
+            if item['dmg-installer'] != '':
+                print "Installing:", item['dmg-installer']
+            if item['dmg-advanced'] != '':
+                print "Getting fancy and executing:", item['dmg-advanced']
+            if item['dmg-installer'] == '' and item['dmg-advanced'] == '':
+                print(("No installer or install command specified for %s."
+                       "Assuming this is download only." % item['item']))
+            if item['dmg-installer'] != '':
+                dmg_install(local_path, item['dmg-installer'])
+            if item['dmg-advanced'] != '':
+                dmg_install(local_path, '', item['dmg-advanced'])
+            print "\r"
+
+        if item['type'] == "file-lfs":
+            if item['url'] == '':
+                print "No URL specified for %s" % item['item']
+                break
+            dl_url = raw_url + item['url']
+            json_data = pointer_to_json(dl_url)
+            lfsfile_url = get_lfs_url(json_data, lfs_url)
+            print "Downloading:", item['item']
+            downloader(lfsfile_url, local_path)
+            hash_file(local_path, item['hash'])
+            print "File downloaded to:", local_path
+            print "\r"
+
+        if item['type'] == "file":
+            if item['url'] == '':
+                print "No URL specified for %s" % item['item']
+                break
+            dl_url = raw_url + item['url']
+            print "Downloading:", item['item']
+            downloader(dl_url, local_path)
+            hash_file(local_path, item['hash'])
+            print "File downloaded to:", local_path
+            print "\r"
+
+        if item['type'] == "mobileconfig":
+            dl_url = raw_url + item['url']
+            print "Downloading:", item['item']
+            downloader(dl_url, local_path)
+            hash_file(local_path, item['hash'])
+            print "Applying Mobileconfig:", item['item']
+            mobileconfig_install(local_path)
+            print "\r"
+
+    # delete the temporary directory we've been downloading packages into.
+    print "Cleanup: Deleting %s" % local_dir
+    shutil.rmtree(local_dir)
+
+    print "Build complete!"
+
+
+if __name__ == '__main__':
+    main()

@@ -25,7 +25,6 @@ from SystemConfiguration import SCDynamicStoreCopyConsoleUser
 # file and determines the expected file size then reads the incoming file in
 # chunks of 8192 bytes and displays the currently read bytes and percentage
 # complete
-
 def downloader(url, file_path):
     download = urllib2.urlopen(url)
     meta = download.info()
@@ -212,7 +211,8 @@ def main():
     parser.add_argument("-b", "--branch",
                         help="The branch name to build against. Defaults to %s" % default_branch)
     parser.add_argument("-m", "--manifest",
-                        help="The manifest to build against. Defaults to production macOS deployment.")
+                        help="The manifest to build against. "
+                             "Defaults to production macOS deployment.")
     parser.add_argument("-r", "--repo",
                         help="The repo to build against. Defaults to %s" % default_repo)
     parser.add_argument("-o", "--org",
@@ -254,7 +254,8 @@ def main():
     manifest_url = "https://raw.githubusercontent.com/%s/%s/%s/%s" % (org, repo, branch, manifest)
     manifest_file = "%s/%s" % (local_dir, manifest)
     default_manifest_hash = "5d0c82205869e7219ec76276408b5e562ea42af9637bbe74466f43667cae692b"
-    ambient_display_manifest_hash = "7fd9fe4615df117c1679b0d50d53c45f9f7e116e556a8315ee84857992e2abdd"
+    ambient_display_manifest_hash = \
+        "7fd9fe4615df117c1679b0d50d53c45f9f7e116e556a8315ee84857992e2abdd"
     manifest_hash = default_manifest_hash
 
     if manifest == "ambient_display_manifest.json":

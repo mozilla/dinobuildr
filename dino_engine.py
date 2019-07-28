@@ -50,10 +50,8 @@ def downloader(url, file_path):
 # need to run   # this is the bit where we can accept an optional command with
 # arguments
 def pkg_install(package):
-    pipes = subprocess.Popen([
-        "sudo",
-        "installer", "-pkg", package, "-target", "/"],
-        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    pipes = subprocess.Popen(["sudo", "installer", "-pkg", package, "-target", "/"],
+                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdout, stderr = pipes.communicate()
     if pipes.returncode == 1:
         print stdout
@@ -65,11 +63,10 @@ def pkg_install(package):
 # stderr to the python console. the return code of the script execution can be
 # found in the pipes object (pipes.returncode).
 def script_exec(script):
-    pipes = subprocess.Popen([
-        "/bin/bash", "-c", script],
-        stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    pipes = subprocess.Popen(["/bin/bash", "-c", script],
+                             stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     for line in iter(pipes.stdout.readline, b''):
-        print("*** " + line.rstrip())
+        print "*** " + line.rstrip()
     pipes.communicate()
     if pipes.returncode == 1:
         exit(1)
@@ -80,9 +77,8 @@ def script_exec(script):
 # have the option to specify an optional command. since sometimes we must
 # execute installer .apps or pkgs buried in the .app bundle, which is annoying.
 def dmg_install(filename, installer, command=None):
-    pipes = subprocess.Popen([
-        "hdiutil", "attach", filename],
-        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    pipes = subprocess.Popen(["hdiutil", "attach", filename], stdout=subprocess.PIPE,
+                             stderr=subprocess.PIPE)
     stdout, stderr = pipes.communicate()
     if pipes.returncode == 1:
         print stdout
@@ -119,9 +115,8 @@ def dmg_install(filename, installer, command=None):
         gid = grp.getgrnam("staff").gr_gid
         os.chown(applications_path, uid, gid)
         os.chmod(applications_path, 0o755)
-    pipes = subprocess.Popen([
-        "hdiutil", "detach", volume_path],
-        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    pipes = subprocess.Popen(["hdiutil", "detach", volume_path], stdout=subprocess.PIPE,
+                             stderr=subprocess.PIPE)
     stdout, stderr = pipes.communicate()
     if pipes.returncode == 1:
         print stdout
@@ -131,9 +126,8 @@ def dmg_install(filename, installer, command=None):
 
 # the mobileconfig_install function installs configuration profiles
 def mobileconfig_install(mobileconfig):
-    pipes = subprocess.Popen([
-        "/usr/bin/profiles", "-I", "-F", mobileconfig],
-        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    pipes = subprocess.Popen(["/usr/bin/profiles", "-I", "-F", mobileconfig],
+                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdout, stderr = pipes.communicate()
     if pipes.returncode == 1:
         print stdout
@@ -148,12 +142,11 @@ def hash_file(filename, man_hash):
         print "NOTICE: Manifest file is instructing us to SKIP hashing %s." % filename
     else:
         hash_check = hashlib.sha256()
-        with open(filename, 'rb') as f:
-            for chunk in iter(lambda: f.read(4096), b""):
+        with open(filename, 'rb') as downloaded_file:
+            for chunk in iter(lambda: downloaded_file.read(4096), b""):
                 hash_check.update(chunk)
         if hash_check.hexdigest() == man_hash:
             print "\rThe hash for %s match the manifest file" % filename
-            return True
         else:
             print "WARNING: The the hash for %s is unexpected." % filename
             exit(1)

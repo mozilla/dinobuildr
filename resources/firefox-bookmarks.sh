@@ -43,8 +43,8 @@ cat > /Applications/Firefox.app/Contents/Resources/distribution/policies.json <<
         "Placement": "toolbar"
       },
       {
-        "Title": "Mozilla Phonebook",
-        "URL": "https://phonebook.mozilla.org",
+        "Title": "Mozilla People",
+        "URL": "https://people.mozilla.org",
         "Placement": "toolbar"
       },
       {

@@ -82,12 +82,12 @@
         },
         {
             "item": "Install Firefox",
-            "version": "68.0",
+            "version": "68.0.1",
             "url": "https://download.mozilla.org/?product=firefox-${version}-SSL&os=osx&lang=en-US",
             "filename": "firefox.dmg",
             "dmg-installer": "Firefox.app",
             "dmg-advanced": "",
-            "hash": "f5abf49daddd95e621c596670fa65d6add1b8815860ced3970c47c92ccc87fc5",
+            "hash": "35a2f791a1d3802d0b0b40e2d47e8b8db4cab79129333529db5f0de7b8e4f284",
             "type": "dmg"
         },
         {
@@ -97,8 +97,18 @@
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "de78e5e82c2c811b2951428a3fdd5ccf6ec20063dff34210105c99b8de719f52",
+            "hash": "732c3f94f42984ed30c49bd1cd01f950b9aef0fbb189d08ea88b7f20726683ee",
             "type": "shell"
+        },
+        {
+            "item": "Install Slack",
+            "version": "4.0.1",
+            "url": "https://downloads.slack-edge.com/mac_releases/Slack-${version}-macOS.dmg",
+            "filename": "slack.dmg",
+            "dmg-installer": "Slack.app",
+            "dmg-advanced": "",
+            "hash": "cc30254a9271424cbb45f5db49f221f285c1e16aaa0c5cd48db094d762fd0b1a",
+            "type": "dmg"
         },
         {
             "item": "Install Zoom",
@@ -147,7 +157,7 @@
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "5063270b1401b98ac417ebd5eb4199c77b9894750b08ee3b6573823f310472ff",
+            "hash": "2ffcf1d180a8f89e2f7cf3cf7cd7cdf0f89b7af261b3dec36fe7316ee11fe305",
             "type": "shell"
         },
         {

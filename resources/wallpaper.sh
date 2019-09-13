@@ -33,6 +33,7 @@ fi
 # that dinobuildr itself actually sets in case we change the working directory
 # in the future. 
 
+echo "Copying "${DINOPATH}/$WALLPAPER_FILENAME" to "/Users/Shared/${WALLPAPER_FILENAME}""
 cp "${DINOPATH}/$WALLPAPER_FILENAME" "/Users/Shared/$WALLPAPER_FILENAME"
 
 # If we're running on 10.13 or below, we can use the old Applescript method to
@@ -44,17 +45,26 @@ cp "${DINOPATH}/$WALLPAPER_FILENAME" "/Users/Shared/$WALLPAPER_FILENAME"
 if [[ "$os_version" -le "10" && "$major_version" -le "13" ]]; then
     echo "Since this is a pre-Mojave machine, we are setting the wallpaper the old-fashioned way."
     /usr/bin/osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/Users/Shared/'"$WALLPAPER_FILENAME"'"'
-else
-    WALLPAPER_SH=$(curl -fsSL https://raw.githubusercontent.com/mozilla/macos-desktop/abfb607953e0c789bb8e853ec28f545e89ddebbe/set-desktop-mojave.sh)
-    HASH="50b049f9cf9a57582fa83f411b66c61fed854f553102c05ca91cbd249cdb9ac8" # change only after thorough testing
+
+elif [[ "$os_version" -eq "10" && "$major_version" -eq "14" ]]; then
+    WALLPAPER_SH=$(curl -fsSL https://raw.githubusercontent.com/mozilla/macos-desktop/810e38873c9c4d63b9d4b35cc81c008c88eac1ca/set-desktop-mojave.sh)
+    HASH="1b6f7b016731119a83350130a7aef751f8ce5261b494a83a5ecfad3c76b39e02" # change only after thorough testing
 
     if [ "$(echo "$WALLPAPER_SH" | shasum -a 256 | awk '{print $1}')" == $HASH ]; then #  if the hashes match then proceed
-        echo "We're on Mojave (or newer) so we're going to use the new way to set the wallpaper."
+        echo "We're on Mojave so we're going to use the Mojave way to set the wallpaper."
         /bin/bash -c "$WALLPAPER_SH" -s "/Users/Shared/$WALLPAPER_FILENAME"
-        
-    else 
-        echo "Wallpaper script hash does not match intended value. Aborting."
-        exit 1
     fi
+
+elif [[ "$os_version" -eq "10" && "$major_version" -eq "15" ]]; then
+    WALLPAPER_SH=$(curl -fsSL https://raw.githubusercontent.com/mozilla/macos-desktop/810e38873c9c4d63b9d4b35cc81c008c88eac1ca/set-desktop-catalina.sh)
+    HASH="a5fd5700616730f3db1af48bf380156a1897197108be359a3c7769b7a359d7c9" # change only after thorough testing
+
+    if [ "$(echo "$WALLPAPER_SH" | shasum -a 256 | awk '{print $1}')" == $HASH ]; then #  if the hashes match then proceed
+        echo "We're on Catalina so we're going to use the Mojave way to set the wallpaper."
+        /bin/bash -c "$WALLPAPER_SH" -s "/Users/Shared/$WALLPAPER_FILENAME"
+    fi       
+else 
+    echo "Wallpaper script hash does not match intended value or something else went wrong. Aborting."
+    exit 1
 fi
 

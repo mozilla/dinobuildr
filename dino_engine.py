@@ -246,7 +246,7 @@ def main():
     raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
     manifest_url = "https://raw.githubusercontent.com/%s/%s/%s/%s" % (org, repo, branch, manifest)
     manifest_file = "%s/%s" % (local_dir, manifest)
-    default_manifest_hash = "f9e9d835e365c6f39a3a6c7e119b15eff50f7914673d92b11e25fa63951f931d"
+    default_manifest_hash = "7b853503da60b4129ef9993b78cd5db66676074e7d3dcbaa5e5225d411695b26"
     ambient_display_manifest_hash = \
         "7fd9fe4615df117c1679b0d50d53c45f9f7e116e556a8315ee84857992e2abdd"
     manifest_hash = default_manifest_hash

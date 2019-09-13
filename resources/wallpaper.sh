@@ -33,8 +33,8 @@ fi
 # that dinobuildr itself actually sets in case we change the working directory
 # in the future. 
 
-echo "Copying "${DINOPATH}/$WALLPAPER_FILENAME" to "/Users/Shared/${WALLPAPER_FILENAME}""
-cp "${DINOPATH}/$WALLPAPER_FILENAME" "/Users/Shared/$WALLPAPER_FILENAME"
+echo "Copying ${DINOPATH}/${WALLPAPER_FILENAME} to /Users/Shared/${WALLPAPER_FILENAME}"
+cp "${DINOPATH}/${WALLPAPER_FILENAME}" "/Users/Shared/${WALLPAPER_FILENAME}"
 
 # If we're running on 10.13 or below, we can use the old Applescript method to
 # set the background. 

@@ -107,14 +107,18 @@ def dmg_install(filename, installer, command=None):
         # current_user - the name of the user running the script. Apple suggests using
         # both methods.
         # uid - the UID of the user running the script
-        # gid - the GID of the group "staff" which is the default primary group for all
+        # gid - the GID of the group "admin" which the user account is expected to be a member of
         # users in macOS
         current_user = (SCDynamicStoreCopyConsoleUser(None, None, None) or [None])[0]
         current_user = [current_user, ""][current_user in [u"loginwindow", None, u""]]
         uid = pwd.getpwnam(current_user).pw_uid
-        gid = grp.getgrnam("staff").gr_gid
+        gid = grp.getgrnam("admin").gr_gid
         os.chown(applications_path, uid, gid)
-        os.chmod(applications_path, 0o755)
+        for root, dirs, files in os.walk(applications_path):
+            for d in dirs:
+                os.chown(os.path.join(root, d), uid, gid)
+            for f in files:
+                os.chown(os.path.join(root, f), uid, gid)
     pipes = subprocess.Popen(["hdiutil", "detach", volume_path], stdout=subprocess.PIPE,
                              stderr=subprocess.PIPE)
     stdout, stderr = pipes.communicate()

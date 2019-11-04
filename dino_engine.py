@@ -107,14 +107,18 @@ def dmg_install(filename, installer, command=None):
         # current_user - the name of the user running the script. Apple suggests using
         # both methods.
         # uid - the UID of the user running the script
-        # gid - the GID of the group "staff" which is the default primary group for all
+        # gid - the GID of the group "admin" which the user account is expected to be a member of
         # users in macOS
         current_user = (SCDynamicStoreCopyConsoleUser(None, None, None) or [None])[0]
         current_user = [current_user, ""][current_user in [u"loginwindow", None, u""]]
         uid = pwd.getpwnam(current_user).pw_uid
-        gid = grp.getgrnam("staff").gr_gid
+        gid = grp.getgrnam("admin").gr_gid
         os.chown(applications_path, uid, gid)
-        os.chmod(applications_path, 0o755)
+        for root, dirs, files in os.walk(applications_path):
+            for d in dirs:
+                os.chown(os.path.join(root, d), uid, gid)
+            for f in files:
+                os.chown(os.path.join(root, f), uid, gid)
     pipes = subprocess.Popen(["hdiutil", "detach", volume_path], stdout=subprocess.PIPE,
                              stderr=subprocess.PIPE)
     stdout, stderr = pipes.communicate()
@@ -204,8 +208,7 @@ def main():
     parser.add_argument("-b", "--branch",
                         help="The branch name to build against. Defaults to %s" % default_branch)
     parser.add_argument("-m", "--manifest",
-                        help="The manifest to build against. "
-                             "Defaults to production macOS deployment.")
+                        help="The manifest to build against. Defaults to %s" % default_manifest)
     parser.add_argument("-r", "--repo",
                         help="The repo to build against. Defaults to %s" % default_repo)
     parser.add_argument("-o", "--org",
@@ -246,13 +249,6 @@ def main():
     raw_url = "https://raw.githubusercontent.com/%s/%s/%s/" % (org, repo, branch)
     manifest_url = "https://raw.githubusercontent.com/%s/%s/%s/%s" % (org, repo, branch, manifest)
     manifest_file = "%s/%s" % (local_dir, manifest)
-    default_manifest_hash = "63d811f82c9ba54de15a7be0a7eca3c297eca9fe282595eedb301e358b24208c"
-    ambient_display_manifest_hash = \
-        "7fd9fe4615df117c1679b0d50d53c45f9f7e116e556a8315ee84857992e2abdd"
-    manifest_hash = default_manifest_hash
-
-    if manifest == "ambient_display_manifest.json":
-        manifest_hash = ambient_display_manifest_hash
 
     # check to see if user ran with sudo , since it's required
 
@@ -269,9 +265,6 @@ def main():
     print manifest_url
     print manifest_file
     downloader(manifest_url, manifest_file)
-
-    # check the hash of the incoming manifest file and bail if the hash doesn't match.
-    hash_file(manifest_file, manifest_hash)
 
     print "\n***** DINOBUILDR IS BUILDING. RAWR. *****\n"
     print "Building against the [%s] branch and the %s manifest\n" % (branch, manifest)

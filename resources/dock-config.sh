@@ -21,13 +21,13 @@ dockutil=$(curl -fsSL https://raw.githubusercontent.com/mozilla/dockutil/26b13d3
 if [ "$(echo "$dockutil" | shasum -a 256 | awk '{print $1}')" == $hash ]; then #  if the hashes match then proceed
     echo "Executing dockutil - hash matches expected value."
     python -c "$dockutil" --remove all --no-restart
-    python -c "$dockutil" --add "/Applications/Launchpad.app" --position beginning --no-restart
+    python -c "$dockutil" --add "/System/Applications/Launchpad.app" --position beginning --no-restart
     python -c "$dockutil" --add "/Applications/Firefox.app" --after Launchpad --no-restart
     python -c "$dockutil" --add "/Applications/Slack.app" --after Firefox --no-restart
     python -c "$dockutil" --add "/Applications/zoom.us.app" --after Slack --no-restart
     python -c "$dockutil" --add "/Applications/CrashPlan.app" --after zoom.us --no-restart
     python -c "$dockutil" --add "~/Downloads" --view fan --display stack --section others --no-restart
-    python -c "$dockutil" --add "/Applications/System Preferences.app" --position end
+    python -c "$dockutil" --add "/System/Applications/System Preferences.app" --position end
 else 
     echo "Dockutil hash does not match intended value. Aborting."
     exit 1

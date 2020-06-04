@@ -53,8 +53,8 @@ cat > /Applications/Firefox.app/Contents/Resources/distribution/policies.json <<
         "Placement": "toolbar"
       },
       {
-        "Title": "IRCCloud",
-        "URL": "https://irccloud.mozilla.com",
+        "Title": "Matrix",
+        "URL": "https://chat.mozilla.org",
         "Placement": "toolbar"
       },
       {

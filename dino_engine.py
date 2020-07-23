@@ -154,6 +154,25 @@ def hash_file(filename, man_hash):
         else:
             print "WARNING: The the hash for %s is unexpected." % filename
             exit(1)
+            
+            
+   # function that takes in the hash html file and checks for the line with the mac-us firefox SHA256 hash and returns the hash
+ def check_string_contains(textfile, strline): 
+    for line in textfile:
+        if strline in line:
+            linesplit = line.split()
+            hash = linesplit[0]
+            return hash
+    return False
+
+ 
+  # downloads the release SHA256 html page so I can use that file to search for the hash
+  def hashpage(url):
+    import urllib
+    url = 'http://releases.mozilla.org/pub/firefox/releases/77.0.1/SHA256SUMS'
+    urllib.urlretrieve(url, filename='hash.html')
+    file = open("hash.html", "r") 
+    return file
 
 
 # the pointer_to_json function accepts the url of the file in the github repo

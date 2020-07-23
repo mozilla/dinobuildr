@@ -13,11 +13,11 @@
         {
             "item": "Download Wallpaper Image",
             "version": "",
-            "url": "resources/wallpaper.jpg",
+            "url": "resources/wallpaper-firefox.png",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "8b5771b813bd684ee3ff8f6a2c205c249ca127c7c5f92c9b92b1b8fdecd389a4",
+            "hash": "8bfcd15ba06b76335e8dd54c547f3778ea064479b34f56f51a40ad75ee5d4f19",
             "type": "file-lfs"
         },
         {
@@ -27,7 +27,7 @@
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "00fc7b36eef9acd1c069cad10228037b1906ea79dc627f3fd6ab8a2a8e2a216c",
+            "hash": "ae3028cc75aa5f0bd221f8ab3314edab3c62e7855eda684fbb06f77f13c85942",
             "type": "shell"
         },
         {

@@ -17,7 +17,7 @@
 # 
 # Set the filename of the wallpaper file
 
-WALLPAPER_FILENAME=wallpaper.jpg
+WALLPAPER_FILENAME=wallpaper-firefox.png
 
 # Determine which version of macOS we're running
 

@@ -72,12 +72,12 @@
         },
         {
             "item": "Install Crashplan",
-            "version": "7.0.0",
-            "url": "https://download.code42.com/installs/mac/install/Code42CrashPlan/Code42CrashPlan_${version}_Mac.dmg",
+            "version": "",
+            "url": "https://download.code42.com/installs/agent/cloud/8.0.0/778/install/Code42CrashPlan_8.0.0_1525200006800_778_Mac.dmg",
             "filename": "",
             "dmg-installer": "Install Code42 CrashPlan.pkg",
             "dmg-advanced": "",
-            "hash": "a9de994edd0dc3bcc22564d91edbb153054b29a76904f2464ec9616d22d1c434",
+            "hash": "78430844a457482442328193c5b7c1ff8373668c2ec7b93c68942897d44b7f55",
             "type": "dmg"
         },
         {

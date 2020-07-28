@@ -112,12 +112,12 @@
         },
         {
             "item": "Install Zoom",
-            "version": "4.4.53932.0709",
+            "version": "5.1.28648.0705",
             "url": "https://zoom.us/client/${version}/ZoomInstallerIT.pkg",
             "filename": "ZoomInstallerIT.pkg",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "68bb730f32a3f98286381d9299cec9d5dd37657128ca1750375942143e71ef49",
+            "hash": "95049593459a516e9751d589383700be63ed292e395ff0167cb5a908ec0e12e8",
             "type": "pkg"
         },
         {

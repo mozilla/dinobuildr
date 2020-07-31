@@ -149,6 +149,7 @@ def autohash_firefox_find_hash(hash_summary, locale):
             return hash
     return False
 
+
 def autohash_firefox():
     # find latest firefox version by following redirect
     response = urllib2.urlopen('https://download.mozilla.org/?product=firefox-latest-ssl&os=osx&lang=en-US')
@@ -162,6 +163,7 @@ def autohash_firefox():
     # find the hash for given locale
     hash = autohash_firefox_find_hash(hash_summary, "mac/en-US")
     return hash
+
 
 # the hash_file function accepts two arguments: the filename that you need to
 # determine the SHA256 hash of and the expected hash it returns True or False.
@@ -188,6 +190,7 @@ def hash_file(filename, man_hash):
         else:
             print "WARNING: The the hash for %s is unexpected." % filename
             exit(1)
+
 
 # the pointer_to_json function accepts the url of the file in the github repo
 # and the password to the repo. the pointer file is read from github then

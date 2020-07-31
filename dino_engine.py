@@ -144,8 +144,10 @@ def autohash_firefox_find_hash(hash_summary, locale):
     for line in hash_summary.split("\n"):
         if locale in line:
             linesplit = line.split()
-            # starting with 79.0 hashes are encoded in b'' form which might need decoding
-            hash = linesplit[0]
+            # starting with 79.0 hashes are encoded in b'' form.
+            # easiest way to interpret is to split it 2nd char to 66th char, since the text is
+            # literal, and not read as an encoded string
+            hash = linesplit[0][2:66]
             return hash
     return False
 

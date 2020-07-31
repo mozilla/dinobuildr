@@ -138,12 +138,46 @@ def mobileconfig_install(mobileconfig):
         print stderr
         exit(1)
 
+# autohash-firefox helper functions
+# checks given hash summary page for the line that matches given locale and returns hash
+def autohash_firefox_find_hash(hash_summary, locale):
+    for line in hash_summary.split("\n"):
+        if locale in line:
+            linesplit = line.split()
+            # starting with 79.0 hashes are encoded in b'' form which might need decoding
+            hash = linesplit[0]
+            return hash
+    return False
+
+def autohash_firefox():
+    # find latest firefox version by following redirect
+    response = urllib2.urlopen('https://download.mozilla.org/?product=firefox-latest-ssl&os=osx&lang=en-US')
+    version = urllib2.urlparse.urlsplit(response.geturl()).path.split('/')[-4]
+    # build url to fetch official SHA256SUMS page
+    firefox_hash_url = "https://releases.mozilla.org/pub/firefox/releases/%s/SHA256SUMS" %version
+    print "NOTICE: Manifest file is instructing us to compare against official hash for Firefox version %s found at %s." % (version,firefox_hash_url)
+    req = urllib2.Request(firefox_hash_url)
+    response = urllib2.urlopen(req)
+    hash_summary = response.read()
+    # find the hash for given locale
+    hash = autohash_firefox_find_hash(hash_summary, "mac/en-US")
+    return hash
 
 # the hash_file function accepts two arguments: the filename that you need to
 # determine the SHA256 hash of and the expected hash it returns True or False.
 def hash_file(filename, man_hash):
     if man_hash == "skip":
         print "NOTICE: Manifest file is instructing us to SKIP hashing %s." % filename
+    elif man_hash == "autohash-firefox":
+        hash_check = hashlib.sha256()
+        with open(filename, 'rb') as downloaded_file:
+            for chunk in iter(lambda: downloaded_file.read(4096), b""):
+                hash_check.update(chunk)
+        if hash_check.hexdigest() == autohash_firefox():
+            print "\rThe hash for %s matches the official Firefox hash" % filename
+        else:
+            print "WARNING: The the hash for %s is unexpected." % filename
+            exit(1)
     else:
         hash_check = hashlib.sha256()
         with open(filename, 'rb') as downloaded_file:
@@ -154,26 +188,6 @@ def hash_file(filename, man_hash):
         else:
             print "WARNING: The the hash for %s is unexpected." % filename
             exit(1)
-            
-            
-   # function that takes in the hash html file and checks for the line with the mac-us firefox SHA256 hash and returns the hash
- def check_string_contains(textfile, strline): 
-    for line in textfile:
-        if strline in line:
-            linesplit = line.split()
-            hash = linesplit[0]
-            return hash
-    return False
-
- 
-  # downloads the release SHA256 html page so I can use that file to search for the hash
-  def hashpage(url):
-    import urllib
-    url = 'http://releases.mozilla.org/pub/firefox/releases/77.0.1/SHA256SUMS'
-    urllib.urlretrieve(url, filename='hash.html')
-    file = open("hash.html", "r") 
-    return file
-
 
 # the pointer_to_json function accepts the url of the file in the github repo
 # and the password to the repo. the pointer file is read from github then

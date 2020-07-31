@@ -138,6 +138,7 @@ def mobileconfig_install(mobileconfig):
         print stderr
         exit(1)
 
+
 # autohash-firefox helper functions
 # checks given hash summary page for the line that matches given locale and returns hash
 def autohash_firefox_find_hash(hash_summary, locale):
@@ -154,11 +155,13 @@ def autohash_firefox_find_hash(hash_summary, locale):
 
 def autohash_firefox():
     # find latest firefox version by following redirect
-    response = urllib2.urlopen('https://download.mozilla.org/?product=firefox-latest-ssl&os=osx&lang=en-US')
+    response = urllib2.urlopen(
+        'https://download.mozilla.org/?product=firefox-latest-ssl&os=osx&lang=en-US')
     version = urllib2.urlparse.urlsplit(response.geturl()).path.split('/')[-4]
     # build url to fetch official SHA256SUMS page
-    firefox_hash_url = "https://releases.mozilla.org/pub/firefox/releases/%s/SHA256SUMS" %version
-    print "NOTICE: Manifest file is instructing us to compare against official hash for Firefox version %s found at %s." % (version,firefox_hash_url)
+    firefox_hash_url = "https://releases.mozilla.org/pub/firefox/releases/%s/SHA256SUMS" % version
+    print ("NOTICE: Manifest file is instructing us to compare against official hash for "
+           "Firefox %s found at %s." % (version, firefox_hash_url))
     req = urllib2.Request(firefox_hash_url)
     response = urllib2.urlopen(req)
     hash_summary = response.read()

@@ -33,12 +33,12 @@
 	{
             "item": "Create Corsica User",
             "version": "",
-            "url": "resources/corsica/corsica-user.pkg",
+            "url": "resources/corsica/corsica-user-file.pkg",
             "filename": "",
             "dmg-installer": "",
             "dmg-advanced": "",
             "hash": "810422bed023a2812182e1870d38aa04a6cccf08d12cc1a20a94f6dd7bb8bbef",
-            "type": "pkg-lfs"
+            "type": "pkg"
         },
         {
             "item": "Install Firefox ESR",

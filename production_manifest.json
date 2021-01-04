@@ -73,11 +73,11 @@
         {
             "item": "Install Crashplan",
             "version": "",
-            "url": "https://download.code42.com/installs/agent/cloud/8.0.0/778/install/Code42CrashPlan_8.0.0_1525200006800_778_Mac.dmg",
+            "url": "https://download.code42.com/installs/agent/cloud/8.5.0/446/install/Code42_8.5.0_1525200006850_446_Mac.dmg",
             "filename": "",
-            "dmg-installer": "Install Code42 CrashPlan.pkg",
+            "dmg-installer": "Install Code42.pkg",
             "dmg-advanced": "",
-            "hash": "78430844a457482442328193c5b7c1ff8373668c2ec7b93c68942897d44b7f55",
+            "hash": "11b6a44687245b6ad44617f182870ca8d1d1091b8e33418c6ec962a8fc530523",
             "type": "dmg"
         },
         {
@@ -102,23 +102,13 @@
         },
         {
             "item": "Install Slack",
-            "version": "4.8.0",
-            "url": "https://downloads.slack-edge.com/mac_releases/Slack-${version}-macOS.dmg",
+            "version": "4.12.0",
+            "url": "https://downloads.slack-edge.com/releases/macos/4.12.0/prod/x64/Slack-${version}-macOS.dmg",
             "filename": "slack.dmg",
             "dmg-installer": "Slack.app",
             "dmg-advanced": "",
-            "hash": "428ec2b5a9d5eb3b408c1cafa3977daeff0391c7d71656773c6ce535d8e0424c",
+            "hash": "5990ec9106d0c8fb6eaaf6d845063bb254c9e80401d2aa5aac173988cd2e502f",
             "type": "dmg"
-        },
-        {
-            "item": "Install Zoom",
-            "version": "5.3.52877.0927",
-            "url": "https://zoom.us/client/${version}/Zoom.pkg",
-            "filename": "Zoom.pkg",
-            "dmg-installer": "",
-            "dmg-advanced": "",
-            "hash": "30130217440c55ce81d4e8e185841401f6ff9cbf761999485d60f4f092144d7d",
-            "type": "pkg"
         },
         {
             "item": "Configure Firewall",
@@ -151,16 +141,6 @@
             "type": "shell"
         },
         {
-            "item": "Configure Dock",
-            "version": "",
-            "url": "resources/dock-config.sh",
-            "filename": "",
-            "dmg-installer": "",
-            "dmg-advanced": "",
-            "hash": "05b91cacf016ba6800a5c92a8ea73c3ef2424f6df8b416e2d9dc586d87fbe46b",
-            "type": "shell"
-        },
-        {
             "item": "Disable Guest Login",
             "version": "",
             "url": "resources/disable-guest.sh",
@@ -181,6 +161,16 @@
             "type": "shell"
         },
         {
+            "item": "Configure Dock",
+            "version": "",
+            "url": "resources/dock-config.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "45e7302180daeb1f902051f61fe7a97076d3f37a1b270d24fd6babf1092cab16",
+            "type": "shell"
+        },
+        {
             "item": "Update macOS",
             "version": "",
             "url": "resources/update-macos.sh",
@@ -189,6 +179,16 @@
             "dmg-advanced": "",
             "hash": "444591b5f64b5280935bc8b3459778a63a106399080bf4dfb854f5fad2c60562",
             "type": "shell"
+        },
+        {
+            "item": "Install Zoom",
+            "version": "5.4.59780.1220",
+            "url": "https://zoom.us/client/${version}/Zoom.pkg",
+            "filename": "Zoom.pkg",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "0e04a9e719cdb595a07c8b95eb0a8d7b702dccca173fa7bee0ffb9500ffba28e",
+            "type": "pkg"
         }
     ]
 }

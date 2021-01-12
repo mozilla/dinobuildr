@@ -7,13 +7,15 @@
 # this script checks for a minimum OS version and is intended to halt the build
 # if the machine does not meet that minimum version
 
-# expected_os - OS family version
-# expected_major - expected major version (13 = High Sierra, etc)
-# expected_minor - expected minor version
+# minimum_os - OS family version
+# minimum_major - minimum major version (15 = Catalina)
+# minimum_minor - minimum minor version
 
-expected_os="10"
-expected_major="13"
-expected_minor="3"
+# minimum is Catalina 10.15.0
+
+minimum_os="10"
+minimum_major="15"
+minimum_minor="0"
 
 os_version=$(sw_vers -productVersion | awk -F '.' '{print $1}')
 major_version=$(sw_vers -productVersion | awk -F '.' '{print $2}')
@@ -23,10 +25,10 @@ if [[ "$minor_version" -eq '' ]]; then
     minor_version=0
 fi
 
-if ! [[ "$os_version" -ge "$expected_os" && "$major_version" -ge "$expected_major" ]]; then
-    if ! [[ "$major_version" -gt "$expected_major" ]]; then
+if ! [[ "$os_version" -ge "$minimum_os" ]]; then
+    if ! [[ "$os_version" -eq "$minimum_os" && "$major_version" -ge "$minimum_major" ]]; then
         echo "UPGRADE REQUIRED: You are running macOS ${os_version}.${major_version}.${minor_version}"
-        echo "We are expecting: ${expected_os}.${expected_major}.${expected_minor}"
+        echo "We are expecting at least: ${minimum_os}.${minimum_major}.${minimum_minor}"
         echo "The build will halt, please update macOS via the App Store and try again."
         exit 1
     fi

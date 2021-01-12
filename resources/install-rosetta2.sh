@@ -12,4 +12,7 @@ if [[ "$processor_architecture" = 'arm' ]]; then
     echo "Installing Rosetta 2 for Arm system"
     /usr/sbin/softwareupdate --install-rosetta --agree-to-license
     exit 0
+else
+    echo "You are using the ${processor_architecture} architecture, Rosetta not needed."
+    exit 0
 fi

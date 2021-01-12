@@ -51,7 +51,7 @@
             "type": "shell"
         },
         {
-            "item": "Install Rosetta 2 for arm systems",
+            "item": "Install Rosetta 2 if on an arm system",
             "version": "",
             "url": "resources/install-rosetta2.sh",
             "filename": "",

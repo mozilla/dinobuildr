@@ -10,5 +10,4 @@
 # then, simply grab all available updates and install. 
 
 echo "Checking for macOS updates, this might take a while, please be patient..."
-/usr/sbin/softwareupdate --suspend-background
 /usr/sbin/softwareupdate --install --all

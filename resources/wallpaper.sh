@@ -60,7 +60,16 @@ elif [[ "$os_version" -eq "10" && "$major_version" -eq "15" ]]; then
     HASH="a5fd5700616730f3db1af48bf380156a1897197108be359a3c7769b7a359d7c9" # change only after thorough testing
 
     if [ "$(echo "$WALLPAPER_SH" | shasum -a 256 | awk '{print $1}')" == $HASH ]; then #  if the hashes match then proceed
-        echo "We're on Catalina so we're going to use the Mojave way to set the wallpaper."
+        echo "We're on Catalina so we're going to use the Catalina way to set the wallpaper."
+        /bin/bash -c "$WALLPAPER_SH" -s "/Users/Shared/$WALLPAPER_FILENAME"
+    fi
+elif [[ "$os_version" -eq "11" ]]; then
+# temporarily use jlin's set-desktop.sh with merged big sur fixes from upstream
+    WALLPAPER_SH=$(curl -fsSL https://raw.githubusercontent.com/jlin/macos-desktop/b71242b3da465927dd751800a16baa052c657fec/set-desktop.sh)
+    HASH="adf9c6406023735915de76f98f5ddd00772e9fcb132597af563745c5a357d91f" # change only after thorough testing
+    echo "$WALLPAPER_SH" | shasum -a 256 | awk '{print $1}'
+    if [ "$(echo "$WALLPAPER_SH" | shasum -a 256 | awk '{print $1}')" == $HASH ]; then #  if the hashes match then proceed
+        echo "We're on Big Sur so we're going to try to use the Big Sur way to set the wallpaper."
         /bin/bash -c "$WALLPAPER_SH" -s "/Users/Shared/$WALLPAPER_FILENAME"
     fi       
 else 

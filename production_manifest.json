@@ -51,6 +51,16 @@
             "type": "shell"
         },
         {
+            "item": "Install Rosetta 2 for arm systems",
+            "version": "",
+            "url": "resources/install-rosetta2.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "b4ab2e355e7a61b2a9b87ef4cc4f5e35dc22861eb1b40319e5018af907766669",
+            "type": "shell"
+        },
+        {
             "item": "Download Crashplan deploy.properties",
             "version": "",
             "url": "resources/deploy.properties",

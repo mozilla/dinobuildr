@@ -71,7 +71,7 @@
             "type": "file"
         },
         {
-            "item": "Crashplan Preflight",
+            "item": "Code42 Preflight",
             "version": "",
             "url": "resources/crashplan_preflight.sh",
             "filename": "",
@@ -81,7 +81,7 @@
             "type": "shell"
         },
         {
-            "item": "Install Crashplan",
+            "item": "Install Code42",
             "version": "",
             "url": "https://download.code42.com/installs/agent/cloud/8.7.1/32/install/Code42_8.7.1_1525200006871_32_Mac.dmg",
             "filename": "",

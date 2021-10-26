@@ -192,12 +192,12 @@
         },
         {
             "item": "Install Zoom",
-            "version": "5.7.1.499",
+            "version": "5.8.3.2240",
             "url": "https://zoom.us/client/${version}/Zoom.pkg",
             "filename": "Zoom.pkg",
             "dmg-installer": "",
             "dmg-advanced": "",
-            "hash": "6fae45254a21f6082ef79e204f84fe22a91b84cd33f73ec53349dc33489f86a8",
+            "hash": "ae0f4683875ef0a4358ef274c66e9a3b39861497e25e0894b2b56d698d0cd47e",
             "type": "pkg"
         }
     ]

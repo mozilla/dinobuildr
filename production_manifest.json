@@ -71,7 +71,7 @@
             "type": "file"
         },
         {
-            "item": "Crashplan Preflight",
+            "item": "Code42 Preflight",
             "version": "",
             "url": "resources/crashplan_preflight.sh",
             "filename": "",
@@ -81,13 +81,13 @@
             "type": "shell"
         },
         {
-            "item": "Install Crashplan",
+            "item": "Install Code42",
             "version": "",
-            "url": "https://download.code42.com/installs/agent/cloud/8.6.1/3/install/Code42_8.6.1_1525200006861_3_Mac.dmg",
+            "url": "https://download.code42.com/installs/agent/cloud/8.7.1/32/install/Code42_8.7.1_1525200006871_32_Mac.dmg",
             "filename": "",
             "dmg-installer": "Install Code42.pkg",
             "dmg-advanced": "",
-            "hash": "2503f3544160cee0ba03fc5abbaef0a7e57c58038c1101744f19587847591c43",
+            "hash": "888511da72041712902f3d774310bbb93604a5da91409bd059f68d811281a4c3",
             "type": "dmg"
         },
         {

@@ -112,12 +112,12 @@
         },
         {
             "item": "Install Slack",
-            "version": "4.17.0",
+            "version": "4.21.1",
             "url": "https://downloads.slack-edge.com/releases/macos/${version}/prod/universal/Slack-${version}-macOS.dmg",
             "filename": "slack.dmg",
             "dmg-installer": "Slack.app",
             "dmg-advanced": "",
-            "hash": "14e7e4ac13d760a427be471af1d9648680ed28c6e156fff2a68a313c66ac34c1",
+            "hash": "3e3b8fa091d555ba98b682866b09a38e1a33f538eea69d16082775c9309b6a5c",
             "type": "dmg"
         },
         {

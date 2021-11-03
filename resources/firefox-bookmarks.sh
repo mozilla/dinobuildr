@@ -33,8 +33,8 @@ cat > /Applications/Firefox.app/Contents/Resources/distribution/policies.json <<
         "Placement": "toolbar"
       },
       {
-        "Title": "The Hub",
-        "URL": "https://thehub.mozilla.com/sp",
+        "Title": "Jira Service Management",
+        "URL": "https://mozilla-hub.atlassian.net/servicedesk/customer/portals",
         "Placement": "toolbar"
       },
       {

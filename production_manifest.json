@@ -83,11 +83,11 @@
         {
             "item": "Install Code42",
             "version": "",
-            "url": "https://download.code42.com/installs/agent/cloud/8.7.1/32/install/Code42_8.7.1_1525200006871_32_Mac.dmg",
+            "url": "https://download.code42.com/installs/agent/cloud/8.8.1/33/install/Code42_8.8.1_1525200006881_33_Mac-x86-64.dmg",
             "filename": "",
             "dmg-installer": "Install Code42.pkg",
             "dmg-advanced": "",
-            "hash": "888511da72041712902f3d774310bbb93604a5da91409bd059f68d811281a4c3",
+            "hash": "31000e48dbdc74a59aa04e2e059f54a1f025841f7af8a8aed94a08be81f839f5",
             "type": "dmg"
         },
         {

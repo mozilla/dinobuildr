@@ -61,26 +61,6 @@
             "type": "shell"
         },
         {
-            "item": "Download Crashplan deploy.properties",
-            "version": "",
-            "url": "resources/deploy.properties",
-            "filename": "",
-            "dmg-installer": "",
-            "dmg-advanced": "",
-            "hash": "4f674399b3a9d290ce9d050383aca5c57de7c239b19540818559d43a6f4c9f62",
-            "type": "file"
-        },
-        {
-            "item": "Code42 Preflight",
-            "version": "",
-            "url": "resources/crashplan_preflight.sh",
-            "filename": "",
-            "dmg-installer": "",
-            "dmg-advanced": "",
-            "hash": "aeb26d1ead4245817ad1e7ba29daaf11598bcac2154d9c60c5b1eb24e3ecfb94",
-            "type": "shell"
-        },
-        {
             "item": "Install Code42",
             "version": "",
             "url": "https://download.code42.com/installs/agent/cloud/8.8.1/36/install/Code42_8.8.1_1525200006881_36_Mac-x86-64.dmg",

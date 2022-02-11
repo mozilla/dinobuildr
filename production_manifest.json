@@ -161,16 +161,6 @@
             "type": "shell"
         },
         {
-            "item": "Update macOS",
-            "version": "",
-            "url": "resources/update-macos.sh",
-            "filename": "",
-            "dmg-installer": "",
-            "dmg-advanced": "",
-            "hash": "ce9ab785e5e6818c47c2371385668000c8b267d1bdc31ecbc28bf7f6a01583b9",
-            "type": "shell"
-        },
-        {
             "item": "Install Zoom",
             "version": "5.8.3.2240",
             "url": "https://zoom.us/client/${version}/Zoom.pkg",

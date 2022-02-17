@@ -23,68 +23,8 @@ cat > /Applications/Firefox.app/Contents/Resources/distribution/policies.json <<
     "NoDefaultBookmarks": true,
     "Bookmarks": [
       {
-        "Title": "Mozilla email",
-        "URL": "https://sso.mozilla.com/gmail",
-        "Placement": "toolbar"
-      },
-      {
         "Title": "Mozilla SSO",
         "URL": "https://sso.mozilla.com",
-        "Placement": "toolbar"
-      },
-      {
-        "Title": "Jira Service Management",
-        "URL": "https://mozilla-hub.atlassian.net/servicedesk/customer/portals",
-        "Placement": "toolbar"
-      },
-      {
-        "Title": "Bugzilla",
-        "URL": "https://bugzilla.mozilla.org",
-        "Placement": "toolbar"
-      },
-      {
-        "Title": "Mozilla People",
-        "URL": "https://people.mozilla.org",
-        "Placement": "toolbar"
-      },
-      {
-        "Title": "New Hire Info",
-        "URL": "https://mana.mozilla.org/wiki/display/SD/New+Hire+IT+Information",
-        "Placement": "toolbar"
-      },
-      {
-        "Title": "Matrix",
-        "URL": "https://chat.mozilla.org",
-        "Placement": "toolbar"
-      },
-      {
-        "Title": "Slack",
-        "URL": "https://mozilla.slack.com",
-        "Placement": "toolbar"
-      },
-      {
-        "Title": "Air Mozilla",
-        "URL": "https://air.mozilla.org",
-        "Placement": "toolbar"
-      },
-      {
-        "Title": "Mozilla Account Portal",
-        "URL": "https://login.mozilla.com",
-        "Placement": "toolbar"
-      },
-      {
-        "Title": "Workday",
-        "URL": "https://sso.mozilla.com/workday",
-        "Placement": "toolbar"
-      },
-      {
-        "Title": "Expensify",
-        "URL": "https://sso.mozilla.com/expensify",
-        "Placement": "toolbar"
-      },
-      {
-        "Title": "Mozilla PTO",
-        "URL": "https://pto.mozilla.org",
         "Placement": "toolbar"
       }
     ]

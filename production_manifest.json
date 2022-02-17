@@ -61,16 +61,6 @@
             "type": "shell"
         },
         {
-            "item": "Install Code42",
-            "version": "",
-            "url": "https://download.code42.com/installs/agent/cloud/8.8.2/143/install/Code42_8.8.2_1525200006882_143_Mac-x86-64.dmg",
-            "filename": "",
-            "dmg-installer": "Install Code42.pkg",
-            "dmg-advanced": "",
-            "hash": "655cde888e80f7b45e439630f32adb90031fffeae4ff25d110f2c661d318ed58",
-            "type": "dmg"
-        },
-        {
             "item": "Install Firefox",
             "version": "latest",
             "url": "https://download.mozilla.org/?product=firefox-${version}-SSL&os=osx&lang=en-US",

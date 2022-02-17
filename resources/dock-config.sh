@@ -25,7 +25,6 @@ if [ "$(echo "$dockutil" | shasum -a 256 | awk '{print $1}')" == $hash ]; then #
     python -c "$dockutil" --add "/Applications/Firefox.app" --after Launchpad --no-restart
     python -c "$dockutil" --add "/Applications/Slack.app" --after Firefox --no-restart
     python -c "$dockutil" --add "/Applications/zoom.us.app" --after Slack --no-restart
-    python -c "$dockutil" --add "/Applications/Code42.app" --after zoom.us --no-restart
     python -c "$dockutil" --add "~/Downloads" --view fan --display stack --section others --no-restart
     python -c "$dockutil" --add "/System/Applications/System Preferences.app" --position end
 else 

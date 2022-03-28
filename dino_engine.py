@@ -28,7 +28,7 @@ from SystemConfiguration import SCDynamicStoreCopyConsoleUser
 def downloader(url, file_path):
     download = urllib.request.urlopen(url)
     meta = download.info()
-    if hasattr(self.headers, 'getheaders'):
+    if hasattr(meta.headers, 'getheaders'):
         file_size = int(meta.getheaders("Content-Length")[0])
     else:
         file_size = int(meta.headers.get("Content-Length")[0])

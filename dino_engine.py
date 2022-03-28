@@ -66,8 +66,8 @@ def pkg_install(package):
 def script_exec(script):
     pipes = subprocess.Popen(["/bin/bash", "-c", script],
                              stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    for line in iter(pipes.stdout.readline, b''):
-        print("*** " + line.rstrip())
+    #for line in iter(pipes.stdout.readline, b''):
+        # print("*** " + line.rstrip())
     pipes.communicate()
     if pipes.returncode == 1:
         exit(1)

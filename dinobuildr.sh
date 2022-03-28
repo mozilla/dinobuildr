@@ -82,7 +82,7 @@ curl_status=$?
 
 if [ $curl_status -eq 0 ]; then
     printf "\nStarting the build!\n"
-    if python -c "$build_script" -b "$branch" -m "$manifest" -r "$repo" -o "$org"; then
+    if python3 -c "$build_script" -b "$branch" -m "$manifest" -r "$repo" -o "$org"; then
         echo "Rebooting!"
         osascript -e 'tell app "System Events" to restart' 
     else

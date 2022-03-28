@@ -160,7 +160,7 @@ def autohash_firefox():
     # find latest firefox version by following redirect
     response = urllib.request.urlopen(
         'https://download.mozilla.org/?product=firefox-latest-ssl&os=osx&lang=en-US')
-    version = urllib.urlparse.urlsplit(response.geturl()).path.split('/')[-4]
+    version = urllib.parse.urlsplit(response.geturl()).path.split('/')[-4]
     # build url to fetch official SHA256SUMS page
     firefox_hash_url = "https://releases.mozilla.org/pub/firefox/releases/%s/SHA256SUMS" % version
     print(("NOTICE: Manifest file is instructing us to compare against official hash for "

@@ -28,7 +28,10 @@ from SystemConfiguration import SCDynamicStoreCopyConsoleUser
 def downloader(url, file_path):
     download = urllib.request.urlopen(url)
     meta = download.info()
-    file_size = int(meta.getheaders("Content-Length")[0])
+    if hasattr(self.headers, 'getheaders'):
+        file_size = int(meta.getheaders("Content-Length")[0])
+    else:
+        file_size = int(meta.headers.get("Content-Length")[0])
     print("%s is %s bytes." % (file_path, file_size))
     with open(file_path, 'wb') as code:
         chunk_size = 8192

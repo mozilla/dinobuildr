@@ -4,6 +4,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+from http.client import HTTPMessage
 import subprocess
 import json
 import os
@@ -28,10 +29,7 @@ from SystemConfiguration import SCDynamicStoreCopyConsoleUser
 def downloader(url, file_path):
     download = urllib.request.urlopen(url)
     meta = download.info()
-    if hasattr(meta.headers, 'getheaders'):
-        file_size = int(meta.getheaders("Content-Length")[0])
-    else:
-        file_size = int(meta.get_header("Content-Length")[0])
+    file_size = int(meta.get("Content-Length")[0])
     print("%s is %s bytes." % (file_path, file_size))
     with open(file_path, 'wb') as code:
         chunk_size = 8192

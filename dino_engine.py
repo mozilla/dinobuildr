@@ -31,7 +31,7 @@ def downloader(url, file_path):
     if hasattr(meta.headers, 'getheaders'):
         file_size = int(meta.getheaders("Content-Length")[0])
     else:
-        file_size = int(meta.headers.get("Content-Length")[0])
+        file_size = int(meta.get_header("Content-Length")[0])
     print("%s is %s bytes." % (file_path, file_size))
     with open(file_path, 'wb') as code:
         chunk_size = 8192

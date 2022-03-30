@@ -85,7 +85,7 @@ def dmg_install(filename, installer, command=None):
         print(stdout)
         print(stderr)
         exit(1)
-    volume_path = re.search(r'(\/Volumes\/).*$', stdout).group(0)
+    volume_path = re.search(r'(\/Volumes\/).*$', stdout.decode('utf-8')).group(0)
     installer_path = "%s/%s" % (volume_path, installer)
     if command is not None and installer == '':
         command = command.replace('${volume}', volume_path).encode("utf-8")

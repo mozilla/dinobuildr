@@ -183,11 +183,11 @@ def hash_file(filename, man_hash):
         with open(filename, 'rb') as downloaded_file:
             for chunk in iter(lambda: downloaded_file.read(4096), b""):
                 hash_check.update(chunk)
-        if hash_check.hexdigest() == autohash_firefox():
+        if  hash_check.hexdigest() == autohash_firefox().decode():
             print("\rThe hash for %s matches the official Firefox hash" % filename)
         else:
             print(hash_check.hexdigest())
-            print(autohash_firefox())
+            print(autohash_firefox().decode())
             print("WARNING: The the hash for %s is unexpected." % filename)
             exit(1)
     else:

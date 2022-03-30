@@ -143,7 +143,7 @@ def mobileconfig_install(mobileconfig):
 # autohash-firefox helper functions
 # checks given hash summary page for the line that matches given locale and returns hash
 def autohash_firefox_find_hash(hash_summary, locale):
-    for line in hash_summary.split('\n'):
+    for line in hash_summary.split(b'\n'):
         if locale in line:
             linesplit = line.split()
             # In 79.0 hashes are encoded in b'' form.

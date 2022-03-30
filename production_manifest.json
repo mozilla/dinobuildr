@@ -149,6 +149,16 @@
             "dmg-advanced": "",
             "hash": "037d473bc311e278d7aa0eae5de2d78e3eb97fa2a627c06bf913b5b8423203dd",
             "type": "pkg"
-        }
+        },
+        {
+            "item": "remove pybobjc",
+            "version": "",
+            "url": "resources/remove-pyobjc.sh",
+            "filename": "",
+            "dmg-installer": "",
+            "dmg-advanced": "",
+            "hash": "bb04f027665f1d667070dc5c87105a2cb50e40df5e807b27c0a18a58e0490cbe",
+            "type": "shell"
+        },
     ]
 }

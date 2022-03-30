@@ -144,7 +144,7 @@ def mobileconfig_install(mobileconfig):
 # checks given hash summary page for the line that matches given locale and returns hash
 def autohash_firefox_find_hash(hash_summary, locale):
     for line in hash_summary.split(b'\n'):
-        if bytes(locale, 'ascii') in bytes(line, 'ascii'):
+        if locale in line:
             linesplit = line.split()
             # In 79.0 hashes are encoded in b'' form.
             # easiest way to interpret is to split it 2nd char to 66th char, since the text is
@@ -169,7 +169,7 @@ def autohash_firefox():
     response = urllib.request.urlopen(req)
     hash_summary = response.read()
     # find the hash for given locale
-    hash = autohash_firefox_find_hash(hash_summary, "mac/en-US")
+    hash = autohash_firefox_find_hash(hash_summary, b'mac/en-US')
     return hash
 
 

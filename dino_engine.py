@@ -186,6 +186,8 @@ def hash_file(filename, man_hash):
         if hash_check.hexdigest() == autohash_firefox():
             print("\rThe hash for %s matches the official Firefox hash" % filename)
         else:
+            print(hash_check.hexdigest())
+            print(autohash_firefox())
             print("WARNING: The the hash for %s is unexpected." % filename)
             exit(1)
     else:

@@ -71,6 +71,14 @@ if [ "$org" != '' ]; then
     fi
 fi
 
+
+printf "\nInstalling Command Line Tools for python3 - please click through the prompt to install"
+xcode-select --install
+
+printf "\nInstalling the pyobjc-framework-SystemConfiguration package for system management"
+pip3 install pyobjc-framework-SystemConfiguration
+
+
 printf "\nPulling down dinobuildr from the [%s] branch from the [%s] repo in the [%s] org on github.
 \n\n" "$branch" "$repo" "$org"
 

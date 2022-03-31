@@ -66,6 +66,9 @@ def pkg_install(package):
 def script_exec(script):
     pipes = subprocess.Popen(["/bin/bash", "-c", script],
                              stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    # the following function is for printing errors back up to the termina
+    # I commented it out because I couldn't figure out how to update it for py3
+    # re-write this when there is extra cycles
     #for line in iter(pipes.stdout.readline, b''):
         # print("*** " + line.rstrip())
     pipes.communicate()

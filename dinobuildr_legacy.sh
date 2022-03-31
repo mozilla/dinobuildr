@@ -18,7 +18,7 @@ branch=master
 manifest=production_manifest.json
 repo=dinobuildr
 org=mozilla
-dino_engine=dino_engine3.py
+dino_engine=dino_engine.py
 
 while :; do
     case $1 in
@@ -71,14 +71,6 @@ if [ "$org" != '' ]; then
     fi
 fi
 
-
-printf "\nInstalling Command Line Tools for python3 - please click through the prompt to install"
-xcode-select --install
-
-printf "\nInstalling the pyobjc-framework-SystemConfiguration package for system management"
-pip3 install pyobjc-framework-SystemConfiguration
-
-
 printf "\nPulling down dinobuildr from the [%s] branch from the [%s] repo in the [%s] org on github.
 \n\n" "$branch" "$repo" "$org"
 
@@ -90,7 +82,7 @@ curl_status=$?
 
 if [ $curl_status -eq 0 ]; then
     printf "\nStarting the build!\n"
-    if python3 -c "$build_script" -b "$branch" -m "$manifest" -r "$repo" -o "$org"; then
+    if python -c "$build_script" -b "$branch" -m "$manifest" -r "$repo" -o "$org"; then
         echo "Rebooting!"
         osascript -e 'tell app "System Events" to restart' 
     else

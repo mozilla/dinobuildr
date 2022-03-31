@@ -73,6 +73,9 @@ fi
 
 
 printf "\nInstalling Command Line Tools for python3 - please click through the prompt to install"
+# see if we can change to using applescript to install unattended
+# as is, the current script exits with an error while the installation is in progress, so
+# the tech will need to run dinobuildr again
 xcode-select --install
 
 printf "\nInstalling the pyobjc-framework-SystemConfiguration package for system management"

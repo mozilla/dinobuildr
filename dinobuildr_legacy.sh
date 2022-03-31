@@ -18,7 +18,7 @@ branch=master
 manifest=production_manifest.json
 repo=dinobuildr
 org=mozilla
-dino_engine=dino_engine.py
+dino_engine=dino_engine_legacy.py
 
 while :; do
     case $1 in
